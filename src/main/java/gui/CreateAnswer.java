@@ -12,7 +12,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JSplitPane;
 import javax.swing.JLabel;
 
-public class createAnswer extends JFrame {
+public class CreateAnswer extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtQuestion;
@@ -29,7 +29,7 @@ public class createAnswer extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					createAnswer frame = new createAnswer();
+					CreateAnswer frame = new CreateAnswer();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,7 +41,7 @@ public class createAnswer extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public createAnswer() {
+	public CreateAnswer() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
