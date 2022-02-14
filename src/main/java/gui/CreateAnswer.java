@@ -61,7 +61,7 @@ public class CreateAnswer extends JFrame {
 		contentPane.add(btnAnswerQuestion);
 		
 		panel = new JPanel();
-		panel.setBounds(27, 71, 411, 64);
+		panel.setBounds(12, 102, 433, 64);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -85,5 +85,9 @@ public class CreateAnswer extends JFrame {
 		JLabel lblBetAmount = new JLabel("Bet amount");
 		lblBetAmount.setBounds(51, 180, 104, 15);
 		contentPane.add(lblBetAmount);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(15, 36, 423, 64);
+		contentPane.add(panel_1);
 	}
 }

@@ -4903,7 +4903,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF++C1TyKZhbrc="
 							},
-							"name": "qAnswer"
+							"name": "qAnswer",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4911,7 +4912,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF++C1TyKZhbrc="
 							},
-							"name": "benefit"
+							"name": "benefit",
+							"type": ""
 						}
 					]
 				}
@@ -11287,7 +11289,7 @@
 											"top": 422,
 											"width": 91,
 											"height": 13,
-											"text": "Apustuak ikusi"
+											"text": "Galderak ikusi"
 										},
 										{
 											"_type": "LabelView",
@@ -11320,7 +11322,7 @@
 									"font": "Arial;13;0",
 									"left": 381.5,
 									"top": 415,
-									"width": 102.46630859375,
+									"width": 101,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAF+6VFvzMsFJsE="
@@ -12828,7 +12830,7 @@
 									"left": 288,
 									"top": 302,
 									"width": 220,
-									"height": 46
+									"height": 28
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -13055,13 +13057,30 @@
 											"height": 16,
 											"text": "+result",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF++h5onBy6P04=",
+											"_parent": {
+												"$ref": "AAAAAAFhA4Y/Jvo128A="
+											},
+											"model": {
+												"$ref": "AAAAAAF++Do64KoD7jg="
+											},
+											"font": "Arial;16;0",
+											"left": 781,
+											"top": 313,
+											"width": 127,
+											"height": 16,
+											"text": "+shares",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;16;0",
 									"left": 776,
 									"top": 236,
 									"width": 137,
-									"height": 80
+									"height": 98
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -13072,12 +13091,48 @@
 									"model": {
 										"$ref": "AAAAAAFhA4Y/JfotITQ="
 									},
+									"subViews": [
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF++h5onRy9fgo=",
+											"_parent": {
+												"$ref": "AAAAAAFhA4Y/Jvo2m6M="
+											},
+											"model": {
+												"$ref": "AAAAAAF++DnE7anDrlU="
+											},
+											"font": "Arial;16;0",
+											"left": 781,
+											"top": 306,
+											"width": 172.0625,
+											"height": 16,
+											"text": "+addAnswer(a, bet)",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF++h5onhzAYy0=",
+											"_parent": {
+												"$ref": "AAAAAAFhA4Y/Jvo2m6M="
+											},
+											"model": {
+												"$ref": "AAAAAAF++EHC06tx8tQ="
+											},
+											"font": "Arial;16;0",
+											"left": 781,
+											"top": 324,
+											"width": 172.0625,
+											"height": 16,
+											"text": "+checkAnswer(a, result)",
+											"horizontalAlignment": 0
+										}
+									],
 									"visible": false,
 									"font": "Arial;16;0",
 									"left": 776,
 									"top": 301,
-									"width": 95,
-									"height": 10
+									"width": 182.0625,
+									"height": 44
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -13601,7 +13656,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFhA4Y/JfotITQ="
 							},
-							"name": "shares"
+							"name": "shares",
+							"type": ""
 						}
 					],
 					"operations": [
@@ -13619,7 +13675,8 @@
 									"_parent": {
 										"$ref": "AAAAAAF++DnE7anDrlU="
 									},
-									"name": "a"
+									"name": "a",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -13627,7 +13684,8 @@
 									"_parent": {
 										"$ref": "AAAAAAF++DnE7anDrlU="
 									},
-									"name": "bet"
+									"name": "bet",
+									"type": ""
 								}
 							]
 						},
@@ -13667,8 +13725,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFhA13LI/TXQXY="
 					},
-					"name": "Kuotak ipini",
-					"documentation": "\n"
+					"name": "Kuotak ipini"
 				},
 				{
 					"_type": "UMLActor",
@@ -13957,7 +14014,8 @@
 					"_parent": {
 						"$ref": "AAAAAAFhA13LI/TXQXY="
 					},
-					"name": "Apostuak egin"
+					"name": "Apostuak egin",
+					"documentation": "# Flow of events\n\n## Basic Flow\n\n1. *Sistemak* erantzun daitezkeen galdera guztiak erakusten ditu.\n2. *Erregistratutakoak* galdera bat aukeratzen du.\n3. *Sistemak* galdera horrentzat erantzun posible guztiak erakusten ditu.\n4. *Erregistratutakoak* erantzun bat aukeratzen du.\n\n## Alternative flow\n1. Ez dago erregistratuta.\n"
 				},
 				{
 					"_type": "UMLUseCase",
@@ -14005,7 +14063,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFhA13LI/TXQXY="
 					},
-					"name": "Apustuak ikusi",
+					"name": "Galderak ikusi",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
