@@ -1,0 +1,23 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-02-11 15:59:23 #1 store] 
+Database '/home/artiom/git/3_Maila/SI/Bets21/src/main/resources/bets.temp' is opened by 14009@Artioms-Laptop
+
+[2022-02-11 15:59:23 #2 type.registry] 
+New type domain.Question
+
+[2022-02-11 15:59:23 #3 type] 
+Type domain.Question is not enhanced.
+
+[2022-02-11 15:59:23 #4 type.registry] 
+New type domain.Event
+
+[2022-02-11 15:59:23 #5 type] 
+Type domain.Event is not enhanced.
+
+[2022-02-11 15:59:23 #6 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2022-02-11 15:59:23 #7 type.registry] 
+New type java.util.Vector<java.lang.Object>
+
