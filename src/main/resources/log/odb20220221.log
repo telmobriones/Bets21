@@ -1,0 +1,69 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-02-21 13:41:15 #1 store] 
+Database '/home/artiom/git/3_Maila/SI/Bets21/src/main/resources/bets.temp' is opened by 12066@Artioms-Laptop
+
+[2022-02-21 13:41:15 #2 type.registry] 
+New type domain.Question
+
+[2022-02-21 13:41:15 #3 type] 
+Type domain.Question is not enhanced.
+
+[2022-02-21 13:41:15 #4 type.registry] 
+New type domain.Event
+
+[2022-02-21 13:41:15 #5 type] 
+Type domain.Event is not enhanced.
+
+[2022-02-21 13:41:15 #6 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2022-02-21 13:41:15 #7 type.registry] 
+New type java.util.Vector<java.lang.Object>
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-02-21 13:41:30 #1 store] 
+Database '/home/artiom/git/3_Maila/SI/Bets21/src/main/resources/bets.temp' is opened by 12115@Artioms-Laptop
+
+[2022-02-21 13:41:30 #2 type.registry] 
+New type domain.Question
+
+[2022-02-21 13:41:30 #3 type] 
+Type domain.Question is not enhanced.
+
+[2022-02-21 13:41:30 #4 type.registry] 
+New type domain.Event
+
+[2022-02-21 13:41:30 #5 type] 
+Type domain.Event is not enhanced.
+
+[2022-02-21 13:41:30 #6 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2022-02-21 13:41:30 #7 type.registry] 
+New type java.util.Vector<java.lang.Object>
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-02-21 13:51:15 #1 store] 
+Database '/home/artiom/git/3_Maila/SI/Bets21/src/main/resources/bets.temp' is opened by 12864@Artioms-Laptop
+
+[2022-02-21 13:51:15 #2 type.registry] 
+New type domain.Question
+
+[2022-02-21 13:51:15 #3 type] 
+Type domain.Question is not enhanced.
+
+[2022-02-21 13:51:15 #4 type.registry] 
+New type domain.Event
+
+[2022-02-21 13:51:15 #5 type] 
+Type domain.Event is not enhanced.
+
+[2022-02-21 13:51:15 #6 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2022-02-21 13:51:15 #7 type.registry] 
+New type java.util.Vector<java.lang.Object>
+
