@@ -1,0 +1,46 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-02-22 16:11:50 #1 store] 
+Database '/home/josue/git/Bets21/src/main/resources/bets.temp' is opened by 7038@JosueCabezas
+
+[2022-02-22 16:11:51 #2 type.registry] 
+New type domain.Question
+
+[2022-02-22 16:11:51 #3 type] 
+Type domain.Question is not enhanced.
+
+[2022-02-22 16:11:51 #4 type.registry] 
+New type domain.Event
+
+[2022-02-22 16:11:51 #5 type] 
+Type domain.Event is not enhanced.
+
+[2022-02-22 16:11:51 #6 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2022-02-22 16:11:51 #7 type.registry] 
+New type java.util.Vector<java.lang.Object>
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-02-22 16:13:39 #1 store] 
+Database '/home/josue/git/Bets21/src/main/resources/bets.temp' is opened by 7101@JosueCabezas
+
+[2022-02-22 16:13:39 #2 type.registry] 
+New type domain.Question
+
+[2022-02-22 16:13:39 #3 type] 
+Type domain.Question is not enhanced.
+
+[2022-02-22 16:13:39 #4 type.registry] 
+New type domain.Event
+
+[2022-02-22 16:13:39 #5 type] 
+Type domain.Event is not enhanced.
+
+[2022-02-22 16:13:39 #6 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2022-02-22 16:13:39 #7 type.registry] 
+New type java.util.Vector<java.lang.Object>
+
