@@ -1,0 +1,25 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-02-28 14:04:24 #1 store] 
+Database '/home/artiom/git/Bets21/src/main/resources/bets.temp' has been recovered (tr. 1-5)
+
+[2022-02-28 14:04:25 #2 store] 
+Database '/home/artiom/git/Bets21/src/main/resources/bets.temp' is opened by 8365@Artioms-Laptop
+
+[2022-02-28 14:04:25 #3 type] 
+Type domain.Question is not enhanced.
+
+[2022-02-28 14:04:25 #4 type] 
+Type domain.Event is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-02-28 14:26:47 #1 store] 
+Database '/home/artiom/git/Bets21/src/main/resources/bets.temp' is opened by 11192@Artioms-Laptop
+
+[2022-02-28 14:26:47 #2 type] 
+Type domain.Question is not enhanced.
+
+[2022-02-28 14:26:47 #3 type] 
+Type domain.Event is not enhanced.
+
