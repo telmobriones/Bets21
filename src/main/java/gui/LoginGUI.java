@@ -27,6 +27,7 @@ public class LoginGUI extends JFrame {
 	private JTextField jPassword;
 	private JTextField jUsername;
 	private static BLFacade businessLogic;
+	private static LoginGUI frame = new LoginGUI();
 
 	/**
 	 * Launch the application.
@@ -35,7 +36,6 @@ public class LoginGUI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LoginGUI frame = new LoginGUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -115,6 +115,7 @@ public class LoginGUI extends JFrame {
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RegisterGUI ru = new RegisterGUI();
+				frame.setVisible(false);
 				ru.setVisible(true);
 			}
 		});

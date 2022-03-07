@@ -153,15 +153,17 @@ public class DataAccess {
 			e.printStackTrace();
 		}
 	}
-	/** This method checks if a user can LogIn with the introduced credentials
+
+	/**
+	 * This method checks if a user can LogIn with the introduced credentials
 	 * 
-	 * @param username      wich is trying to get logged in
-	 * @param password   	associated with the specified username
+	 * @param username wich is trying to get logged in
+	 * @param password associated with the specified username
 	 * @return user or null
 	 * 
 	 */
-	public User checkCredentials(String pUsername, String pPassword) { 
-		User obj = db.find(User.class, pUsername); 
+	public User checkCredentials(String pUsername, String pPassword) {
+		User obj = db.find(User.class, pUsername);
 		if (obj == null) {
 			System.out.println("Username not found");
 			return null;
@@ -171,7 +173,25 @@ public class DataAccess {
 		System.out.println("Password is not correct");
 		return null;
 	}
-	
+
+	/**
+	 * This method creates a new user, with a username and a password
+	 *
+	 * @param username name of the user
+	 * @param password the password of the user
+	 * @return the created user, or null, or an exception
+	 * @throws UserAlreadyExist if the same user already exists for the event
+	 */
+	public void createUser(String name, String password) {
+		System.out.println(">> DataAccess: createUser=>  name= " + name);
+		db.getTransaction().begin();
+		User user = new User(name, password);
+		db.persist(user);
+		db.getTransaction().commit();
+
+		System.out.println("Gordeta " + user);
+	}
+
 	/**
 	 * This method creates a question for an event, with a question text and the
 	 * minimum bet
