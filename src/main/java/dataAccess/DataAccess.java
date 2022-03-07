@@ -193,6 +193,17 @@ public class DataAccess {
 	}
 
 	/**
+	 * This method tries to find a username
+	 *
+	 * @param username name of the user
+	 * @return the found user, or null
+	 */
+	public User findUser(String name) {
+		User u = db.find(User.class, name);
+		return u;
+	}
+
+	/**
 	 * This method creates a question for an event, with a question text and the
 	 * minimum bet
 	 * 

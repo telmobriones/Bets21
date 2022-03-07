@@ -39,11 +39,21 @@ public interface BLFacade {
 	 * 
 	 * @param username wich is trying to get logged in
 	 * @param password associated with the specified username
+	 * @return User
+	 * 
+	 */
+	public User checkCredentials(String pUsername, char[] password);
+	
+	/**
+	 * This method tries to register a user with the introduced credentials
+	 * 
+	 * @param username wich is trying to get logged in
+	 * @param password associated with the specified username
 	 * @return true or false
 	 * 
 	 */
-	public User checkCredentials(String pUsername, String pPassword);
-
+	public boolean registerUser(String pUsername, char[] password);
+	
 	/**
 	 * This method retrieves the events of a given date
 	 * 

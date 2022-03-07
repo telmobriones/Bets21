@@ -24,9 +24,9 @@ import businessLogic.BLFacade;
 public class LoginGUI extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField jPassword;
+	private JPasswordField jPassword;
 	private JTextField jUsername;
-	private static BLFacade businessLogic;
+	private static BLFacade facade = MainGUI.getBusinessLogic();
 	private static LoginGUI frame = new LoginGUI();
 
 	/**
@@ -100,12 +100,13 @@ public class LoginGUI extends JFrame {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String username = jUsername.getText();
-				String password = jPassword.getText();
+				char[] password = jPassword.getPassword();
 
-				User loggedUser = businessLogic.checkCredentials(username, password);
+				User loggedUser = facade.checkCredentials(username, password);
 
 				if (loggedUser != null) {
-
+					frame.setVisible(false);
+					
 				} else {
 					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("WrongCredentials"));
 				}

@@ -89,9 +89,9 @@ public class BLFacadeImplementation implements BLFacade {
 	 * @return true or false
 	 * 
 	 */
-	public User checkCredentials(String pUsername, String pPassword) {
+	public User checkCredentials(String pUsername, char[] pPassword) {
 		dbManager.open(false);
-		user = dbManager.checkCredentials(pUsername, pPassword);
+		user = dbManager.checkCredentials(pUsername, String.valueOf(pPassword));
 		if (user != null) {
 			dbManager.close();
 			System.out.println(user.getUsername() + " logged in.");
@@ -100,6 +100,24 @@ public class BLFacadeImplementation implements BLFacade {
 		System.out.println("Unsuccessful loggin by " + pUsername + " user.");
 		dbManager.close();
 		return null;
+	}
+	
+	/**
+	 * This method tries to register a user with the introduced credentials
+	 * 
+	 * @param username wich is trying to get logged in
+	 * @param password associated with the specified username
+	 * @return true or false
+	 * 
+	 */
+	public boolean registerUser(String pUsername, char[] pPassword) {
+		dbManager.open(false);
+		boolean regSuccess = false;
+		if(dbManager.findUser(pUsername)==null) {
+			dbManager.createUser(pUsername, String.valueOf(pPassword));
+			regSuccess=true;
+		}
+		return regSuccess;
 	}
 
 	/**
