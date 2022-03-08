@@ -49,7 +49,7 @@ public class LoginGUI extends JFrame {
 	 */
 	public LoginGUI() {
 		setTitle(ResourceBundle.getBundle("Etiquetas").getString("Login")); //$NON-NLS-1$ //$NON-NLS-2$
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 394);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -83,7 +83,7 @@ public class LoginGUI extends JFrame {
 		contentPane.add(btnLogin);
 
 		JLabel lblIfYouDont = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RegisterText")); //$NON-NLS-1$ //$NON-NLS-2$
-		lblIfYouDont.setBounds(55, 289, 220, 15);
+		lblIfYouDont.setBounds(55, 289, 347, 15);
 		contentPane.add(lblIfYouDont);
 
 		JButton btnRegister = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Register")); //$NON-NLS-1$ //$NON-NLS-2$
@@ -92,24 +92,32 @@ public class LoginGUI extends JFrame {
 
 		JLabel lblErrors = new JLabel("");
 		lblErrors.setForeground(Color.RED);
-		lblErrors.setBounds(194, 183, 150, 15);
+		lblErrors.setBounds(106, 183, 238, 15);
 		contentPane.add(lblErrors);
+		
+		JButton btnClose = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Close"));
+		btnClose.setBounds(321, 333, 117, 25);
+		contentPane.add(btnClose);
 
 		// Akzioak
 
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String username = jUsername.getText();
-				char[] password = jPassword.getPassword();
-
-				User loggedUser = facade.checkCredentials(username, password);
-
-				if (loggedUser != null) {
-					frame.setVisible(false);
-					
-				} else {
-					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("WrongCredentials"));
-				}
+				if (jUsername.getText().length() != 0 && jPassword.getText().length() != 0){
+					String username = jUsername.getText();
+					char[] password = jPassword.getPassword();
+	
+					User loggedUser = facade.checkCredentials(username, password);
+	
+					if (loggedUser != null) {
+						frame.setVisible(false);
+						
+					} else {
+						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("WrongCredentials"));
+					}
+				}else {
+					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("EmptyField"));
+			}
 			}
 		});
 
@@ -120,5 +128,14 @@ public class LoginGUI extends JFrame {
 				ru.setVisible(true);
 			}
 		});
+		
+		btnClose.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				jButtonClose_actionPerformed(e);
+			}
+		});
+	}
+	private void jButtonClose_actionPerformed(ActionEvent e) {
+		this.setVisible(false);
 	}
 }

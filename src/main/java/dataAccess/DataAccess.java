@@ -189,7 +189,7 @@ public class DataAccess {
 		db.persist(user);
 		db.getTransaction().commit();
 
-		System.out.println("Gordeta " + user);
+		System.out.println("Gordeta " + name);
 	}
 
 	/**

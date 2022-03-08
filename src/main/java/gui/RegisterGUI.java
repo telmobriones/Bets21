@@ -50,7 +50,7 @@ public class RegisterGUI extends JFrame {
 	 */
 	public RegisterGUI() {
 		setTitle(ResourceBundle.getBundle("Etiquetas").getString("Register")); //$NON-NLS-1$ //$NON-NLS-2$
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 350);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -99,27 +99,45 @@ public class RegisterGUI extends JFrame {
 		JButton registerButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Register"));
 		registerButton.setBounds(152, 249, 142, 29);
 		contentPane.add(registerButton);
+		
+		JButton btnClose = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Close"));
+		btnClose.setBounds(321, 289, 117, 25);
+		contentPane.add(btnClose);
 
 		// Akzioak
 
 		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String username = jUsername.getText();
-				char[] password = jPassword1.getPassword();
-				if (Arrays.equals(password, jPassword2.getPassword())) {
-					boolean regSuccess = facade.registerUser(username, password);
-					if(!regSuccess) {
-						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("TakenUsername"));
+					if (jUsername.getText().length() != 0 && jPassword1.getText().length() != 0 && 
+							jPassword2.getText().length() != 0) {
+					String username = jUsername.getText();
+					char[] password = jPassword1.getPassword();
+					if (Arrays.equals(password, jPassword2.getPassword())) {
+						boolean regSuccess = facade.registerUser(username, password);
+						if(!regSuccess) {
+							lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("TakenUsername"));
+						} else {
+							registerButton.setEnabled(false);
+							Arrays.fill(password, '0');
+							frame.setVisible(false);
+						}
 					} else {
-						registerButton.setEnabled(false);
-						Arrays.fill(password, '0');
-						frame.setVisible(false);
+						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("PasswordMissmatch"));
 					}
-				} else {
-					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("PasswordMissmatch"));
+				}else {
+					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("EmptyField"));
 				}
 			}
 		});
+		
+		btnClose.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				jButtonClose_actionPerformed(e);
+			}
+		});
 
+	}
+	private void jButtonClose_actionPerformed(ActionEvent e) {
+		this.setVisible(false);
 	}
 }
