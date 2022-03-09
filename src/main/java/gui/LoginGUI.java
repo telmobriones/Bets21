@@ -122,6 +122,7 @@ public class LoginGUI extends JFrame {
 						if(loggedUser.isUserAdmin()) {
 							MainAdminGUI adminGUI = new MainAdminGUI();
 							adminGUI.setVisible(true);
+							closeLogin();
 						}
 						
 					} else {

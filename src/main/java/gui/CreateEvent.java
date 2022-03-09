@@ -233,6 +233,7 @@ public static void paintDaysWithEvents(JCalendar jCalendar,Vector<Date> datesWit
 	 
 	private void jButtonCreate_actionPerformed(ActionEvent e) {
 		String description = jTextFieldDescription.getText();
+		System.out.println("Creating event at date: " + firstDay);
 		
 		facade.createEvent(description, firstDay);
 	}

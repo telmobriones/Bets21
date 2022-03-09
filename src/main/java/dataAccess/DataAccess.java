@@ -247,7 +247,7 @@ public class DataAccess {
 		Event lastEvent = query.getResultList().get(0);
 		int newEvNumber = lastEvent.getEventNumber()+1;
 		Event ev;
-		if(getEventByNumber(newEvNumber) == null) {
+		if(!isThereEventByNumber(newEvNumber)) {
 			db.getTransaction().begin();
 			ev = new Event(newEvNumber, pDescription, pDate);
 			db.persist(ev);
@@ -260,16 +260,17 @@ public class DataAccess {
 	}
 	
 	/**
-	 * This method retrieves from the database the event with a given ID number
+	 * This method retrieves from the database if there is the event with a given ID number
 	 * 
 	 * @param ID number
-	 * @return The event
+	 * @return If there is the event
 	 */
-	public Event getEventByNumber(int pN) {
+	public boolean isThereEventByNumber(int pN) {
 		TypedQuery<Event> query = db.createQuery("SELECT ev FROM Event ev WHERE eventNumber=?1", Event.class);
 		query.setParameter(1,pN);
-		Event ev = query.getResultList().get(0);
-		return ev;
+		List<Event> ev = query.getResultList();
+		return (ev.isEmpty());
+		
 	}
 
 	/**
