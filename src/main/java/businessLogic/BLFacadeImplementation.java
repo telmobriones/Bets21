@@ -128,7 +128,23 @@ public class BLFacadeImplementation implements BLFacade {
 			dbManager.createUser(pUsername, String.valueOf(pPassword));
 			regSuccess=true;
 		}
+		dbManager.close();
 		return regSuccess;
+	};
+	
+	/**
+	 * This method invokes the data access to create a new event
+	 * 
+	 * @param username wich is trying to get logged in
+	 * @param password associated with the specified username
+	 * @return true or false
+	 * 
+	 */
+	public boolean createEvent(String pDescription, Date pDate) {
+		dbManager.open(false);
+		Event ev = dbManager.createEvent(pDescription, pDate);
+		dbManager.close();
+		return (ev != null);
 	};
 
 	/**

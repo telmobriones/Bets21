@@ -119,6 +119,10 @@ public class LoginGUI extends JFrame {
 					if (loggedUser != null) {
 						btnLogin.setEnabled(false);
 						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("AlreadyLogged"));
+						if(loggedUser.isUserAdmin()) {
+							MainAdminGUI adminGUI = new MainAdminGUI();
+							adminGUI.setVisible(true);
+						}
 						
 					} else {
 						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("WrongCredentials"));
@@ -132,8 +136,8 @@ public class LoginGUI extends JFrame {
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RegisterGUI ru = new RegisterGUI();
-				frame.setVisible(false);
 				ru.setVisible(true);
+				closeLogin();
 			}
 		});
 
@@ -145,6 +149,10 @@ public class LoginGUI extends JFrame {
 	}
 
 	private void jButtonClose_actionPerformed(ActionEvent e) {
+		this.setVisible(false);
+	}
+	
+	private void closeLogin() {
 		this.setVisible(false);
 	}
 }

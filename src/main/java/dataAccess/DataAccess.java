@@ -233,6 +233,44 @@ public class DataAccess {
 		return q;
 
 	}
+	
+	/**
+	 * This method creates a new event
+	 * 
+	 * @param pDescription      New event description
+	 * @param pDate   			Date of the new event
+	 * @return the new event or null if there is a problem
+	 */
+	public Event createEvent(String pDescription, Date pDate){
+		System.out.println(">> DataAccess: createEvent=> eventDesc= " + pDescription + " Date= " + pDate);
+		TypedQuery<Event> query = db.createQuery("SELECT FROM Event ORDER BY eventNumber DESC", Event.class);
+		Event lastEvent = query.getResultList().get(0);
+		int newEvNumber = lastEvent.getEventNumber()+1;
+		Event ev;
+		if(getEventByNumber(newEvNumber) == null) {
+			db.getTransaction().begin();
+			ev = new Event(newEvNumber, pDescription, pDate);
+			db.persist(ev);
+			db.getTransaction().commit();
+		} else {
+			ev = null;
+		}
+		return ev;
+
+	}
+	
+	/**
+	 * This method retrieves from the database the event with a given ID number
+	 * 
+	 * @param ID number
+	 * @return The event
+	 */
+	public Event getEventByNumber(int pN) {
+		TypedQuery<Event> query = db.createQuery("SELECT ev FROM Event ev WHERE eventNumber=?1", Event.class);
+		query.setParameter(1,pN);
+		Event ev = query.getResultList().get(0);
+		return ev;
+	}
 
 	/**
 	 * This method retrieves from the database the events of a given date

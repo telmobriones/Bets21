@@ -143,4 +143,5 @@ public class RegisterGUI extends JFrame {
 	private void jButtonClose_actionPerformed(ActionEvent e) {
 		this.setVisible(false);
 	}
+	
 }

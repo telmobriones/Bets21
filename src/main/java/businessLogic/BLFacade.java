@@ -64,6 +64,16 @@ public interface BLFacade {
 	public boolean registerUser(String pUsername, char[] password);
 	
 	/**
+	 * This method invokes the data access to create a new event
+	 * 
+	 * @param username wich is trying to get logged in
+	 * @param password associated with the specified username
+	 * @return true or false
+	 * 
+	 */
+	public boolean createEvent(String pDescription, Date pDate);
+	
+	/**
 	 * This method retrieves the events of a given date
 	 * 
 	 * @param date in which events are retrieved
