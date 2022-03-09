@@ -99,7 +99,7 @@ public class RegisterGUI extends JFrame {
 		JButton registerButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Register"));
 		registerButton.setBounds(152, 249, 142, 29);
 		contentPane.add(registerButton);
-		
+
 		JButton btnClose = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Close"));
 		btnClose.setBounds(321, 289, 117, 25);
 		contentPane.add(btnClose);
@@ -108,28 +108,30 @@ public class RegisterGUI extends JFrame {
 
 		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					if (jUsername.getText().length() != 0 && jPassword1.getText().length() != 0 && 
-							jPassword2.getText().length() != 0) {
-					String username = jUsername.getText();
-					char[] password = jPassword1.getPassword();
+				String username = jUsername.getText();
+				char[] password = jPassword1.getPassword();
+				char[] password2 = jPassword2.getPassword();
+				if (jUsername.getText().length() != 0 && password.length != 0
+						&& password2.length != 0) {
 					if (Arrays.equals(password, jPassword2.getPassword())) {
 						boolean regSuccess = facade.registerUser(username, password);
-						if(!regSuccess) {
+						if (!regSuccess) {
 							lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("TakenUsername"));
 						} else {
 							registerButton.setEnabled(false);
+							lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("RegSuccess"));
 							Arrays.fill(password, '0');
-							frame.setVisible(false);
+							Arrays.fill(password2, '0');
 						}
 					} else {
 						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("PasswordMissmatch"));
 					}
-				}else {
+				} else {
 					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("EmptyField"));
 				}
 			}
 		});
-		
+
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				jButtonClose_actionPerformed(e);
@@ -137,6 +139,7 @@ public class RegisterGUI extends JFrame {
 		});
 
 	}
+
 	private void jButtonClose_actionPerformed(ActionEvent e) {
 		this.setVisible(false);
 	}

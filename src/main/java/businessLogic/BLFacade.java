@@ -45,6 +45,15 @@ public interface BLFacade {
 	public User checkCredentials(String pUsername, char[] password);
 	
 	/**
+	 * This method checks if the login is already done
+	 * 
+	 * @return true if user is logged, false if there's no logged user
+	 * 
+	 */
+	public boolean checkCurrentLoginStatus();
+	
+	
+	/**
 	 * This method tries to register a user with the introduced credentials
 	 * 
 	 * @param username wich is trying to get logged in

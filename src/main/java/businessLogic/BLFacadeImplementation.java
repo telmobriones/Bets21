@@ -22,7 +22,7 @@ import exceptions.QuestionAlreadyExist;
 @WebService(endpointInterface = "businessLogic.BLFacade")
 public class BLFacadeImplementation implements BLFacade {
 	DataAccess dbManager;
-	User user;
+	private User logUser;
 
 	public BLFacadeImplementation() {
 		System.out.println("Creating BLFacadeImplementation instance");
@@ -91,15 +91,26 @@ public class BLFacadeImplementation implements BLFacade {
 	 */
 	public User checkCredentials(String pUsername, char[] pPassword) {
 		dbManager.open(false);
-		user = dbManager.checkCredentials(pUsername, String.valueOf(pPassword));
-		if (user != null) {
+		User user = dbManager.checkCredentials(pUsername, String.valueOf(pPassword));
+		if (user != null && logUser == null) {
 			dbManager.close();
+			logUser = user;
 			System.out.println(user.getUsername() + " logged in.");
 			return user;
 		}
 		System.out.println("Unsuccessful loggin by " + pUsername + " user.");
 		dbManager.close();
 		return null;
+	};
+	
+	/**
+	 * This method checks if the login is already done
+	 * 
+	 * @return true if user is logged, false if there's no logged user
+	 * 
+	 */
+	public boolean checkCurrentLoginStatus() {
+		return logUser != null;
 	}
 	
 	/**
@@ -118,7 +129,7 @@ public class BLFacadeImplementation implements BLFacade {
 			regSuccess=true;
 		}
 		return regSuccess;
-	}
+	};
 
 	/**
 	 * This method invokes the data access to retrieve the events of a given date
