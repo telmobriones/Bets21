@@ -185,7 +185,7 @@ public class DataAccess {
 	public void createUser(String name, String password) {
 		System.out.println(">> DataAccess: createUser=>  name= " + name);
 		db.getTransaction().begin();
-		User user = new User(name, password);
+		User user = new User(name, password, false);
 		db.persist(user);
 		db.getTransaction().commit();
 
