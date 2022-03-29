@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.*;
+import java.util.ArrayList;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -23,6 +24,8 @@ public class Question implements Serializable {
 	private String result;  
 	@XmlIDREF
 	private Event event;
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	private ArrayList<Pronostic> qPronostics = new ArrayList<Pronostic>();
 
 	public Question(){
 		super();
