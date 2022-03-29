@@ -67,7 +67,7 @@ public class CreateEvent extends JFrame {
 		scrollPaneEvents.setBounds(new Rectangle(25, 44, 346, 116));
 
 		jButtonCreate.setBounds(new Rectangle(100, 366, 130, 30));
-		jButtonCreate.setEnabled(false);
+		jButtonCreate.setEnabled(true);
 
 		jButtonCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -168,10 +168,10 @@ public class CreateEvent extends JFrame {
 							modelEvents.addElement(ev);
 						jComboBoxEvents.repaint();
 
-						if (events.size() == 0)
-							jButtonCreate.setEnabled(false);
-						else
-							jButtonCreate.setEnabled(true);
+//						if (events.size() == 0)
+//							jButtonCreate.setEnabled(false);
+//						else
+//							jButtonCreate.setEnabled(true);
 
 					} catch (Exception e1) {
 
@@ -233,9 +233,9 @@ public static void paintDaysWithEvents(JCalendar jCalendar,Vector<Date> datesWit
 	 
 	private void jButtonCreate_actionPerformed(ActionEvent e) {
 		String description = jTextFieldDescription.getText();
-		System.out.println("Creating event at date: " + firstDay);
-		
+		System.out.println("Creating " + description + " event at date: " + firstDay);
 		facade.createEvent(description, firstDay);
+		jButtonCreate.setEnabled(false);
 	}
 
 	private void jButtonClose_actionPerformed(ActionEvent e) {

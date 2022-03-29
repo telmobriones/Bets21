@@ -245,13 +245,16 @@ public class DataAccess {
 		System.out.println(">> DataAccess: createEvent=> eventDesc= " + pDescription + " Date= " + pDate);
 		TypedQuery<Event> query = db.createQuery("SELECT FROM Event ORDER BY eventNumber DESC", Event.class);
 		Event lastEvent = query.getResultList().get(0);
+		System.out.println("LastEvent: " + lastEvent);
 		int newEvNumber = lastEvent.getEventNumber()+1;
+		System.out.println("NewEventNumber: " + newEvNumber);
 		Event ev;
 		if(!isThereEventByNumber(newEvNumber)) {
 			db.getTransaction().begin();
 			ev = new Event(newEvNumber, pDescription, pDate);
 			db.persist(ev);
 			db.getTransaction().commit();
+			System.out.println("New event created successfully!");
 		} else {
 			ev = null;
 		}
@@ -269,7 +272,7 @@ public class DataAccess {
 		TypedQuery<Event> query = db.createQuery("SELECT ev FROM Event ev WHERE eventNumber=?1", Event.class);
 		query.setParameter(1,pN);
 		List<Event> ev = query.getResultList();
-		return (ev.isEmpty());
+		return (ev == null);
 		
 	}
 
