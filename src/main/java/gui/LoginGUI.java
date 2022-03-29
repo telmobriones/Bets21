@@ -49,8 +49,8 @@ public class LoginGUI extends JFrame {
 	 */
 	public LoginGUI() {
 		setTitle(ResourceBundle.getBundle("Etiquetas").getString("Login")); //$NON-NLS-1$ //$NON-NLS-2$
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 394);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 420);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -88,7 +88,7 @@ public class LoginGUI extends JFrame {
 		contentPane.add(lblErrors);
 
 		JButton btnRegister = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Register")); //$NON-NLS-1$ //$NON-NLS-2$
-		btnRegister.setBounds(266, 284, 117, 25);
+		btnRegister.setBounds(266, 284, 136, 25);
 		contentPane.add(btnRegister);
 		
 		JButton btnLogin = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Login"));
@@ -103,7 +103,7 @@ public class LoginGUI extends JFrame {
 		}
 
 		JButton btnClose = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Close"));
-		btnClose.setBounds(321, 333, 117, 25);
+		btnClose.setBounds(168, 349, 117, 25);
 		contentPane.add(btnClose);
 
 		// Akzioak
@@ -122,6 +122,11 @@ public class LoginGUI extends JFrame {
 						if(loggedUser.isUserAdmin()) {
 							MainAdminGUI adminGUI = new MainAdminGUI();
 							adminGUI.setVisible(true);
+							closeLogin();
+						}
+						else {
+							MainLoggedGUI loggedGUI = new MainLoggedGUI();
+							loggedGUI.setVisible(true);
 							closeLogin();
 						}
 						
@@ -144,13 +149,11 @@ public class LoginGUI extends JFrame {
 
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				jButtonClose_actionPerformed(e);
+				MainGUI mainGUI = new MainGUI();
+				mainGUI.setVisible(true);
+				closeLogin();
 			}
 		});
-	}
-
-	private void jButtonClose_actionPerformed(ActionEvent e) {
-		this.setVisible(false);
 	}
 	
 	private void closeLogin() {

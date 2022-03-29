@@ -23,20 +23,21 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 
-public class MainAdminGUI extends JFrame {
+public class MainLoggedGUI extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 
 	private JPanel jContentPane = null;
 	private JButton jButtonCreateQuery = null;
 	private JButton jButtonQueryQueries = null;
+	private JButton jButtonTopUpBalance = null;
 	
     private static BLFacade appFacadeInterface;
 	
 	public static BLFacade getBusinessLogic(){
 		return appFacadeInterface;
 	}
-	 
+	
 	public static void setBussinessLogic (BLFacade afi){
 		appFacadeInterface=afi;
 	}
@@ -46,12 +47,11 @@ public class MainAdminGUI extends JFrame {
 	private JRadioButton rdbtnNewRadioButton_2;
 	private JPanel panel;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private JButton btnCreateEvent;
 	
 	/**
 	 * This is the default constructor
 	 */
-	public MainAdminGUI() {
+	public MainLoggedGUI() {
 		super();
 		
 		addWindowListener(new WindowAdapter() {
@@ -80,9 +80,9 @@ public class MainAdminGUI extends JFrame {
 	 */
 	private void initialize() {
 		// this.setSize(271, 295);
-		this.setSize(495, 348);
+		this.setSize(495, 400);
 		this.setContentPane(getJContentPane());
-		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("AdminTitle"));
+		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("LoggedTitle"));
 	}
 
 	/**
@@ -97,7 +97,7 @@ public class MainAdminGUI extends JFrame {
 			jContentPane.add(getLblNewLabel());
 			jContentPane.add(getBoton3());
 			jContentPane.add(getBoton2());
-			jContentPane.add(getBtnCreateEvent());
+			jContentPane.add(getTopUpBalanceButton());
 			jContentPane.add(getPanel());
 			
 		}
@@ -113,7 +113,7 @@ public class MainAdminGUI extends JFrame {
 	private JButton getBoton2() {
 		if (jButtonCreateQuery == null) {
 			jButtonCreateQuery = new JButton();
-			jButtonCreateQuery.setBounds(0, 118, 495, 61);
+			jButtonCreateQuery.setBounds(0, 115, 495, 61);
 			jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"));
 			jButtonCreateQuery.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -126,7 +126,7 @@ public class MainAdminGUI extends JFrame {
 	}
 	
 	
-	/**
+	/**jButtonCreateQuery
 	 * This method initializes boton2
 	 * 
 	 * @return javax.swing.JButton
@@ -134,7 +134,7 @@ public class MainAdminGUI extends JFrame {
 	private JButton getBoton3() {
 		if (jButtonQueryQueries == null) {
 			jButtonQueryQueries = new JButton();
-			jButtonQueryQueries.setBounds(0, 62, 495, 61);
+			jButtonQueryQueries.setBounds(0, 61, 495, 61);
 			jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
 			jButtonQueryQueries.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -145,6 +145,21 @@ public class MainAdminGUI extends JFrame {
 			});
 		}
 		return jButtonQueryQueries;
+	}
+	
+	private JButton getTopUpBalanceButton() {
+		if (jButtonTopUpBalance == null) {
+			jButtonTopUpBalance = new JButton();
+			jButtonTopUpBalance.setBounds(0, 169, 495, 61);
+			jButtonTopUpBalance.setText(ResourceBundle.getBundle("Etiquetas").getString("TopUpBalance"));
+			jButtonTopUpBalance.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					JFrame a = new TopUpBalanceGUI();
+					a.setVisible(true);
+				}
+			});
+		}
+		return jButtonTopUpBalance;
 	}
 	
 	private JLabel getLblNewLabel() {
@@ -203,7 +218,7 @@ public class MainAdminGUI extends JFrame {
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
-			panel.setBounds(0, 255, 495, 61);
+			panel.setBounds(0, 274, 495, 61);
 			panel.add(getRdbtnNewRadioButton_1());
 			panel.add(getRdbtnNewRadioButton_2());
 			panel.add(getRdbtnNewRadioButton());
@@ -215,20 +230,12 @@ public class MainAdminGUI extends JFrame {
 		jLabelSelectOption.setText(ResourceBundle.getBundle("Etiquetas").getString("SelectOption"));
 		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
 		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"));
-		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainTitle"));
+		jButtonTopUpBalance.setText(ResourceBundle.getBundle("Etiquetas").getString("TopUpBalance"));
+		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("LoggedTitle"));
 	}
-	private JButton getBtnCreateEvent() {
-		if (btnCreateEvent == null) {
-			btnCreateEvent = new JButton(ResourceBundle.getBundle("Etiquetas").getString("MainAdminGUI.btnCreateEvent.text")); //$NON-NLS-1$ //$NON-NLS-2$
-			btnCreateEvent.setBounds(0, 178, 495, 61);
-			btnCreateEvent.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					JFrame a = new CreateEvent(new Vector<Event>());
-					a.setVisible(true);
-				}
-			});
-		}
-		return btnCreateEvent;
+	
+	private void closeMain() {
+		this.setVisible(false);
 	}
 } // @jve:decl-index=0:visual-constraint="0,0"
 

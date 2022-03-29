@@ -80,7 +80,7 @@ public class MainGUI extends JFrame {
 	 */
 	private void initialize() {
 		// this.setSize(271, 295);
-		this.setSize(495, 328);
+		this.setSize(495, 332);
 		this.setContentPane(getJContentPane());
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainTitle"));
 	}
@@ -155,13 +155,13 @@ public class MainGUI extends JFrame {
 	private JButton getBotonLogin() {
 	if (jButtonLogin == null) {
 		jButtonLogin = new JButton();
-		jButtonLogin.setBounds(188, 257, 117, 25);
+		jButtonLogin.setBounds(162, 227, 168, 32);
 		jButtonLogin.setText(ResourceBundle.getBundle("Etiquetas").getString("Login"));
 		jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				JFrame a = new LoginGUI();
-
 				a.setVisible(true);
+				closeMain();
 			}
 		});
 	}
@@ -224,7 +224,7 @@ public class MainGUI extends JFrame {
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
-			panel.setBounds(0, 184, 495, 61);
+			panel.setBounds(0, 184, 495, 32);
 			panel.add(getRdbtnNewRadioButton_1());
 			panel.add(getRdbtnNewRadioButton_2());
 			panel.add(getRdbtnNewRadioButton());
@@ -236,7 +236,12 @@ public class MainGUI extends JFrame {
 		jLabelSelectOption.setText(ResourceBundle.getBundle("Etiquetas").getString("SelectOption"));
 		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
 		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"));
+		jButtonLogin.setText(ResourceBundle.getBundle("Etiquetas").getString("Login"));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainTitle"));
+	}
+	
+	private void closeMain() {
+		this.setVisible(false);
 	}
 } // @jve:decl-index=0:visual-constraint="0,0"
 
