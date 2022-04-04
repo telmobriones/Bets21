@@ -190,7 +190,20 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();
 		return events;
 	}
-
+	
+	/**
+	 * This method invokes the data access to retrieve the questions of a given event
+	 * 
+	 * @param event in which questions are retrieved
+	 * @return collection of questions
+	 */
+	public Vector<Question> getQuestions(Event event) {
+		dbManager.open(false);
+		Vector<Question> questions = dbManager.getQuestions(event);
+		dbManager.close();
+		return questions;
+	}
+	
 	/**
 	 * This method invokes the data access to retrieve the dates a month for which
 	 * there are events
@@ -224,4 +237,6 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.initializeDB();
 		dbManager.close();
 	}
+
+
 }

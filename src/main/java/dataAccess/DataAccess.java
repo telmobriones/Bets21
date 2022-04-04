@@ -317,6 +317,25 @@ public class DataAccess {
 		}
 		return res;
 	}
+	
+	/**
+	 * This method retrieves from the database the questions of a given event
+	 * 
+	 * @param event in which questions are retrieved
+	 * @return collection of questions
+	 */
+	public Vector<Question> getQuestions(Event event) {
+		System.out.println(">> DataAccess: getQuestions");
+		Vector<Question> res = new Vector<Question>();
+		TypedQuery<Question> query = db.createQuery("SELECT qu FROM Question qu WHERE qu.event=?1", Question.class);
+		query.setParameter(1, event);
+		List<Question> questions = query.getResultList();
+		for (Question qu : questions) {
+			System.out.println(qu.toString());
+			res.add(qu);
+		}
+		return res;
+	}
 
 	/**
 	 * This method retrieves from the database the dates a month for which there are

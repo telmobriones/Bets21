@@ -101,6 +101,16 @@ public interface BLFacade {
 	 */
 	@WebMethod
 	public Vector<Event> getEvents(Date date);
+	
+	
+	/**
+	 * This method retrieves the questions of a given event
+	 * 
+	 * @param event in which questions are retrieved
+	 * @return collection of questions
+	 */
+	@WebMethod
+	public Vector<Question> getQuestions(Event event);
 
 	/**
 	 * This method retrieves from the database the dates a month for which there are
@@ -109,6 +119,7 @@ public interface BLFacade {
 	 * @param date of the month for which days with events want to be retrieved
 	 * @return collection of dates
 	 */
+	
 	@WebMethod
 	public Vector<Date> getEventsMonth(Date date);
 

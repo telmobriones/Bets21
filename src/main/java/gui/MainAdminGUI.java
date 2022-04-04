@@ -31,6 +31,7 @@ public class MainAdminGUI extends JFrame {
 	private JButton jButtonCreateQuery = null;
 	private JButton jButtonQueryQueries = null;
 	private JButton jButtonCreateEvent = null;
+	private JButton jButtonCreatePronostic = null;
 	
     private static BLFacade appFacadeInterface;
 	
@@ -98,8 +99,9 @@ public class MainAdminGUI extends JFrame {
 			jContentPane.add(getBoton3());
 			jContentPane.add(getBoton2());
 			jContentPane.add(getjButtonCreateEvent());
+			jContentPane.add(getjButtonCreatePronostic());
 			jContentPane.add(getPanel());
-			
+	
 		}
 		return jContentPane;
 	}
@@ -113,7 +115,7 @@ public class MainAdminGUI extends JFrame {
 	private JButton getBoton2() {
 		if (jButtonCreateQuery == null) {
 			jButtonCreateQuery = new JButton();
-			jButtonCreateQuery.setBounds(0, 118, 495, 61);
+			jButtonCreateQuery.setBounds(0, 118, 249, 61);
 			jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"));
 			jButtonCreateQuery.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -134,7 +136,7 @@ public class MainAdminGUI extends JFrame {
 	private JButton getBoton3() {
 		if (jButtonQueryQueries == null) {
 			jButtonQueryQueries = new JButton();
-			jButtonQueryQueries.setBounds(0, 62, 495, 61);
+			jButtonQueryQueries.setBounds(0, 62, 249, 61);
 			jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
 			jButtonQueryQueries.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -147,10 +149,30 @@ public class MainAdminGUI extends JFrame {
 		return jButtonQueryQueries;
 	}
 	
+	/**
+	 * This method initializes createPronostic button
+	 * 
+	 * @return javax.swing.JButton
+	 */
+	private JButton getjButtonCreatePronostic() {
+		if (jButtonCreatePronostic == null) {
+			jButtonCreatePronostic = new JButton(ResourceBundle.getBundle("Etiquetas").getString("CreatePronostic"));
+			jButtonCreatePronostic.setBounds(246, 62, 249, 61);;
+			jButtonCreatePronostic.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					JFrame a = new CreatePronosticGUI(new Vector<Event>());
+					a.setVisible(true);
+				}
+			});
+		}
+		return jButtonCreatePronostic;
+	}
+	
+	
 	private JButton getjButtonCreateEvent() {
 		if (jButtonCreateEvent == null) {
 			jButtonCreateEvent = new JButton(ResourceBundle.getBundle("Etiquetas").getString("CreateEvent")); //$NON-NLS-1$ //$NON-NLS-2$
-			jButtonCreateEvent.setBounds(0, 178, 495, 61);
+			jButtonCreateEvent.setBounds(0, 178, 249, 61);
 			jButtonCreateEvent.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JFrame a = new CreateEventGUI(new Vector<Event>());

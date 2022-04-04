@@ -3,6 +3,7 @@ package domain;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Vector;
+import javax.swing.*;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
