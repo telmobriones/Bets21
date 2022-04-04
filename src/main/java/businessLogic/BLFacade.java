@@ -54,6 +54,14 @@ public interface BLFacade {
 	
 	
 	/**
+	 * 
+	 * @return user if logged, null if there's no logged user
+	 * 
+	 */
+	public User getLogUser();
+	
+	
+	/**
 	 * This method tries to register a user with the introduced credentials
 	 * 
 	 * @param username wich is trying to get logged in
@@ -62,6 +70,18 @@ public interface BLFacade {
 	 * 
 	 */
 	public boolean registerUser(String pUsername, char[] password);
+	
+	
+	/**
+	 * This method updates user's balance
+	 * 
+	 * @param user
+	 * @param amount of money to be added
+	 * @return new balance after update
+	 * 
+	 */
+	public int updateBalance(User pUser, int pMoney);
+	
 	
 	/**
 	 * This method invokes the data access to create a new event

@@ -203,6 +203,28 @@ public class DataAccess {
 		User u = db.find(User.class, name);
 		return u;
 	}
+	
+	
+	/**
+	 * This method updates user's balance
+	 * 
+	 * @param user
+	 * @param amount of money to be added
+	 * @return new balance after update
+	 * 
+	 */
+	public int updateBalance(User pUser, int pMoney) {
+		db.getTransaction().begin();
+		User u = db.find(User.class, pUser.getUsername());
+		if(u != null) {
+			u.updateBalance(pMoney);
+			db.persist(u);
+		} else {
+			System.out.println("UNEXPECTED ERROR OCCURRED WHEN UPDATING BALANCE!");
+		}
+		db.getTransaction().commit();
+		return u.getBalance();
+	}
 
 	/**
 	 * This method creates a question for an event, with a question text and the

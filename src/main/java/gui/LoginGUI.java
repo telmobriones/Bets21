@@ -49,7 +49,7 @@ public class LoginGUI extends JFrame {
 	 */
 	public LoginGUI() {
 		setTitle(ResourceBundle.getBundle("Etiquetas").getString("Login")); //$NON-NLS-1$ //$NON-NLS-2$
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 420);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -125,7 +125,7 @@ public class LoginGUI extends JFrame {
 							closeLogin();
 						}
 						else {
-							MainLoggedGUI loggedGUI = new MainLoggedGUI(loggedUser);
+							MainLoggedGUI loggedGUI = new MainLoggedGUI();
 							loggedGUI.setVisible(true);
 							closeLogin();
 						}

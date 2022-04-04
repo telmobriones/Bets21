@@ -114,6 +114,15 @@ public class BLFacadeImplementation implements BLFacade {
 	}
 	
 	/**
+	 * 
+	 * @return user if logged, null if there's no logged user
+	 * 
+	 */
+	public User getLogUser() {
+		return this.logUser;
+	}
+	
+	/**
 	 * This method tries to register a user with the introduced credentials
 	 * 
 	 * @param username wich is trying to get logged in
@@ -133,6 +142,25 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();
 		return regSuccess;
 	};
+	
+	
+
+	/**
+	 * This method updates user's balance
+	 * 
+	 * @param user
+	 * @param amount of money to be added
+	 * @return new balance after update
+	 * 
+	 */
+	public int updateBalance(User pUser, int pMoney) {
+		dbManager.open(false);
+		int newBalance = dbManager.updateBalance(pUser,pMoney);
+		dbManager.close();
+		return newBalance;
+	}
+	
+	
 	
 	/**
 	 * This method invokes the data access to create a new event
@@ -196,5 +224,4 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.initializeDB();
 		dbManager.close();
 	}
-
 }

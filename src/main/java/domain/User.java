@@ -45,7 +45,9 @@ public class User {
 	}
 
 	public void updateBalance(int money) {
+		System.out.println("Money before update: " + this.balance);
 		this.balance += money;
+		System.out.println("Money after update: " + this.balance);
 		this.movements.add(money);
 	}
 }

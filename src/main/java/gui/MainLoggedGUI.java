@@ -27,6 +27,7 @@ import java.awt.event.ActionEvent;
 public class MainLoggedGUI extends JFrame {
 	
 	private User loggedUser;
+	private static BLFacade facade = MainGUI.getBusinessLogic();
 	
 	private static final long serialVersionUID = 1L;
 
@@ -54,10 +55,10 @@ public class MainLoggedGUI extends JFrame {
 	/**
 	 * This is the default constructor
 	 */
-	public MainLoggedGUI(User loggedUser) {
+	public MainLoggedGUI() {
 		super();
 		
-		this.loggedUser = loggedUser;
+		this.loggedUser = facade.getLogUser();
 		
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -87,7 +88,7 @@ public class MainLoggedGUI extends JFrame {
 		// this.setSize(271, 295);
 		this.setSize(495, 400);
 		this.setContentPane(getJContentPane());
-		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("LoggedTitle"));
+		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("LoggedTitle") + ": " + loggedUser.getUsername());
 	}
 
 	/**
@@ -236,7 +237,7 @@ public class MainLoggedGUI extends JFrame {
 		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
 		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"));
 		jButtonTopUpBalance.setText(ResourceBundle.getBundle("Etiquetas").getString("TopUpBalance"));
-		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("LoggedTitle"));
+		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("LoggedTitle") + ": " + loggedUser.getUsername());
 	}
 	
 	private void closeMain() {
