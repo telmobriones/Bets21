@@ -160,7 +160,7 @@ public class MainLoggedGUI extends JFrame {
 			jButtonTopUpBalance.setText(ResourceBundle.getBundle("Etiquetas").getString("TopUpBalance"));
 			jButtonTopUpBalance.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					JFrame a = new TopUpBalanceGUI();
+					TopUpBalanceGUI a = new TopUpBalanceGUI();
 					a.setVisible(true);
 				}
 			});

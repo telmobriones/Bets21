@@ -25,7 +25,7 @@ public class TopUpBalanceGUI extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtFieldAmount;
 	private User loggedUser;
-	private BLFacade facade = MainGUI.getBusinessLogic();
+	private static BLFacade facade = MainGUI.getBusinessLogic();
 	
 	JLabel lblUsername = null;
 	JLabel lblLoggedUsername = null;
@@ -238,7 +238,6 @@ public class TopUpBalanceGUI extends JFrame {
 		this.lblUsername.setText(ResourceBundle.getBundle("Etiquetas").getString("User") + ":");
 		lblLoggedUsername.setText(loggedUser.getUsername());
 		lblCurrentBalance.setText(ResourceBundle.getBundle("Etiquetas").getString("CurrentBalance") + ":");
-		lblCurrentBalanceAmount.setText(loggedUser.getBalance() + "€");
 		lblMoney.setText(ResourceBundle.getBundle("Etiquetas").getString("AmountToBeAdded")+" (in €) :");
 		jButtonClose.setText(ResourceBundle.getBundle("Etiquetas").getString("Close"));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("TopUpBalance"));
