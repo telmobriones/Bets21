@@ -125,8 +125,10 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.open(false);
 		boolean regSuccess = false;
 		if(dbManager.findUser(pUsername)==null) {
-			dbManager.createUser(pUsername, String.valueOf(pPassword));
-			regSuccess=true;
+			User u = dbManager.createUser(pUsername, String.valueOf(pPassword));
+			if(u!=null) {
+				regSuccess=true;
+			}
 		}
 		dbManager.close();
 		return regSuccess;

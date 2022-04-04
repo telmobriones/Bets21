@@ -30,6 +30,7 @@ public class MainAdminGUI extends JFrame {
 	private JPanel jContentPane = null;
 	private JButton jButtonCreateQuery = null;
 	private JButton jButtonQueryQueries = null;
+	private JButton jButtonCreateEvent = null;
 	
     private static BLFacade appFacadeInterface;
 	
@@ -46,7 +47,6 @@ public class MainAdminGUI extends JFrame {
 	private JRadioButton rdbtnNewRadioButton_2;
 	private JPanel panel;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private JButton btnCreateEvent;
 	
 	/**
 	 * This is the default constructor
@@ -97,7 +97,7 @@ public class MainAdminGUI extends JFrame {
 			jContentPane.add(getLblNewLabel());
 			jContentPane.add(getBoton3());
 			jContentPane.add(getBoton2());
-			jContentPane.add(getBtnCreateEvent());
+			jContentPane.add(getjButtonCreateEvent());
 			jContentPane.add(getPanel());
 			
 		}
@@ -145,6 +145,20 @@ public class MainAdminGUI extends JFrame {
 			});
 		}
 		return jButtonQueryQueries;
+	}
+	
+	private JButton getjButtonCreateEvent() {
+		if (jButtonCreateEvent == null) {
+			jButtonCreateEvent = new JButton(ResourceBundle.getBundle("Etiquetas").getString("CreateEvent")); //$NON-NLS-1$ //$NON-NLS-2$
+			jButtonCreateEvent.setBounds(0, 178, 495, 61);
+			jButtonCreateEvent.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JFrame a = new CreateEventGUI(new Vector<Event>());
+					a.setVisible(true);
+				}
+			});
+		}
+		return jButtonCreateEvent;
 	}
 	
 	private JLabel getLblNewLabel() {
@@ -215,20 +229,8 @@ public class MainAdminGUI extends JFrame {
 		jLabelSelectOption.setText(ResourceBundle.getBundle("Etiquetas").getString("SelectOption"));
 		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
 		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"));
+		jButtonCreateEvent.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateEvent"));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainTitle"));
-	}
-	private JButton getBtnCreateEvent() {
-		if (btnCreateEvent == null) {
-			btnCreateEvent = new JButton(ResourceBundle.getBundle("Etiquetas").getString("MainAdminGUI.btnCreateEvent.text")); //$NON-NLS-1$ //$NON-NLS-2$
-			btnCreateEvent.setBounds(0, 178, 495, 61);
-			btnCreateEvent.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					JFrame a = new CreateEvent(new Vector<Event>());
-					a.setVisible(true);
-				}
-			});
-		}
-		return btnCreateEvent;
 	}
 } // @jve:decl-index=0:visual-constraint="0,0"
 

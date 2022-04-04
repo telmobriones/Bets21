@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -42,9 +44,14 @@ public class TopUpBalanceGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnCargar = new JButton("Cargar");
-		btnCargar.setBounds(48, 203, 356, 44);
-		contentPane.add(btnCargar);
+		JButton btnTopUp = new JButton("Cargar");
+		btnTopUp.setBounds(48, 203, 356, 44);
+		btnTopUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		contentPane.add(btnTopUp);
 		
 		JLabel lblNewLabel = new JLabel("User:");
 		lblNewLabel.setBounds(48, 57, 86, 15);

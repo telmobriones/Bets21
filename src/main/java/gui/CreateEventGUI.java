@@ -16,14 +16,14 @@ import businessLogic.BLFacade;
 import configuration.UtilDate;
 import domain.Event;
 
-public class CreateEvent extends JFrame {
+public class CreateEventGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private JComboBox<Event> jComboBoxEvents = new JComboBox<Event>();
 	DefaultComboBoxModel<Event> modelEvents = new DefaultComboBoxModel<Event>();
 
 	private JLabel jLabelListOfEvents = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ListEvents"));
-	private JLabel jLabelQuery = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Query"));
+	private JLabel jLabelQuery = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("EventDescription"));
 	private JLabel jLabelEventDate = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("EventDate"));
 
 	private JTextField jTextFieldDescription = new JTextField();
@@ -33,7 +33,7 @@ public class CreateEvent extends JFrame {
 
 	private JScrollPane scrollPaneEvents = new JScrollPane();
 
-	private JButton jButtonCreate = new JButton(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"));
+	private JButton jButtonCreate = new JButton(ResourceBundle.getBundle("Etiquetas").getString("CreateEvent"));
 	private JButton jButtonClose = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Close"));
 	private JLabel jLabelMsg = new JLabel();
 	private JLabel jLabelError = new JLabel();
@@ -43,7 +43,7 @@ public class CreateEvent extends JFrame {
 	
 	private BLFacade facade = MainGUI.getBusinessLogic();
 
-	public CreateEvent(Vector<domain.Event> v) {
+	public CreateEventGUI(Vector<domain.Event> v) {
 		try {
 			jbInit(v);
 		} catch (Exception e) {
@@ -54,19 +54,19 @@ public class CreateEvent extends JFrame {
 	private void jbInit(Vector<domain.Event> v) throws Exception {
 
 		this.getContentPane().setLayout(null);
-		this.setSize(new Dimension(604, 464));
-		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"));
+		this.setSize(new Dimension(604, 396));
+		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("CreateEvent"));
 
 		jComboBoxEvents.setModel(modelEvents);
 		jComboBoxEvents.setBounds(new Rectangle(275, 47, 250, 20));
 		jLabelListOfEvents.setBounds(new Rectangle(290, 18, 277, 20));
-		jLabelQuery.setBounds(new Rectangle(35, 286, 230, 20));
-		jTextFieldDescription.setBounds(new Rectangle(35, 318, 429, 20));
+		jLabelQuery.setBounds(new Rectangle(35, 240, 230, 20));
+		jTextFieldDescription.setBounds(new Rectangle(35, 272, 429, 20));
 
 		jCalendar.setBounds(new Rectangle(40, 50, 225, 150));
 		scrollPaneEvents.setBounds(new Rectangle(25, 44, 346, 116));
 
-		jButtonCreate.setBounds(new Rectangle(100, 366, 130, 30));
+		jButtonCreate.setBounds(new Rectangle(75, 304, 190, 30));
 		jButtonCreate.setEnabled(true);
 
 		jButtonCreate.addActionListener(new ActionListener() {
@@ -74,7 +74,7 @@ public class CreateEvent extends JFrame {
 				jButtonCreate_actionPerformed(e);
 			}
 		});
-		jButtonClose.setBounds(new Rectangle(276, 366, 130, 30));
+		jButtonClose.setBounds(new Rectangle(322, 304, 190, 30));
 		jButtonClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				jButtonClose_actionPerformed(e);

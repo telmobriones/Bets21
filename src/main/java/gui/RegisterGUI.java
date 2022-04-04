@@ -134,13 +134,15 @@ public class RegisterGUI extends JFrame {
 
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				jButtonClose_actionPerformed(e);
+				LoginGUI login = new LoginGUI();
+				login.setVisible(true);
+				closeRegister();
 			}
 		});
 
 	}
-
-	private void jButtonClose_actionPerformed(ActionEvent e) {
+	
+	private void closeRegister() {
 		this.setVisible(false);
 	}
 	

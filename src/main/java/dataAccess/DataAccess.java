@@ -182,7 +182,7 @@ public class DataAccess {
 	 * @return the created user, or null, or an exception
 	 * @throws UserAlreadyExist if the same user already exists for the event
 	 */
-	public void createUser(String name, String password) {
+	public User createUser(String name, String password) {
 		System.out.println(">> DataAccess: createUser=>  name= " + name);
 		db.getTransaction().begin();
 		User user = new User(name, password, false);
@@ -190,6 +190,7 @@ public class DataAccess {
 		db.getTransaction().commit();
 
 		System.out.println("Gordeta " + name);
+		return user;
 	}
 
 	/**

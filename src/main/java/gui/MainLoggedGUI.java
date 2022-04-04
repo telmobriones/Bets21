@@ -8,6 +8,7 @@ package gui;
 import javax.swing.*;
 
 import domain.Event;
+import domain.User;
 import businessLogic.BLFacade;
 
 import java.awt.Color;
@@ -24,6 +25,8 @@ import java.awt.event.ActionEvent;
 
 
 public class MainLoggedGUI extends JFrame {
+	
+	private User loggedUser;
 	
 	private static final long serialVersionUID = 1L;
 
@@ -51,8 +54,10 @@ public class MainLoggedGUI extends JFrame {
 	/**
 	 * This is the default constructor
 	 */
-	public MainLoggedGUI() {
+	public MainLoggedGUI(User loggedUser) {
 		super();
+		
+		this.loggedUser = loggedUser;
 		
 		addWindowListener(new WindowAdapter() {
 			@Override

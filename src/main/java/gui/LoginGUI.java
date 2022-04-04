@@ -125,7 +125,7 @@ public class LoginGUI extends JFrame {
 							closeLogin();
 						}
 						else {
-							MainLoggedGUI loggedGUI = new MainLoggedGUI();
+							MainLoggedGUI loggedGUI = new MainLoggedGUI(loggedUser);
 							loggedGUI.setVisible(true);
 							closeLogin();
 						}

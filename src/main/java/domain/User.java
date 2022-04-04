@@ -13,6 +13,7 @@ public class User {
 	private boolean isAdmin;
 	private int balance; // Kontuko saldoa
 	private ArrayList<Bet> bets = new ArrayList<Bet>();
+	private ArrayList<Integer> movements = new ArrayList<Integer>(); // Erabiltzailearen diru mugimenduen lista
 	
 	public User (String pUsername, String pPassword, boolean pIsAdmin) {
 		super();
@@ -43,7 +44,8 @@ public class User {
 		return balance;
 	}
 
-	public void setBalance(int balance) {
-		this.balance = balance;
+	public void updateBalance(int money) {
+		this.balance += money;
+		this.movements.add(money);
 	}
 }
