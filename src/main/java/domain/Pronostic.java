@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
 public class Pronostic {
 	@Id
+	@GeneratedValue
 	private int pronID;
 	private String pronDescription;
 	private int pronOdd;
@@ -19,13 +21,14 @@ public class Pronostic {
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private ArrayList<Bet> pronBets;
 	
-	public Pronostic(int odd, String pronDescription, Question pronQuestion) {
+	public Pronostic(int pronID, int odd, String pronDescription, Question pronQuestion) {
 		super();
-		this.setPronOdd(odd);
-		this.setPronDescription(pronDescription);
-		this.setPronQuestion(pronQuestion);
-		this.setPronResult(false);
-		this.setPronClosed(false);
+		this.pronID = pronID;
+		this.pronOdd = odd;
+		this.pronDescription = pronDescription;
+		this.pronQuestion = pronQuestion;
+		this.pronResult = false;
+		this.pronClosed = false;
 		this.pronBets = new ArrayList<Bet>();
 	}
 	

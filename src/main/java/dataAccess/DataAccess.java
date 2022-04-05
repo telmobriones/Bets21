@@ -204,8 +204,15 @@ public class DataAccess {
 	 * @return the created pronostic, or null, or an exception
 	 */
 	public Pronostic createPronostic(int pOdd, String pDescription, Question pQuestion) {
+		
+		TypedQuery<Pronostic> query = db.createQuery("SELECT FROM Pronostic ORDER BY pronID DESC", Pronostic.class);
+		Pronostic lastPronostic = query.getResultList().get(0);
+		System.out.println("LastEvent: " + lastPronostic);
+		int newPronID = lastPronostic.getPronID()+1;
+		System.out.println("NewEventNumber: " + newPronID);
+		
 		db.getTransaction().begin();
-		Pronostic pronostic = new Pronostic(pOdd, pDescription, pQuestion);
+		Pronostic pronostic = new Pronostic(newPronID, pOdd, pDescription, pQuestion);
 		db.persist(pronostic);
 		db.getTransaction().commit();
 		System.out.println(pronostic.getPronDescription()+" added to the DB!");
