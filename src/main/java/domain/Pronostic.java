@@ -14,7 +14,59 @@ public class Pronostic {
 	private String pronDescription;
 	private int pronOdd;
 	private Question pronQuestion;
+	private boolean pronResult;
+	private boolean pronClosed;
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private ArrayList<Bet> pronBets;
+	
+	public Pronostic(int odd, String pronDescription, Question pronQuestion) {
+		super();
+		this.setPronOdd(odd);
+		this.setPronDescription(pronDescription);
+		this.setPronQuestion(pronQuestion);
+		this.setPronResult(false);
+		this.setPronClosed(false);
+		this.pronBets = new ArrayList<Bet>();
+	}
+
+	public String getPronDescription() {
+		return pronDescription;
+	}
+
+	public void setPronDescription(String pronDescription) {
+		this.pronDescription = pronDescription;
+	}
+
+	public int getPronOdd() {
+		return pronOdd;
+	}
+
+	public void setPronOdd(int pronOdd) {
+		this.pronOdd = pronOdd;
+	}
+
+	public Question getPronQuestion() {
+		return pronQuestion;
+	}
+
+	public void setPronQuestion(Question pronQuestion) {
+		this.pronQuestion = pronQuestion;
+	}
+
+	public boolean isPronResult() {
+		return pronResult;
+	}
+
+	public void setPronResult(boolean pronResult) {
+		this.pronResult = pronResult;
+	}
+
+	public boolean isPronClosed() {
+		return pronClosed;
+	}
+
+	public void setPronClosed(boolean pronClosed) {
+		this.pronClosed = pronClosed;
+	}
 
 }
