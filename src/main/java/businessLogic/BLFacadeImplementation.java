@@ -13,6 +13,7 @@ import dataAccess.DataAccess;
 import domain.Question;
 import domain.User;
 import domain.Event;
+import domain.Movement;
 import domain.Pronostic;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
@@ -168,13 +169,13 @@ public class BLFacadeImplementation implements BLFacade {
 	 * @return new balance after update
 	 * 
 	 */
-	public int updateBalance(User pUser, int pMoney) {
-		dbManager.open(false);
-		int newBalance = dbManager.updateBalance(pUser,pMoney);
-		dbManager.close();
-		return newBalance;
-	}
-	
+//	public int updateBalance(User pUser, int pMoney) {
+//		dbManager.open(false);
+//		int newBalance = dbManager.updateBalance(pUser,pMoney);
+//		dbManager.close();
+//		return newBalance;
+//	}
+//	
 	
 	
 	/**
@@ -269,6 +270,20 @@ public class BLFacadeImplementation implements BLFacade {
 		return pron;
 	}
 	
+	@Override
+	public Movement createMovement(String movType, int money, User pUser) {
+		dbManager.open(false);
+		Movement mov = dbManager.createMovement(movType,money, pUser);
+		dbManager.close();
+		return mov;
+	}
+	
+	public void updateMovement(User user, Movement movement) {
+		dbManager.open(false);
+		dbManager.updateMovement(user, movement);
+		dbManager.close();
+	}
+	
 	/**
 	 * This method updates the question with a new pronostic
 	 * 
@@ -282,6 +297,24 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.updateQuestion(question, pronostic);
 		dbManager.close();
 	}
+
+	/**
+	 * This method updates user's balance
+	 * 
+	 * @param user
+	 * @param amount of money to be added
+	 * @return new balance after update
+	 * 
+	 */
+	public int updateBalance(User pUser, int pMoney) {
+		dbManager.open(false);
+		int newBalance = dbManager.updateBalance(pUser,pMoney);
+		dbManager.close();
+		return newBalance;
+	}
+
+	
+
 
 
 }

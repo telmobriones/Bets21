@@ -7,6 +7,7 @@ import java.util.Date;
 import domain.Question;
 import domain.User;
 import domain.Event;
+import domain.Movement;
 import domain.Pronostic;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
@@ -80,16 +81,6 @@ public interface BLFacade {
 	public boolean registerUser(String pUsername, char[] password);
 	
 	
-	/**
-	 * This method updates user's balance
-	 * 
-	 * @param user
-	 * @param amount of money to be added
-	 * @return new balance after update
-	 * 
-	 */
-	public int updateBalance(User pUser, int pMoney);
-	
 	
 	/**
 	 * This method finds a pronostic by its description
@@ -111,6 +102,8 @@ public interface BLFacade {
 	 * 
 	 */
 	public Pronostic createPronostic(int pronOdd, String pronDescription, Question pronQuestion);
+	
+	public Movement createMovement(String movType, int money, User pUser);
 
 	
 	
@@ -152,8 +145,10 @@ public interface BLFacade {
 	 * @return nothing
 	 */
 	public void updateQuestion(Question question, Pronostic pronostic);
+	public void updateMovement(User user, Movement movement);
 
-	
+	public int updateBalance(User pUser, int pMoney);
+
 	
 	/**
 	 * This method retrieves from the database the dates a month for which there are
@@ -173,5 +168,6 @@ public interface BLFacade {
 	 */
 	@WebMethod
 	public void initializeBD();
+
 
 }

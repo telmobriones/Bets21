@@ -18,6 +18,7 @@ import javax.persistence.TypedQuery;
 import configuration.ConfigXML;
 import configuration.UtilDate;
 import domain.Event;
+import domain.Movement;
 import domain.Pronostic;
 import domain.Question;
 import domain.User;
@@ -272,18 +273,18 @@ public class DataAccess {
 	 * @return new balance after update
 	 * 
 	 */
-	public int updateBalance(User pUser, int pMoney) {
-		db.getTransaction().begin();
-		User u = db.find(User.class, pUser.getUsername());
-		if(u != null) {
-			u.updateBalance(pMoney);
-			db.persist(u);
-		} else {
-			System.out.println("UNEXPECTED ERROR OCCURRED WHEN UPDATING BALANCE!");
-		}
-		db.getTransaction().commit();
-		return u.getBalance();
-	}
+//	public int updateBalance(User pUser, int pMoney) {
+//		db.getTransaction().begin();
+//		User u = db.find(User.class, pUser.getUsername());
+//		if(u != null) {
+//			u.updateBalance(pMoney);
+//			db.persist(u);
+//		} else {
+//			System.out.println("UNEXPECTED ERROR OCCURRED WHEN UPDATING BALANCE!");
+//		}
+//		db.getTransaction().commit();
+//		return u.getBalance();
+//	}
 
 	/**
 	 * This method creates a question for an event, with a question text and the
@@ -450,6 +451,68 @@ public class DataAccess {
 		return res;
 	}
 
+	
+	public Movement createMovement(String movType, int money, User pUser) {
+		
+		TypedQuery<Movement> query = db.createQuery("SELECT FROM Movement ORDER BY movID DESC", Movement.class);
+		Movement lastMovement = query.getResultList().get(0);
+		System.out.println("LastMovement: " + lastMovement);
+		int newMovID = lastMovement.getMovID()+1;
+		System.out.println("NewMovNum: " + newMovID);
+		
+	
+		
+		db.getTransaction().begin();
+		Movement movement = new Movement(newMovID,money, movType, pUser,null,null);
+		db.persist(movement);
+		db.getTransaction().commit();
+		System.out.println(movement+" added to the DB!");
+		return movement;
+	}
+	
+	public void updateMovement(User user, Movement movement) {
+		db.getTransaction().begin();
+		User us = db.find(User.class, user.getUsername());
+		us.newMovement(movement);
+		db.getTransaction().commit();
+		System.out.println(movement + " movement added to the user" + user);
+	}
+	
+//	public int updateBalance(User pUser) {
+////		TypedQuery<Movement> query = db.createQuery("SELECT FROM Movement ORDER BY movID DESC", Movement.class);
+////		Movement lastMovement = query.getResultList().get(0);
+////		System.out.println("LastMovement: " + lastMovement);
+////		int newMovID = lastMovement.getMovID()+1;
+////		System.out.println("NewMovNum: " + newMovID);
+////		
+////		db.getTransaction().begin();
+////		Movement movement = new Movement(newMovID,money, movType);
+////		db.persist(movement);
+////		db.getTransaction().commit();
+////		System.out.println(movement+" added to the DB!");
+////		return movement;
+//	}
+	
+	/**
+	 * This method updates user's balance
+	 * 
+	 * @param user
+	 * @param amount of money to be added
+	 * @return new balance after update
+	 * 
+	 */
+	public int updateBalance(User pUser, int pMoney) {
+		db.getTransaction().begin();
+		User u = db.find(User.class, pUser.getUsername());
+		if(u != null) {
+			u.updateBalance(pMoney);
+			db.persist(u);
+		} else {
+			System.out.println("UNEXPECTED ERROR OCCURRED WHEN UPDATING BALANCE!");
+		}
+		db.getTransaction().commit();
+		return u.getBalance();
+	}
 	public void open(boolean initializeMode) {
 
 		System.out.println("Opening DataAccess instance => isDatabaseLocal: " + c.isDatabaseLocal()
@@ -487,4 +550,6 @@ public class DataAccess {
 		db.close();
 		System.out.println("DataBase closed");
 	}
+
+	
 }

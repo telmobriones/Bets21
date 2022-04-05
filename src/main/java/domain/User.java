@@ -13,7 +13,7 @@ public class User {
 	private boolean isAdmin;
 	private int balance; // Kontuko saldoa
 	private ArrayList<Bet> bets = new ArrayList<Bet>();
-	private ArrayList<Integer> movements = new ArrayList<Integer>(); // Erabiltzailearen diru mugimenduen lista
+	private ArrayList<Movement> movements = new ArrayList<Movement>(); // Erabiltzailearen diru mugimenduen lista
 	
 	public User (String pUsername, String pPassword, boolean pIsAdmin) {
 		super();
@@ -48,6 +48,15 @@ public class User {
 		System.out.println("Money before update: " + this.balance);
 		this.balance += money;
 		System.out.println("Money after update: " + this.balance);
-		this.movements.add(money);
+		
+	}
+		
+	/**
+	 * Add a new movemento to this user
+	 * 
+	 * @param the movement to be added
+	 */
+	public void newMovement(Movement movement) {
+		movements.add(movement);
 	}
 }

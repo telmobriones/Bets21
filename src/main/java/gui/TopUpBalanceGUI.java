@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import businessLogic.BLFacade;
+import domain.Movement;
+import domain.Pronostic;
 import domain.User;
 
 import javax.swing.JButton;
@@ -209,6 +211,8 @@ public class TopUpBalanceGUI extends JFrame {
 			btnTopUp.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					int money2add = Integer.parseInt(txtFieldAmount.getText());
+					Movement movement = facade.createMovement("TopUp", money2add, loggedUser);
+					facade.updateMovement(loggedUser, movement);
 					int newBalance = facade.updateBalance(loggedUser, money2add);
 					btnTopUp.setEnabled(false);
 					btnTopUp.setText("NewBalance: " + newBalance);
@@ -219,7 +223,7 @@ public class TopUpBalanceGUI extends JFrame {
 		}
 		return btnTopUp;
 	}
-	
+
 	private JButton getjButtonClose() {
 		if(jButtonClose == null) {
 			jButtonClose = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Close"));
