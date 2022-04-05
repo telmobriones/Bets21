@@ -7,6 +7,7 @@ import com.toedter.calendar.JCalendar;
 
 import domain.Pronostic;
 import domain.Question;
+import domain.Event;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -55,6 +56,11 @@ public class CreatePronosticGUI extends JFrame {
 	private JTextField textFieldPronostic;
 	private JTextField textFieldOdds;
 	private final JLabel lblErrors= new JLabel("");
+	
+	private Event pronEvent;
+	private Question pronQuestion;
+	
+	private static BLFacade facade = MainGUI.getBusinessLogic();
 
 	public CreatePronosticGUI()
 	{
@@ -74,7 +80,7 @@ public class CreatePronosticGUI extends JFrame {
 
 		this.getContentPane().setLayout(null);
 		this.setSize(new Dimension(750, 500));
-		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
+		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("CreatePronostic"));
 
 		jLabelEventDate.setBounds(new Rectangle(40, 15, 140, 25));
 		jLabelQueries.setBounds(40, 247, 406, 14);
@@ -84,7 +90,7 @@ public class CreatePronosticGUI extends JFrame {
 		this.getContentPane().add(jLabelQueries);
 		this.getContentPane().add(jLabelEvents);
 
-		jButtonClose.setBounds(new Rectangle(274, 419, 130, 30));
+		jButtonClose.setBounds(new Rectangle(526, 419, 112, 30));
 
 		jButtonClose.addActionListener(new ActionListener()
 		{
@@ -182,13 +188,14 @@ public class CreatePronosticGUI extends JFrame {
 		this.getContentPane().add(jCalendar1, null);
 		
 		scrollPaneEvents.setBounds(new Rectangle(292, 50, 346, 150));
-		scrollPaneQueries.setBounds(new Rectangle(40, 274, 406, 116));
+		scrollPaneQueries.setBounds(new Rectangle(40, 274, 406, 160));
 
 		tableEvents.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int i=tableEvents.getSelectedRow();
 				domain.Event ev=(domain.Event)tableModelEvents.getValueAt(i,2); // obtain ev object
+				pronEvent=ev;
 				Vector<Question> queries=ev.getQuestions();
 
 				tableModelQueries.setDataVector(null, columnNamesQueries);
@@ -212,7 +219,6 @@ public class CreatePronosticGUI extends JFrame {
 
 		scrollPaneEvents.setViewportView(tableEvents);
 		tableModelEvents = new DefaultTableModel(null, columnNamesEvents);
-
 		tableEvents.setModel(tableModelEvents);
 		tableEvents.getColumnModel().getColumn(0).setPreferredWidth(25);
 		tableEvents.getColumnModel().getColumn(1).setPreferredWidth(268);
@@ -220,32 +226,36 @@ public class CreatePronosticGUI extends JFrame {
 
 		scrollPaneQueries.setViewportView(tableQueries);
 		tableModelQueries = new DefaultTableModel(null, columnNamesQueries);
-
 		tableQueries.setModel(tableModelQueries);
 		tableQueries.getColumnModel().getColumn(0).setPreferredWidth(25);
 		tableQueries.getColumnModel().getColumn(1).setPreferredWidth(268);
-
+		tableQueries.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int i = tableQueries.getSelectedRow();
+				domain.Question q = (domain.Question) tableModelQueries.getValueAt(i, 2); // obtain Question object
+				pronQuestion = q;
+			}
+		});
 		this.getContentPane().add(scrollPaneEvents, null);
 		this.getContentPane().add(scrollPaneQueries, null);
 		
 		
 		////////////////////////////////////////////////////
-		JLabel lblPronostic = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("CreatePronosticGUI.lblPronostic.text")); //$NON-NLS-1$ //$NON-NLS-2$
+		JLabel lblPronostic = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Pronostic")); //$NON-NLS-1$ //$NON-NLS-2$
 		lblPronostic.setBounds(480, 262, 90, 15);
 		getContentPane().add(lblPronostic);
 		
-		JLabel lblPronosticOdds = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("CreatePronosticGUI.lblPronosticOdds.text")); //$NON-NLS-1$ //$NON-NLS-2$
-		lblPronosticOdds.setBounds(480, 329, 114, 14);
+		JLabel lblPronosticOdds = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("PronosticOdds")); //$NON-NLS-1$ //$NON-NLS-2$
+		lblPronosticOdds.setBounds(480, 329, 225, 14);
 		getContentPane().add(lblPronosticOdds);
 		
 		textFieldPronostic = new JTextField();
-		textFieldPronostic.setText(ResourceBundle.getBundle("Etiquetas").getString("CreatePronosticGUI.textField.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		textFieldPronostic.setBounds(480, 283, 134, 19);
 		getContentPane().add(textFieldPronostic);
 		textFieldPronostic.setColumns(10);
 		
 		textFieldOdds = new JTextField();
-		textFieldOdds.setText(ResourceBundle.getBundle("Etiquetas").getString("CreatePronosticGUI.textField.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		textFieldOdds.setBounds(480, 353, 134, 19);
 		textFieldOdds.addKeyListener(new KeyAdapter() {
 		    public void keyTyped(KeyEvent e) {
@@ -262,47 +272,46 @@ public class CreatePronosticGUI extends JFrame {
 		lblErrors.setForeground(Color.RED);
 		getContentPane().add(lblErrors);
 		
-		JButton btnAddPronostic = new JButton(ResourceBundle.getBundle("Etiquetas").getString("CreatePronosticGUI.btnNewButton.text")); //$NON-NLS-1$ //$NON-NLS-2$
-		btnAddPronostic.setBounds(480, 384, 158, 25);
+		JButton btnAddPronostic = new JButton(ResourceBundle.getBundle("Etiquetas").getString("CreatePronostic")); //$NON-NLS-1$ //$NON-NLS-2$
+		btnAddPronostic.setBounds(480, 384, 200, 30);
 		btnAddPronostic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				String p = textFieldPronostic.getText();
-				int odds = Integer.parseInt(textFieldOdds.getText());
+				String pronDescription = textFieldPronostic.getText();
+				int pronOdd = Integer.parseInt(textFieldOdds.getText());
 				boolean error = false;
 
-//				if (new Date().compareTo(selectedEvent.getEvDate()) > 0) {
-//					lblErrors.setText("Debe escoger un evento que no haya pasado");
-//					error = true;
-//				}
-//				if (selectedQuestion == null) {
-//					lblErrors.setText("Debe escoger una pregunta.");
-//					error = true;
-//				}
-//				if (selectedEvent == null) {
-//					lblErrors.setText("Debe escoger un evento.");
-//					error = true;
-//				}
-//				if ((selectedEvent != null) && (selectedQuestion != null)) {
-//					if (p.equals("")) {
-//						lblErrors.setText("Ingresar datos");
-//						error = true;
-//					}
-//					if (ganancia <= 0) {
-//						lblErrors.setText("Debe ingresar un valor de ganancia valido");
-//						error = true;
-//					}
-//				}
-//
-//				if (!error) {
-//					Pronostic pronostico = businessLogic.createPronostic((int) textFieldOdds.getValue(), p,
-//							selectedQuestion);
-//					lblErrors.setText("Pronostico anadido");
-//					System.out.println("::: Pronostico a�adido --> " + pronostico.getProDescription() + " :::");
-//					businessLogic.updateQuestion(selectedQuestion, pronostico);
-//					textFieldPronostic.setText("");
-//					textFieldOdds.setText("");
-//				}
+				if (new Date().compareTo(pronEvent.getEventDate()) > 0) {
+					lblErrors.setText("Debe escoger un evento que no haya pasado");
+					error = true;
+				}
+				if (pronQuestion == null) {
+					lblErrors.setText("Debe escoger una pregunta.");
+					error = true;
+				}
+				if (pronEvent == null) {
+					lblErrors.setText("Debe escoger un evento.");
+					error = true;
+				}
+				if ((pronEvent != null) && (pronQuestion != null)) {
+					if (pronDescription.equals("")) {
+						lblErrors.setText("Ingresar datos");
+						error = true;
+					}
+					if (pronOdd <= 0) {
+						lblErrors.setText("Debe ingresar un valor de ganancia valido");
+						error = true;
+					}
+				}
+
+				if (!error) {
+					Pronostic pronostico = facade.createPronostic(pronOdd, pronDescription, pronQuestion);
+					lblErrors.setText("Pronostico anadido");
+					System.out.println("::: Pronostico a�adido --> " + pronostico.getPronDescription() + " :::");
+					facade.updateQuestion(pronQuestion, pronostico);
+					textFieldPronostic.setText("");
+					textFieldOdds.setText("");
+				}
 
 			}
 		});

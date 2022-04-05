@@ -135,7 +135,19 @@ public interface BLFacade {
 	 */
 	@WebMethod
 	public Vector<Question> getQuestions(Event event);
+	
+	
+	/**
+	 * This method updates the question with a new pronostic
+	 * 
+	 * @param the question to be updated
+	 * @param the new pronostic
+	 * @return nothing
+	 */
+	public void updateQuestion(Question question, Pronostic pronostic);
 
+	
+	
 	/**
 	 * This method retrieves from the database the dates a month for which there are
 	 * events

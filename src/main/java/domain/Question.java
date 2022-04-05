@@ -153,7 +153,16 @@ public class Question implements Serializable {
 	public void setEvent(Event event) {
 		this.event = event;
 	}
-
+	
+	
+	/**
+	 * Add a new pronostic to this question
+	 * 
+	 * @param the pronostic to be added
+	 */
+	public void newPronostic(Pronostic pronostic) {
+		qPronostics.add(pronostic);
+	}
 
 
 

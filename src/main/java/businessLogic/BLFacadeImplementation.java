@@ -256,6 +256,20 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();
 		return pron;
 	}
+	
+	/**
+	 * This method updates the question with a new pronostic
+	 * 
+	 * @param the question to be updated
+	 * @param the new pronostic
+	 * @return nothing
+	 */
+	@Override
+	public void updateQuestion(Question question, Pronostic pronostic) {
+		dbManager.open(false);
+		dbManager.updateQuestion(question, pronostic);
+		dbManager.close();
+	}
 
 
 }

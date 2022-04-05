@@ -388,6 +388,22 @@ public class DataAccess {
 		}
 		return res;
 	}
+	
+	
+	/**
+	 * This method updates the question with a new pronostic
+	 * 
+	 * @param the question to be updated
+	 * @param the new pronostic to be added
+	 * @return nothing
+	 */
+	public void updateQuestion(Question question, Pronostic pronostic) {
+		db.getTransaction().begin();
+		Question q = db.find(Question.class, question.getQuestionNumber());
+		q.newPronostic(pronostic);
+		db.getTransaction().commit();
+		System.out.println(pronostic.getPronDescription() + " pronostic added to the question" + question.getQuestion());
+	}
 
 	/**
 	 * This method retrieves from the database the dates a month for which there are
