@@ -119,6 +119,8 @@ public class BLFacadeImplementation implements BLFacade {
 	 * 
 	 */
 	public User getLogUser() {
+		dbManager.open(false);
+		this.logUser = dbManager.findUser(logUser.getUsername());
 		return this.logUser;
 	}
 	

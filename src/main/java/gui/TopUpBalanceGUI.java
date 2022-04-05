@@ -155,7 +155,7 @@ public class TopUpBalanceGUI extends JFrame {
 	
 	private JLabel getlblLoggedUsername() {
 		if (lblLoggedUsername == null) {
-			lblLoggedUsername = new JLabel(loggedUser.getUsername());
+			lblLoggedUsername = new JLabel(facade.getLogUser().getUsername());
 			lblLoggedUsername.setBounds(156, 12, 70, 15);
 		}
 		return lblLoggedUsername;
@@ -171,7 +171,7 @@ public class TopUpBalanceGUI extends JFrame {
 	
 	private JLabel getlblCurrentBalanceAmount() {
 		if(lblCurrentBalanceAmount == null) {
-			lblCurrentBalanceAmount = new JLabel(loggedUser.getBalance() + "€");
+			lblCurrentBalanceAmount = new JLabel(facade.getLogUser().getBalance() + "€");
 			lblCurrentBalanceAmount.setBounds(257, 62, 70, 15);
 		}
 		return lblCurrentBalanceAmount;
@@ -238,6 +238,7 @@ public class TopUpBalanceGUI extends JFrame {
 		this.lblUsername.setText(ResourceBundle.getBundle("Etiquetas").getString("User") + ":");
 		lblLoggedUsername.setText(loggedUser.getUsername());
 		lblCurrentBalance.setText(ResourceBundle.getBundle("Etiquetas").getString("CurrentBalance") + ":");
+		lblCurrentBalanceAmount.setText(facade.getLogUser().getBalance() + "€");
 		lblMoney.setText(ResourceBundle.getBundle("Etiquetas").getString("AmountToBeAdded")+" (in €) :");
 		jButtonClose.setText(ResourceBundle.getBundle("Etiquetas").getString("Close"));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("TopUpBalance"));
