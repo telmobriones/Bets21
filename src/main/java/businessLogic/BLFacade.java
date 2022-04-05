@@ -35,6 +35,13 @@ public interface BLFacade {
 	@WebMethod
 	Question createQuestion(Event event, String question, float betMinimum) throws EventFinished, QuestionAlreadyExist;
 
+	
+	
+	public Question getQuestionByN(int qNumber);
+	
+	public Event getEventByN(int qNumber);
+	
+	
 	/**
 	 * This method checks if a user can LogIn with the introduced credentials
 	 * 

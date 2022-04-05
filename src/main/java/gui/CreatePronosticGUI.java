@@ -233,8 +233,9 @@ public class CreatePronosticGUI extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int i = tableQueries.getSelectedRow();
-				domain.Question q = (domain.Question) tableModelQueries.getValueAt(i, 2); // obtain Question object
-				pronQuestion = q;
+				int qNumber = (int) tableModelQueries.getValueAt(i, 0); // obtain Question object
+				pronQuestion = facade.getQuestionByN(qNumber);
+				System.out.println(pronQuestion.getQuestion());
 			}
 		});
 		this.getContentPane().add(scrollPaneEvents, null);
@@ -307,7 +308,6 @@ public class CreatePronosticGUI extends JFrame {
 				if (!error) {
 					Pronostic pronostico = facade.createPronostic(pronOdd, pronDescription, pronQuestion);
 					lblErrors.setText("Pronostico anadido");
-					System.out.println("::: Pronostico a�adido --> " + pronostico.getPronDescription() + " :::");
 					facade.updateQuestion(pronQuestion, pronostico);
 					textFieldPronostic.setText("");
 					textFieldOdds.setText("");

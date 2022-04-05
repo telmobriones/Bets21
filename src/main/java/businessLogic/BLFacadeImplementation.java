@@ -81,7 +81,19 @@ public class BLFacadeImplementation implements BLFacade {
 
 		return qry;
 	};
+	
+	public Question getQuestionByN(int qNumber) {
+		dbManager.open(false);
+		Question q = dbManager.findQuestionByN(qNumber);
+		return q;
+	}
 
+	
+	public Event getEventByN(int evNumber) {
+		dbManager.open(false);
+		Event ev = dbManager.findEventByN(evNumber);
+		return ev;
+	}
 	/**
 	 * This method checks if a user can LogIn with the introduced credentials
 	 * 

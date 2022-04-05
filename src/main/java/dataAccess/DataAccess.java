@@ -404,6 +404,18 @@ public class DataAccess {
 		db.getTransaction().commit();
 		System.out.println(pronostic.getPronDescription() + " pronostic added to the question" + question.getQuestion());
 	}
+	
+	
+	public Question findQuestionByN(int qNumber) {
+		Question q = db.find(Question.class, qNumber);
+		return q;
+	}
+	
+	public Event findEventByN(int evNumber) {
+		Event ev = db.find(Event.class, evNumber);
+		return ev;
+	}
+	
 
 	/**
 	 * This method retrieves from the database the dates a month for which there are
