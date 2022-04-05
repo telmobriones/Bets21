@@ -7,6 +7,7 @@ import java.util.Date;
 import domain.Question;
 import domain.User;
 import domain.Event;
+import domain.Pronostic;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
 
@@ -81,6 +82,29 @@ public interface BLFacade {
 	 * 
 	 */
 	public int updateBalance(User pUser, int pMoney);
+	
+	
+	/**
+	 * This method finds a pronostic by its description
+	 * 
+	 * @param Description
+	 * @return The Pronostic
+	 * 
+	 */
+	public Pronostic findPronosticByDescription(String pronDescription);
+	
+	
+	/**
+	 * This method creates a pronostic
+	 * 
+	 * @param Odd to be gained
+	 * @param The description
+	 * @param The question it's related to
+	 * @return new balance after update
+	 * 
+	 */
+	public Pronostic createPronostic(int pronOdd, String pronDescription, Question pronQuestion);
+
 	
 	
 	/**

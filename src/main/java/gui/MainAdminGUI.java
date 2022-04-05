@@ -160,7 +160,7 @@ public class MainAdminGUI extends JFrame {
 			jButtonCreatePronostic.setBounds(246, 62, 249, 61);;
 			jButtonCreatePronostic.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					JFrame a = new CreatePronosticGUI(new Vector<Event>());
+					JFrame a = new CreatePronosticGUI();
 					a.setVisible(true);
 				}
 			});

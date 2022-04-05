@@ -13,6 +13,7 @@ import dataAccess.DataAccess;
 import domain.Question;
 import domain.User;
 import domain.Event;
+import domain.Pronostic;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
 
@@ -238,6 +239,22 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.open(false);
 		dbManager.initializeDB();
 		dbManager.close();
+	}
+
+	@Override
+	public Pronostic findPronosticByDescription(String pronDescription) {
+		dbManager.open(false);
+		Pronostic pron = dbManager.findPronosticByDescription(pronDescription);
+		dbManager.close();
+		return pron;
+	}
+
+	@Override
+	public Pronostic createPronostic(int pronOdd, String pronDescription, Question pronQuestion) {
+		dbManager.open(false);
+		Pronostic pron = dbManager.createPronostic(pronOdd, pronDescription, pronQuestion);
+		dbManager.close();
+		return pron;
 	}
 
 

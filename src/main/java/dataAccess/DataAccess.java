@@ -18,6 +18,7 @@ import javax.persistence.TypedQuery;
 import configuration.ConfigXML;
 import configuration.UtilDate;
 import domain.Event;
+import domain.Pronostic;
 import domain.Question;
 import domain.User;
 import exceptions.QuestionAlreadyExist;
@@ -191,6 +192,57 @@ public class DataAccess {
 
 		System.out.println("Gordeta " + name);
 		return user;
+	}
+	
+	
+	/**
+	 * This method adds a new pronostic to the DB
+	 *
+	 * @param the odd you gain
+	 * @param the description of the pronostic
+	 * @param the question of the pronostic
+	 * @return the created pronostic, or null, or an exception
+	 */
+	public Pronostic createPronostic(int pOdd, String pDescription, Question pQuestion) {
+		db.getTransaction().begin();
+		Pronostic pronostic = new Pronostic(pOdd, pDescription, pQuestion);
+		db.persist(pronostic);
+		db.getTransaction().commit();
+		System.out.println(pronostic.getPronDescription()+" added to the DB!");
+		return pronostic;
+	}
+	
+	
+	/**
+	 * This method finds a pronostic by its description
+	 *
+	 * @param The description
+	 * @return The Pronostic, null or exception
+	 */
+	public Pronostic findPronosticByDescription(String pDescription) {
+		try {
+			TypedQuery<Pronostic> query = db.createQuery("SELECT pron FROM Pronostic pron WHERE pron.pronDescription = ?1 ", Pronostic.class);
+			query.setParameter(1, pDescription);
+			return query.getResultList().get(0);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	
+	/**
+	 * Updates the pronostic result in the DB
+	 *
+	 * @param the pronostic to be updated
+	 * @param the result (true or false)
+	 * @return nothing
+	 */
+	public void updatePronosticResult(Pronostic pPronostic, boolean result) {
+		db.getTransaction().begin();
+		Pronostic pronostic = db.find(Pronostic.class, pPronostic.getPronID());
+		pronostic.setPronResult(result);
+		db.persist(pronostic);
+		db.getTransaction().commit();
 	}
 
 	/**

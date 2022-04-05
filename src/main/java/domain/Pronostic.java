@@ -28,6 +28,10 @@ public class Pronostic {
 		this.setPronClosed(false);
 		this.pronBets = new ArrayList<Bet>();
 	}
+	
+	public int getPronID() {
+		return pronID;
+	}
 
 	public String getPronDescription() {
 		return pronDescription;
