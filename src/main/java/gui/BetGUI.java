@@ -18,7 +18,7 @@ import java.util.*;
 import javax.swing.table.DefaultTableModel;
 
 
-public class CreatePronosticGUI extends JFrame {
+public class BetGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private final JLabel jLabelEventDate = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("EventDate"));
@@ -62,7 +62,7 @@ public class CreatePronosticGUI extends JFrame {
 	
 	private static BLFacade facade = MainGUI.getBusinessLogic();
 
-	public CreatePronosticGUI()
+	public BetGUI()
 	{
 		try
 		{
