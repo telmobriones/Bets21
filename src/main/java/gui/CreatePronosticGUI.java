@@ -4,6 +4,8 @@ import businessLogic.BLFacade;
 import configuration.UtilDate;
 
 import com.toedter.calendar.JCalendar;
+
+import domain.Pronostic;
 import domain.Question;
 import javax.swing.*;
 import java.awt.*;
@@ -50,6 +52,9 @@ public class CreatePronosticGUI extends JFrame {
 			ResourceBundle.getBundle("Etiquetas").getString("Query")
 
 	};
+	private JTextField textFieldPronostic;
+	private JTextField textFieldOdds;
+	private final JLabel lblErrors= new JLabel("");
 
 	public CreatePronosticGUI()
 	{
@@ -68,11 +73,11 @@ public class CreatePronosticGUI extends JFrame {
 	{
 
 		this.getContentPane().setLayout(null);
-		this.setSize(new Dimension(700, 500));
+		this.setSize(new Dimension(750, 500));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
 
 		jLabelEventDate.setBounds(new Rectangle(40, 15, 140, 25));
-		jLabelQueries.setBounds(138, 248, 406, 14);
+		jLabelQueries.setBounds(40, 247, 406, 14);
 		jLabelEvents.setBounds(295, 19, 259, 16);
 
 		this.getContentPane().add(jLabelEventDate, null);
@@ -177,7 +182,7 @@ public class CreatePronosticGUI extends JFrame {
 		this.getContentPane().add(jCalendar1, null);
 		
 		scrollPaneEvents.setBounds(new Rectangle(292, 50, 346, 150));
-		scrollPaneQueries.setBounds(new Rectangle(138, 274, 406, 116));
+		scrollPaneQueries.setBounds(new Rectangle(40, 274, 406, 116));
 
 		tableEvents.addMouseListener(new MouseAdapter() {
 			@Override
@@ -222,11 +227,91 @@ public class CreatePronosticGUI extends JFrame {
 
 		this.getContentPane().add(scrollPaneEvents, null);
 		this.getContentPane().add(scrollPaneQueries, null);
+		
+		
+		////////////////////////////////////////////////////
+		JLabel lblPronostic = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("CreatePronosticGUI.lblPronostic.text")); //$NON-NLS-1$ //$NON-NLS-2$
+		lblPronostic.setBounds(480, 262, 90, 15);
+		getContentPane().add(lblPronostic);
+		
+		JLabel lblPronosticOdds = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("CreatePronosticGUI.lblPronosticOdds.text")); //$NON-NLS-1$ //$NON-NLS-2$
+		lblPronosticOdds.setBounds(480, 329, 114, 14);
+		getContentPane().add(lblPronosticOdds);
+		
+		textFieldPronostic = new JTextField();
+		textFieldPronostic.setText(ResourceBundle.getBundle("Etiquetas").getString("CreatePronosticGUI.textField.text")); //$NON-NLS-1$ //$NON-NLS-2$
+		textFieldPronostic.setBounds(480, 283, 134, 19);
+		getContentPane().add(textFieldPronostic);
+		textFieldPronostic.setColumns(10);
+		
+		textFieldOdds = new JTextField();
+		textFieldOdds.setText(ResourceBundle.getBundle("Etiquetas").getString("CreatePronosticGUI.textField.text")); //$NON-NLS-1$ //$NON-NLS-2$
+		textFieldOdds.setBounds(480, 353, 134, 19);
+		textFieldOdds.addKeyListener(new KeyAdapter() {
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if ( ((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+		            e.consume();  // if it's not a number, ignore the event
+		        }
+		     }
+		});
+		getContentPane().add(textFieldOdds);
+		textFieldOdds.setColumns(10);
+		
+		lblErrors.setBounds(480, 419, 225, 15);
+		lblErrors.setForeground(Color.RED);
+		getContentPane().add(lblErrors);
+		
+		JButton btnAddPronostic = new JButton(ResourceBundle.getBundle("Etiquetas").getString("CreatePronosticGUI.btnNewButton.text")); //$NON-NLS-1$ //$NON-NLS-2$
+		btnAddPronostic.setBounds(480, 384, 158, 25);
+		btnAddPronostic.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				String p = textFieldPronostic.getText();
+				int odds = Integer.parseInt(textFieldOdds.getText());
+				boolean error = false;
+
+//				if (new Date().compareTo(selectedEvent.getEvDate()) > 0) {
+//					lblErrors.setText("Debe escoger un evento que no haya pasado");
+//					error = true;
+//				}
+//				if (selectedQuestion == null) {
+//					lblErrors.setText("Debe escoger una pregunta.");
+//					error = true;
+//				}
+//				if (selectedEvent == null) {
+//					lblErrors.setText("Debe escoger un evento.");
+//					error = true;
+//				}
+//				if ((selectedEvent != null) && (selectedQuestion != null)) {
+//					if (p.equals("")) {
+//						lblErrors.setText("Ingresar datos");
+//						error = true;
+//					}
+//					if (ganancia <= 0) {
+//						lblErrors.setText("Debe ingresar un valor de ganancia valido");
+//						error = true;
+//					}
+//				}
+//
+//				if (!error) {
+//					Pronostic pronostico = businessLogic.createPronostic((int) textFieldOdds.getValue(), p,
+//							selectedQuestion);
+//					lblErrors.setText("Pronostico anadido");
+//					System.out.println("::: Pronostico a�adido --> " + pronostico.getProDescription() + " :::");
+//					businessLogic.updateQuestion(selectedQuestion, pronostico);
+//					textFieldPronostic.setText("");
+//					textFieldOdds.setText("");
+//				}
+
+			}
+		});
+		getContentPane().add(btnAddPronostic);
+		
 
 	}
 
 	private void jButton2_actionPerformed(ActionEvent e) {
 		this.setVisible(false);
 	}
-
 }
