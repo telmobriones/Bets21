@@ -32,6 +32,7 @@ public class MainAdminGUI extends JFrame {
 	private JButton jButtonQueryQueries = null;
 	private JButton jButtonCreateEvent = null;
 	private JButton jButtonCreatePronostic = null;
+	private JButton jButtonAddResult = null;
 	
     private static BLFacade appFacadeInterface;
 	
@@ -100,6 +101,7 @@ public class MainAdminGUI extends JFrame {
 			jContentPane.add(getBoton2());
 			jContentPane.add(getjButtonCreateEvent());
 			jContentPane.add(getjButtonCreatePronostic());
+			jContentPane.add(getjButtonAddResult());
 			jContentPane.add(getPanel());
 	
 		}
@@ -168,7 +170,11 @@ public class MainAdminGUI extends JFrame {
 		return jButtonCreatePronostic;
 	}
 	
-	
+	/**
+	 * This method initializes createEvent button
+	 * 
+	 * @return javax.swing.JButton
+	 */
 	private JButton getjButtonCreateEvent() {
 		if (jButtonCreateEvent == null) {
 			jButtonCreateEvent = new JButton(ResourceBundle.getBundle("Etiquetas").getString("CreateEvent")); //$NON-NLS-1$ //$NON-NLS-2$
@@ -183,6 +189,25 @@ public class MainAdminGUI extends JFrame {
 		return jButtonCreateEvent;
 	}
 	
+	/**
+	 * This method initializes addResult button
+	 * 
+	 * @return javax.swing.JButton
+	 */
+	private JButton getjButtonAddResult() {
+		if (jButtonAddResult == null) {
+			jButtonAddResult = new JButton("AddResult");
+			jButtonAddResult.setBounds(246, 118, 249, 61);
+			jButtonAddResult.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JFrame a = new AddResultGUI();
+					a.setVisible(true);
+				}
+			});
+		}
+		return jButtonAddResult;
+	}
+
 	private JLabel getLblNewLabel() {
 		if (jLabelSelectOption == null) {
 			jLabelSelectOption = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("SelectOption"));
