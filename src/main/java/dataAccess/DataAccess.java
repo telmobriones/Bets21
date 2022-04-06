@@ -230,10 +230,21 @@ public class DataAccess {
 	 * @return the created bet, or null, or an exception
 	 */
 	public Bet addBetToPronostic(int betMoney, User betUser, Pronostic betPronostic) {
+		int newBetID;
+		TypedQuery<Bet> query = db.createQuery("SELECT FROM Bet ORDER BY betID DESC", Bet.class);
+		if(query.getResultList().size() != 0) {
+			Bet lastBet = query.getResultList().get(0);
+			System.out.println("LastBetID: " + lastBet.getBetID());
+			newBetID = lastBet.getBetID()+1;
+			System.out.println("NewBetNumber: " + newBetID);
+		} else {
+			newBetID = 0;
+		}
+		
 		db.getTransaction().begin();
-		Pronostic p = findPronosticByID(betPronostic.getPronID());
-		Bet bet = p.addBetToPronostic(betUser, betMoney);
-		db.persist(p);
+		Pronostic pronostic = findPronosticByID(betPronostic.getPronID());
+		Bet bet = pronostic.addBetToPronostic(newBetID,betUser, betMoney);
+		db.persist(pronostic);
 		db.getTransaction().commit();
 		return bet;
 	}

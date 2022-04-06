@@ -60,8 +60,8 @@ public class Pronostic {
 		this.pronQuestion = pronQuestion;
 	}
 	
-	public Bet addBetToPronostic(User betUser, int betMoney) {
-		Bet bet = new Bet(betMoney, betUser, this);
+	public Bet addBetToPronostic(int betID, User betUser, int betMoney) {
+		Bet bet = new Bet(betID, betMoney, betUser, this);
 		this.pronBets.add(bet);
 		return bet;
 	}

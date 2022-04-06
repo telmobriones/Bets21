@@ -12,12 +12,16 @@ public class Bet {
 	private User betUser;
 	private Pronostic betPronostic;
 	
-	public Bet(Integer betMoney, User betUser, Pronostic betPronostic) {
+	public Bet(int betID, int betMoney, User betUser, Pronostic betPronostic) {
+		this.betID = betID;
 		this.betMoney = betMoney;
 		this.betUser = betUser;
 		this.betPronostic = betPronostic;
 	}
 	
+	public int getBetID() {
+		return betID;
+	}
 	public int getBetMoney() {
 		return betMoney;
 	}
