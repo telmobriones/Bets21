@@ -32,7 +32,6 @@ public class MainLoggedGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private JPanel jContentPane = null;
-	private JButton jButtonCreateQuery = null;
 	private JButton jButtonQueryQueries = null;
 	private JButton jButtonTopUpBalance = null;
 	private JButton jButtonSeeMovements = null;
@@ -87,7 +86,7 @@ public class MainLoggedGUI extends JFrame {
 	 */
 	private void initialize() {
 		// this.setSize(271, 295);
-		this.setSize(495, 484);
+		this.setSize(495, 408);
 		this.setContentPane(getJContentPane());
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("LoggedTitle") + ": " + loggedUser.getUsername());
 	}
@@ -103,43 +102,21 @@ public class MainLoggedGUI extends JFrame {
 			jContentPane.setLayout(null);
 			jContentPane.add(getLblNewLabel());
 			jContentPane.add(getBoton3());
-			jContentPane.add(getBoton2());
 			jContentPane.add(getTopUpBalanceButton());
 			jContentPane.add(getSeeMovementsButton());
 			jContentPane.add(getPanel());
 			
-			JButton btnBet = new JButton(ResourceBundle.getBundle("Etiquetas").getString("MainLoggedGUI.btnBet.text")); //$NON-NLS-1$ //$NON-NLS-2$
-			btnBet.setBounds(0, 175, 495, 61);
-			jContentPane.add(btnBet);
+			JButton jButtonBet = new JButton(ResourceBundle.getBundle("Etiquetas").getString("MainLoggedGUI.btnBet.text")); //$NON-NLS-1$ //$NON-NLS-2$
+			jButtonBet.setBounds(0, 113, 495, 61);
+			jContentPane.add(jButtonBet);
 	
 		}
 		return jContentPane;
 	}
-
-
-	/**
-	 * This method initializes boton1
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getBoton2() {
-		if (jButtonCreateQuery == null) {
-			jButtonCreateQuery = new JButton();
-			jButtonCreateQuery.setBounds(0, 113, 495, 61);
-			jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"));
-			jButtonCreateQuery.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					JFrame a = new CreateQuestionGUI(new Vector<Event>());
-					a.setVisible(true);
-				}
-			});
-		}
-		return jButtonCreateQuery;
-	}
 	
 	
-	/**jButtonCreateQuery
-	 * This method initializes boton2
+	/**jButtonQueryQuery
+	 * This method initializes boton3
 	 * 
 	 * @return javax.swing.JButton
 	 */
@@ -168,7 +145,7 @@ public class MainLoggedGUI extends JFrame {
 	private JButton getTopUpBalanceButton() {
 		if (jButtonTopUpBalance == null) {
 			jButtonTopUpBalance = new JButton();
-			jButtonTopUpBalance.setBounds(0, 299, 495, 61);
+			jButtonTopUpBalance.setBounds(0, 237, 495, 61);
 			jButtonTopUpBalance.setText(ResourceBundle.getBundle("Etiquetas").getString("TopUpBalance"));
 			jButtonTopUpBalance.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -189,7 +166,7 @@ public class MainLoggedGUI extends JFrame {
 	private JButton getSeeMovementsButton() {
 		if (jButtonSeeMovements == null) {
 			jButtonSeeMovements = new JButton();
-			jButtonSeeMovements.setBounds(0, 237, 495, 61);
+			jButtonSeeMovements.setBounds(0, 175, 495, 61);
 			jButtonSeeMovements.setText(ResourceBundle.getBundle("Etiquetas").getString("SeeMovements"));
 			jButtonSeeMovements.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -259,7 +236,7 @@ public class MainLoggedGUI extends JFrame {
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
-			panel.setBounds(0, 378, 495, 61);
+			panel.setBounds(0, 307, 495, 61);
 			panel.add(getRdbtnNewRadioButton_1());
 			panel.add(getRdbtnNewRadioButton_2());
 			panel.add(getRdbtnNewRadioButton());
@@ -270,7 +247,6 @@ public class MainLoggedGUI extends JFrame {
 	private void redibujar() {
 		jLabelSelectOption.setText(ResourceBundle.getBundle("Etiquetas").getString("SelectOption"));
 		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
-		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"));
 		jButtonTopUpBalance.setText(ResourceBundle.getBundle("Etiquetas").getString("TopUpBalance"));
 		jButtonSeeMovements.setText(ResourceBundle.getBundle("Etiquetas").getString("SeeMovements"));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("LoggedTitle") + ": " + loggedUser.getUsername());
