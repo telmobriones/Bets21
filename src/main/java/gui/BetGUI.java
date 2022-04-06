@@ -330,24 +330,24 @@ public class BetGUI extends JFrame {
 				minBetAmmount = pronQuestion.getBetMinimum();
 				
 				if (betPronostic == null) {
-					lblErrors.setText("Debe escoger un pronostico.");
+					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorSelectPronostic"));
 					error = true;
 				} else {
 					if (betMoney <= minBetAmmount) {
-						lblErrors.setText("La apuesta debe superar el minimo");
+						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorBetMinimum"));
 						error = true;
 					} else if (betMoney > loggedUser.getBalance()) {
-						lblErrors.setText("No tiene suficiente saldo");
+						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorNoBalance"));
 						error = true;
 					}else if (new Date().compareTo(pronEvent.getEventDate()) > 0) {
-						lblErrors.setText("Debe escoger un evento que no haya pasado");
+						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorPastEvent"));
 						error = true;
 					}
 				}
 
 				if (!error) {
 
-					lblErrors.setText("Apuesta anadida!");
+					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("BetAdded"));
 					int money2add = -betMoney;
 					Movement movement = facade.createMovement("Bet Made", money2add, loggedUser, pronEvent, pronQuestion);
 					facade.updateMovement(loggedUser, movement);

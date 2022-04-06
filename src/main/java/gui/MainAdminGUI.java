@@ -196,7 +196,7 @@ public class MainAdminGUI extends JFrame {
 	 */
 	private JButton getjButtonAddResult() {
 		if (jButtonAddResult == null) {
-			jButtonAddResult = new JButton("AddResult");
+			jButtonAddResult = new JButton(ResourceBundle.getBundle("Etiquetas").getString("AddResult"));
 			jButtonAddResult.setBounds(246, 118, 249, 61);
 			jButtonAddResult.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -277,6 +277,9 @@ public class MainAdminGUI extends JFrame {
 		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
 		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"));
 		jButtonCreateEvent.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateEvent"));
+		jButtonCreatePronostic.setText(ResourceBundle.getBundle("Etiquetas").getString("CreatePronostic"));
+		jButtonAddResult.setText(ResourceBundle.getBundle("Etiquetas").getString("AddResult"));
+		
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainTitle"));
 	}
 } // @jve:decl-index=0:visual-constraint="0,0"

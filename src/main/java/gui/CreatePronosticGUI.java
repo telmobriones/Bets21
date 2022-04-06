@@ -283,31 +283,31 @@ public class CreatePronosticGUI extends JFrame {
 				boolean error = false;
 
 				if (new Date().compareTo(pronEvent.getEventDate()) > 0) {
-					lblErrors.setText("Debe escoger un evento que no haya pasado");
+					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorPastEvent"));
 					error = true;
 				}
 				if (pronQuestion == null) {
-					lblErrors.setText("Debe escoger una pregunta.");
+					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorSelectQuestion"));
 					error = true;
 				}
 				if (pronEvent == null) {
-					lblErrors.setText("Debe escoger un evento.");
+					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorSelectEvent"));
 					error = true;
 				}
 				if ((pronEvent != null) && (pronQuestion != null)) {
 					if (pronDescription.equals("")) {
-						lblErrors.setText("Ingresar datos");
+						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorEnterData"));
 						error = true;
 					}
-					if (pronOdd <= 0) {
-						lblErrors.setText("Debe ingresar un valor de ganancia valido");
+					if (pronOdd <= 0 || textFieldOdds.getText().length()==0) {
+						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorNumber"));
 						error = true;
 					}
 				}
 
 				if (!error) {
 					Pronostic pronostico = facade.createPronostic(pronOdd, pronDescription, pronQuestion);
-					lblErrors.setText("Pronostico anadido");
+					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("PronosticAdded"));
 					facade.updateQuestion(pronQuestion, pronostico);
 					textFieldPronostic.setText("");
 					textFieldOdds.setText("");
