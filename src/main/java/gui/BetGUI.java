@@ -256,7 +256,7 @@ public class BetGUI extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int i = tableQueries.getSelectedRow();
-				int qNumber = (int) tableModelQueries.getValueAt(i, 0); // obtain Question object
+				int qNumber = (int) tableModelQueries.getValueAt(i, 0);
 				pronQuestion = facade.getQuestionByN(qNumber);
 				
 				ArrayList<Pronostic> pronostics = pronQuestion.getPronostics();
@@ -273,12 +273,10 @@ public class BetGUI extends JFrame {
 					
 					row.add(p.getPronID());
 					row.add(p.getPronDescription());
-					row.add(p);
 					tableModelPronostics.addRow(row);
 				}
 				tablePronostics.getColumnModel().getColumn(0).setPreferredWidth(25);
 				tablePronostics.getColumnModel().getColumn(1).setPreferredWidth(268);
-				tablePronostics.getColumnModel().removeColumn(tablePronostics.getColumnModel().getColumn(2));
 			}
 		});
 		
@@ -286,8 +284,8 @@ public class BetGUI extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int i = tablePronostics.getSelectedRow();
-				domain.Pronostic pronostic = (domain.Pronostic) tableModelPronostics.getValueAt(i, 2);
-				System.out.println(pronostic.getPronDescription());
+				int pronosticN = (int) tableModelPronostics.getValueAt(i, 0);
+				betPronostic = facade.getPronosticByN();
 			}
 		});
 		

@@ -35,6 +35,7 @@ public class MainLoggedGUI extends JFrame {
 	private JButton jButtonQueryQueries = null;
 	private JButton jButtonTopUpBalance = null;
 	private JButton jButtonSeeMovements = null;
+	private JButton jButtonBet = null;
 	
     private static BLFacade appFacadeInterface;
 	
@@ -104,16 +105,27 @@ public class MainLoggedGUI extends JFrame {
 			jContentPane.add(getBoton3());
 			jContentPane.add(getTopUpBalanceButton());
 			jContentPane.add(getSeeMovementsButton());
+			jContentPane.add(getBetButton());
 			jContentPane.add(getPanel());
-			
-			JButton jButtonBet = new JButton(ResourceBundle.getBundle("Etiquetas").getString("MainLoggedGUI.btnBet.text")); //$NON-NLS-1$ //$NON-NLS-2$
-			jButtonBet.setBounds(0, 113, 495, 61);
-			jContentPane.add(jButtonBet);
 	
 		}
 		return jContentPane;
 	}
 	
+	private JButton getBetButton() {
+		if(jButtonBet == null) {
+			jButtonBet = new JButton();
+			jButtonBet.setBounds(0, 113, 495, 61);
+			jButtonBet.setText(ResourceBundle.getBundle("Etiquetas").getString("Bet"));
+			jButtonBet.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					JFrame bet = new BetGUI();
+					bet.setVisible(true);
+				}
+			});
+		}
+		return jButtonBet;
+	}
 	
 	/**jButtonQueryQuery
 	 * This method initializes boton3
@@ -249,6 +261,7 @@ public class MainLoggedGUI extends JFrame {
 		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
 		jButtonTopUpBalance.setText(ResourceBundle.getBundle("Etiquetas").getString("TopUpBalance"));
 		jButtonSeeMovements.setText(ResourceBundle.getBundle("Etiquetas").getString("SeeMovements"));
+		jButtonBet.setText(ResourceBundle.getBundle("Etiquetas").getString("Bet"));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("LoggedTitle") + ": " + loggedUser.getUsername());
 	}
 	

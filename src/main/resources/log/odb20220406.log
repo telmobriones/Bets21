@@ -1206,3 +1206,72 @@ Type domain.Bet is not enhanced.
 [2022-04-06 12:48:28 #7 type] 
 Type domain.Movement is not enhanced.
 
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-04-06 12:55:07 #1 store] 
+Database '/home/artiom/git/Bets21/src/main/resources/bets.temp' is opened by 15802@Artioms-Laptop
+
+[2022-04-06 12:55:08 #2 type] 
+Type domain.Question is not enhanced.
+
+[2022-04-06 12:55:08 #3 type] 
+Type domain.Event is not enhanced.
+
+[2022-04-06 12:55:08 #4 type] 
+Type domain.User is not enhanced.
+
+[2022-04-06 12:55:08 #5 type] 
+Type domain.Pronostic is not enhanced.
+
+[2022-04-06 12:55:08 #6 type] 
+Type domain.Bet is not enhanced.
+
+[2022-04-06 12:55:08 #7 type] 
+Type domain.Movement is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-04-06 13:07:03 #1 store] 
+Database '/home/artiom/git/Bets21/src/main/resources/bets.temp' is opened by 17310@Artioms-Laptop
+
+[2022-04-06 13:07:03 #2 type] 
+Type domain.Question is not enhanced.
+
+[2022-04-06 13:07:03 #3 type] 
+Type domain.Event is not enhanced.
+
+[2022-04-06 13:07:03 #4 type] 
+Type domain.User is not enhanced.
+
+[2022-04-06 13:07:03 #5 type] 
+Type domain.Pronostic is not enhanced.
+
+[2022-04-06 13:07:03 #6 type] 
+Type domain.Bet is not enhanced.
+
+[2022-04-06 13:07:03 #7 type] 
+Type domain.Movement is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-04-06 13:10:53 #1 store] 
+Database '/home/artiom/git/Bets21/src/main/resources/bets.temp' is opened by 17716@Artioms-Laptop
+
+[2022-04-06 13:10:53 #2 type] 
+Type domain.Question is not enhanced.
+
+[2022-04-06 13:10:53 #3 type] 
+Type domain.Event is not enhanced.
+
+[2022-04-06 13:10:53 #4 type] 
+Type domain.User is not enhanced.
+
+[2022-04-06 13:10:53 #5 type] 
+Type domain.Pronostic is not enhanced.
+
+[2022-04-06 13:10:53 #6 type] 
+Type domain.Bet is not enhanced.
+
+[2022-04-06 13:10:53 #7 type] 
+Type domain.Movement is not enhanced.
+
