@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.ResourceBundle;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -41,6 +43,30 @@ public class Movement {
 		this.movementType = movementType;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Event getEvent() {
+		return event;
+	}
+
+	public void setEvent(Event event) {
+		this.event = event;
+	}
+
+	public Question getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+
 	public int getMoney() {
 		return money;
 	}
@@ -48,4 +74,5 @@ public class Movement {
 	public void setMoney(int money) {
 		this.money = money;
 	}
+
 }

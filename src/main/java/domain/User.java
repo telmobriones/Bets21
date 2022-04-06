@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 @Entity
 public class User {
@@ -13,7 +14,7 @@ public class User {
 	private boolean isAdmin;
 	private int balance; // Kontuko saldoa
 	private ArrayList<Bet> bets = new ArrayList<Bet>();
-	private ArrayList<Movement> movements = new ArrayList<Movement>(); // Erabiltzailearen diru mugimenduen lista
+	private Vector<Movement> movements = new Vector<Movement>(); // Erabiltzailearen diru mugimenduen lista
 	
 	public User (String pUsername, String pPassword, boolean pIsAdmin) {
 		super();
@@ -51,6 +52,14 @@ public class User {
 		
 	}
 		
+	public Vector<Movement> getMovements() {
+		return movements;
+	}
+
+	public void setMovements(Vector<Movement> movements) {
+		this.movements = movements;
+	}
+
 	/**
 	 * Add a new movemento to this user
 	 * 

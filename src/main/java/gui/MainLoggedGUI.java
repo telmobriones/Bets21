@@ -35,6 +35,7 @@ public class MainLoggedGUI extends JFrame {
 	private JButton jButtonCreateQuery = null;
 	private JButton jButtonQueryQueries = null;
 	private JButton jButtonTopUpBalance = null;
+	private JButton jButtonSeeMovements = null;
 	
     private static BLFacade appFacadeInterface;
 	
@@ -104,8 +105,9 @@ public class MainLoggedGUI extends JFrame {
 			jContentPane.add(getBoton3());
 			jContentPane.add(getBoton2());
 			jContentPane.add(getTopUpBalanceButton());
+			jContentPane.add(getSeeMovementsButton());
 			jContentPane.add(getPanel());
-			
+	
 		}
 		return jContentPane;
 	}
@@ -119,7 +121,7 @@ public class MainLoggedGUI extends JFrame {
 	private JButton getBoton2() {
 		if (jButtonCreateQuery == null) {
 			jButtonCreateQuery = new JButton();
-			jButtonCreateQuery.setBounds(0, 115, 495, 61);
+			jButtonCreateQuery.setBounds(0, 96, 495, 61);
 			jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"));
 			jButtonCreateQuery.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -140,7 +142,7 @@ public class MainLoggedGUI extends JFrame {
 	private JButton getBoton3() {
 		if (jButtonQueryQueries == null) {
 			jButtonQueryQueries = new JButton();
-			jButtonQueryQueries.setBounds(0, 61, 495, 61);
+			jButtonQueryQueries.setBounds(0, 51, 495, 56);
 			jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
 			jButtonQueryQueries.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -153,10 +155,16 @@ public class MainLoggedGUI extends JFrame {
 		return jButtonQueryQueries;
 	}
 	
+
+	/**jButtonTopUpBalance
+	 * This method initializes topUpBalance button
+	 * 
+	 * @return javax.swing.JButton
+	 */
 	private JButton getTopUpBalanceButton() {
 		if (jButtonTopUpBalance == null) {
 			jButtonTopUpBalance = new JButton();
-			jButtonTopUpBalance.setBounds(0, 169, 495, 61);
+			jButtonTopUpBalance.setBounds(0, 148, 495, 61);
 			jButtonTopUpBalance.setText(ResourceBundle.getBundle("Etiquetas").getString("TopUpBalance"));
 			jButtonTopUpBalance.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -167,6 +175,29 @@ public class MainLoggedGUI extends JFrame {
 		}
 		return jButtonTopUpBalance;
 	}
+	
+
+	/**jButtonSeeMovements
+	 * This method initializes SeeMovement button
+	 * 
+	 * @return javax.swing.JButton
+	 */
+	private JButton getSeeMovementsButton() {
+		if (jButtonSeeMovements == null) {
+			jButtonSeeMovements = new JButton();
+			jButtonSeeMovements.setBounds(0, 201, 495, 61);
+			jButtonSeeMovements.setText(ResourceBundle.getBundle("Etiquetas").getString("SeeMovements"));
+			jButtonSeeMovements.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					SeeMovementsGUI a = new SeeMovementsGUI();
+					a.setVisible(true);
+				}
+			});
+		}
+		return jButtonSeeMovements;
+	}
+
+
 	
 	private JLabel getLblNewLabel() {
 		if (jLabelSelectOption == null) {
@@ -237,6 +268,7 @@ public class MainLoggedGUI extends JFrame {
 		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
 		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"));
 		jButtonTopUpBalance.setText(ResourceBundle.getBundle("Etiquetas").getString("TopUpBalance"));
+		jButtonSeeMovements.setText(ResourceBundle.getBundle("Etiquetas").getString("SeeMovements"));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("LoggedTitle") + ": " + loggedUser.getUsername());
 	}
 	
