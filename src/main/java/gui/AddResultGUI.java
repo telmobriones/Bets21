@@ -300,17 +300,17 @@ public class AddResultGUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				boolean error = false;
-//
-//				if (new Date().compareTo(pronEvent.getEventDate()) <= 0) {
-//					lblErrors.setText("Event hasn't happened yet!");
-//					error = true;
-//				} else if (betPronostic == null) {
-//					lblErrors.setText("No pronostic selected!");
-//					error = true;
-//				} else if (pronosticResult == 2) {
-//					lblErrors.setText("No result selected!");
-//					error = true;
-//				}
+
+				if (new Date().compareTo(pronEvent.getEventDate()) <= 0) {
+					lblErrors.setText("Event hasn't happened yet!");
+					error = true;
+				} else if (betPronostic == null) {
+					lblErrors.setText("No pronostic selected!");
+					error = true;
+				} else if (pronosticResult == 2) {
+					lblErrors.setText("No result selected!");
+					error = true;
+				}
 				if (!error) {
 					betPronostic.setPronClosed(true);
 					if (pronosticResult == 1) {
