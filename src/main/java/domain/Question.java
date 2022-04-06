@@ -164,6 +164,9 @@ public class Question implements Serializable {
 		qPronostics.add(pronostic);
 	}
 
+	public ArrayList<Pronostic> getPronostics() {
+		return qPronostics;
+	}
 
 
 	public String toString(){

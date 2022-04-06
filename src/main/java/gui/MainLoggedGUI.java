@@ -87,7 +87,7 @@ public class MainLoggedGUI extends JFrame {
 	 */
 	private void initialize() {
 		// this.setSize(271, 295);
-		this.setSize(495, 400);
+		this.setSize(495, 484);
 		this.setContentPane(getJContentPane());
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("LoggedTitle") + ": " + loggedUser.getUsername());
 	}
@@ -107,6 +107,10 @@ public class MainLoggedGUI extends JFrame {
 			jContentPane.add(getTopUpBalanceButton());
 			jContentPane.add(getSeeMovementsButton());
 			jContentPane.add(getPanel());
+			
+			JButton btnBet = new JButton(ResourceBundle.getBundle("Etiquetas").getString("MainLoggedGUI.btnBet.text")); //$NON-NLS-1$ //$NON-NLS-2$
+			btnBet.setBounds(0, 175, 495, 61);
+			jContentPane.add(btnBet);
 	
 		}
 		return jContentPane;
@@ -121,7 +125,7 @@ public class MainLoggedGUI extends JFrame {
 	private JButton getBoton2() {
 		if (jButtonCreateQuery == null) {
 			jButtonCreateQuery = new JButton();
-			jButtonCreateQuery.setBounds(0, 96, 495, 61);
+			jButtonCreateQuery.setBounds(0, 113, 495, 61);
 			jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"));
 			jButtonCreateQuery.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -142,7 +146,7 @@ public class MainLoggedGUI extends JFrame {
 	private JButton getBoton3() {
 		if (jButtonQueryQueries == null) {
 			jButtonQueryQueries = new JButton();
-			jButtonQueryQueries.setBounds(0, 51, 495, 56);
+			jButtonQueryQueries.setBounds(0, 51, 495, 61);
 			jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
 			jButtonQueryQueries.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -164,7 +168,7 @@ public class MainLoggedGUI extends JFrame {
 	private JButton getTopUpBalanceButton() {
 		if (jButtonTopUpBalance == null) {
 			jButtonTopUpBalance = new JButton();
-			jButtonTopUpBalance.setBounds(0, 148, 495, 61);
+			jButtonTopUpBalance.setBounds(0, 299, 495, 61);
 			jButtonTopUpBalance.setText(ResourceBundle.getBundle("Etiquetas").getString("TopUpBalance"));
 			jButtonTopUpBalance.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -185,7 +189,7 @@ public class MainLoggedGUI extends JFrame {
 	private JButton getSeeMovementsButton() {
 		if (jButtonSeeMovements == null) {
 			jButtonSeeMovements = new JButton();
-			jButtonSeeMovements.setBounds(0, 201, 495, 61);
+			jButtonSeeMovements.setBounds(0, 237, 495, 61);
 			jButtonSeeMovements.setText(ResourceBundle.getBundle("Etiquetas").getString("SeeMovements"));
 			jButtonSeeMovements.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -255,7 +259,7 @@ public class MainLoggedGUI extends JFrame {
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
-			panel.setBounds(0, 274, 495, 61);
+			panel.setBounds(0, 378, 495, 61);
 			panel.add(getRdbtnNewRadioButton_1());
 			panel.add(getRdbtnNewRadioButton_2());
 			panel.add(getRdbtnNewRadioButton());
