@@ -18,8 +18,6 @@ import businessLogic.BLFacade;
 import domain.Movement;
 import domain.Pronostic;
 import domain.User;
-import jdk.internal.misc.FileSystemOption;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;

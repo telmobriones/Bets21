@@ -1108,3 +1108,101 @@ Type domain.Bet is not enhanced.
 [2022-04-06 11:43:41 #7 type] 
 Type domain.Movement is not enhanced.
 
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-04-06 11:58:43 #1 store] 
+Database '/home/artiom/git/Bets21/src/main/resources/bets.temp' has been recovered (tr. 124-126)
+
+[2022-04-06 11:58:43 #2 store] 
+Database '/home/artiom/git/Bets21/src/main/resources/bets.temp' is opened by 7901@Artioms-Laptop
+
+[2022-04-06 11:58:43 #3 type] 
+Type domain.Question is not enhanced.
+
+[2022-04-06 11:58:43 #4 type] 
+Type domain.Event is not enhanced.
+
+[2022-04-06 11:58:43 #5 type] 
+Type domain.User is not enhanced.
+
+[2022-04-06 11:58:43 #6 type] 
+Type domain.Pronostic is not enhanced.
+
+[2022-04-06 11:58:43 #7 type] 
+Type domain.Bet is not enhanced.
+
+[2022-04-06 11:58:43 #8 type] 
+Type domain.Movement is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-04-06 12:00:46 #1 store] 
+Database '/home/artiom/git/Bets21/src/main/resources/bets.temp' has been recovered (tr. 127-132)
+
+[2022-04-06 12:00:46 #2 store] 
+Database '/home/artiom/git/Bets21/src/main/resources/bets.temp' is opened by 8262@Artioms-Laptop
+
+[2022-04-06 12:00:46 #3 type] 
+Type domain.Question is not enhanced.
+
+[2022-04-06 12:00:46 #4 type] 
+Type domain.Event is not enhanced.
+
+[2022-04-06 12:00:46 #5 type] 
+Type domain.User is not enhanced.
+
+[2022-04-06 12:00:46 #6 type] 
+Type domain.Pronostic is not enhanced.
+
+[2022-04-06 12:00:46 #7 type] 
+Type domain.Bet is not enhanced.
+
+[2022-04-06 12:00:46 #8 type] 
+Type domain.Movement is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-04-06 12:19:22 #1 store] 
+Database '/home/artiom/git/Bets21/src/main/resources/bets.temp' is opened by 10418@Artioms-Laptop
+
+[2022-04-06 12:19:22 #2 type] 
+Type domain.Question is not enhanced.
+
+[2022-04-06 12:19:22 #3 type] 
+Type domain.Event is not enhanced.
+
+[2022-04-06 12:19:22 #4 type] 
+Type domain.User is not enhanced.
+
+[2022-04-06 12:19:22 #5 type] 
+Type domain.Pronostic is not enhanced.
+
+[2022-04-06 12:19:22 #6 type] 
+Type domain.Bet is not enhanced.
+
+[2022-04-06 12:19:22 #7 type] 
+Type domain.Movement is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-04-06 12:48:28 #1 store] 
+Database '/home/artiom/git/Bets21/src/main/resources/bets.temp' is opened by 14738@Artioms-Laptop
+
+[2022-04-06 12:48:28 #2 type] 
+Type domain.Question is not enhanced.
+
+[2022-04-06 12:48:28 #3 type] 
+Type domain.Event is not enhanced.
+
+[2022-04-06 12:48:28 #4 type] 
+Type domain.User is not enhanced.
+
+[2022-04-06 12:48:28 #5 type] 
+Type domain.Pronostic is not enhanced.
+
+[2022-04-06 12:48:28 #6 type] 
+Type domain.Bet is not enhanced.
+
+[2022-04-06 12:48:28 #7 type] 
+Type domain.Movement is not enhanced.
+

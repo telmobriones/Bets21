@@ -23,7 +23,8 @@ public class BetGUI extends JFrame {
 
 	private final JLabel jLabelEventDate = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("EventDate"));
 	private final JLabel jLabelQueries = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Queries")); 
-	private final JLabel jLabelEvents = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Events")); 
+	private final JLabel jLabelEvents = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Events"));
+	private final JLabel jLabelPronostics = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Pronostics")); 
 
 	private JButton jButtonClose = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Close"));
 
@@ -33,14 +34,17 @@ public class BetGUI extends JFrame {
 	private Calendar calendarAct = null;
 	private JScrollPane scrollPaneEvents = new JScrollPane();
 	private JScrollPane scrollPaneQueries = new JScrollPane();
+	private JScrollPane scrollPanePronostics = new JScrollPane();
 	
 	private Vector<Date> datesWithEventsCurrentMonth = new Vector<Date>();
 
 	private JTable tableEvents= new JTable();
 	private JTable tableQueries = new JTable();
+	private JTable tablePronostics = new JTable();
 
 	private DefaultTableModel tableModelEvents;
 	private DefaultTableModel tableModelQueries;
+	private DefaultTableModel tableModelPronostics;
 
 	
 	private String[] columnNamesEvents = new String[] {
@@ -53,12 +57,21 @@ public class BetGUI extends JFrame {
 			ResourceBundle.getBundle("Etiquetas").getString("Query")
 
 	};
+	private String[] columnNamesPronostics = new String[] {
+			ResourceBundle.getBundle("Etiquetas").getString("PronosticN"), 
+			ResourceBundle.getBundle("Etiquetas").getString("Pronostic")
+
+	};
+	
+	
+	
 	private JTextField textFieldPronostic;
 	private JTextField textFieldOdds;
 	private final JLabel lblErrors= new JLabel("");
 	
 	private Event pronEvent;
 	private Question pronQuestion;
+	private Pronostic betPronostic;
 	
 	private static BLFacade facade = MainGUI.getBusinessLogic();
 
@@ -79,16 +92,18 @@ public class BetGUI extends JFrame {
 	{
 
 		this.getContentPane().setLayout(null);
-		this.setSize(new Dimension(750, 500));
+		this.setSize(new Dimension(750, 710));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("CreatePronostic"));
 
 		jLabelEventDate.setBounds(new Rectangle(40, 15, 140, 25));
 		jLabelQueries.setBounds(40, 247, 406, 14);
 		jLabelEvents.setBounds(295, 19, 259, 16);
+		jLabelPronostics.setBounds(40, 463, 259, 16);
 
 		this.getContentPane().add(jLabelEventDate, null);
 		this.getContentPane().add(jLabelQueries);
 		this.getContentPane().add(jLabelEvents);
+		this.getContentPane().add(jLabelPronostics);
 
 		jButtonClose.setBounds(new Rectangle(526, 419, 112, 30));
 
@@ -189,7 +204,27 @@ public class BetGUI extends JFrame {
 		
 		scrollPaneEvents.setBounds(new Rectangle(292, 50, 346, 150));
 		scrollPaneQueries.setBounds(new Rectangle(40, 274, 406, 160));
+		scrollPanePronostics.setBounds(new Rectangle(40, 491, 406, 160));
+		
+		scrollPaneEvents.setViewportView(tableEvents);
+		tableModelEvents = new DefaultTableModel(null, columnNamesEvents);
+		tableEvents.setModel(tableModelEvents);
+		tableEvents.getColumnModel().getColumn(0).setPreferredWidth(25);
+		tableEvents.getColumnModel().getColumn(1).setPreferredWidth(268);
 
+		scrollPaneQueries.setViewportView(tableQueries);
+		tableModelQueries = new DefaultTableModel(null, columnNamesQueries);
+		tableQueries.setModel(tableModelQueries);
+		tableQueries.getColumnModel().getColumn(0).setPreferredWidth(25);
+		tableQueries.getColumnModel().getColumn(1).setPreferredWidth(268);
+		
+		scrollPanePronostics.setViewportView(tablePronostics);
+		tableModelPronostics = new DefaultTableModel(null, columnNamesPronostics);
+		tablePronostics.setModel(tableModelPronostics);
+		tablePronostics.getColumnModel().getColumn(0).setPreferredWidth(25);
+		tablePronostics.getColumnModel().getColumn(1).setPreferredWidth(268);
+		
+		
 		tableEvents.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -217,29 +252,48 @@ public class BetGUI extends JFrame {
 			}
 		});
 
-		scrollPaneEvents.setViewportView(tableEvents);
-		tableModelEvents = new DefaultTableModel(null, columnNamesEvents);
-		tableEvents.setModel(tableModelEvents);
-		tableEvents.getColumnModel().getColumn(0).setPreferredWidth(25);
-		tableEvents.getColumnModel().getColumn(1).setPreferredWidth(268);
-
-
-		scrollPaneQueries.setViewportView(tableQueries);
-		tableModelQueries = new DefaultTableModel(null, columnNamesQueries);
-		tableQueries.setModel(tableModelQueries);
-		tableQueries.getColumnModel().getColumn(0).setPreferredWidth(25);
-		tableQueries.getColumnModel().getColumn(1).setPreferredWidth(268);
 		tableQueries.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int i = tableQueries.getSelectedRow();
 				int qNumber = (int) tableModelQueries.getValueAt(i, 0); // obtain Question object
 				pronQuestion = facade.getQuestionByN(qNumber);
-				System.out.println(pronQuestion.getQuestion());
+				
+				ArrayList<Pronostic> pronostics = pronQuestion.getPronostics();
+				
+				tableModelPronostics.setDataVector(null,  columnNamesPronostics);
+				
+				if (pronostics.isEmpty())
+					jLabelPronostics.setText(ResourceBundle.getBundle("Etiquetas").getString("NoPronostics")+": "+pronQuestion.getQuestion());
+				else
+					jLabelPronostics.setText(ResourceBundle.getBundle("Etiquetas").getString("SelectedQuestion")+": "+pronQuestion.getQuestion());
+				
+				for (domain.Pronostic p:pronostics) {
+					Vector<Object> row = new Vector<Object>();
+					
+					row.add(p.getPronID());
+					row.add(p.getPronDescription());
+					row.add(p);
+					tableModelPronostics.addRow(row);
+				}
+				tablePronostics.getColumnModel().getColumn(0).setPreferredWidth(25);
+				tablePronostics.getColumnModel().getColumn(1).setPreferredWidth(268);
+				tablePronostics.getColumnModel().removeColumn(tablePronostics.getColumnModel().getColumn(2));
 			}
 		});
+		
+		tablePronostics.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int i = tablePronostics.getSelectedRow();
+				domain.Pronostic pronostic = (domain.Pronostic) tableModelPronostics.getValueAt(i, 2);
+				System.out.println(pronostic.getPronDescription());
+			}
+		});
+		
 		this.getContentPane().add(scrollPaneEvents, null);
 		this.getContentPane().add(scrollPaneQueries, null);
+		this.getContentPane().add(scrollPanePronostics, null);
 		
 		
 		////////////////////////////////////////////////////
