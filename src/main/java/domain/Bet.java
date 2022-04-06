@@ -1,10 +1,12 @@
 package domain;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class Bet {
 	@Id
+	@GeneratedValue
 	private int betID;
 	private int betMoney;
 	private User betUser;

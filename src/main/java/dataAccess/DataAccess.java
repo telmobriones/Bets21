@@ -17,6 +17,7 @@ import javax.persistence.TypedQuery;
 
 import configuration.ConfigXML;
 import configuration.UtilDate;
+import domain.Bet;
 import domain.Event;
 import domain.Movement;
 import domain.Pronostic;
@@ -220,6 +221,23 @@ public class DataAccess {
 		return pronostic;
 	}
 	
+	/**
+	 * This method adds a new bet to a certain pronostic
+	 *
+	 * @param the money betted
+	 * @param the user that made the bet
+	 * @param the pronostic that the bet is related to
+	 * @return the created bet, or null, or an exception
+	 */
+	public Bet addBetToPronostic(int betMoney, User betUser, Pronostic betPronostic) {
+		db.getTransaction().begin();
+		Pronostic p = findPronosticByID(betPronostic.getPronID());
+		Bet bet = p.addBetToPronostic(betUser, betMoney);
+		db.persist(p);
+		db.getTransaction().commit();
+		return bet;
+	}
+	
 	
 	/**
 	 * This method finds a pronostic by its description
@@ -253,6 +271,14 @@ public class DataAccess {
 		db.getTransaction().commit();
 	}
 
+	public void updateUserBet(User betUser, Bet bet) {
+		db.getTransaction().begin();
+		User user = db.find(User.class, betUser.getUsername());
+		user.addBet(bet);
+		db.persist(user);
+		db.getTransaction().commit();
+		System.out.println(betUser.getUsername()+" has been updated with the new bet!");
+	}
 	/**
 	 * This method tries to find a username
 	 *
@@ -422,6 +448,11 @@ public class DataAccess {
 	public Event findEventByN(int evNumber) {
 		Event ev = db.find(Event.class, evNumber);
 		return ev;
+	}
+	
+	public Pronostic findPronosticByID(int pronID) {
+		Pronostic pron = db.find(Pronostic.class, pronID);
+		return pron;
 	}
 	
 

@@ -6,6 +6,7 @@ import java.util.Date;
 //import domain.Booking;
 import domain.Question;
 import domain.User;
+import domain.Bet;
 import domain.Event;
 import domain.Movement;
 import domain.Pronostic;
@@ -40,7 +41,9 @@ public interface BLFacade {
 	
 	public Question getQuestionByN(int qNumber);
 	
-	public Event getEventByN(int qNumber);
+	public Event getEventByN(int evNumber);
+	
+	public Pronostic getPronosticByID(int pronID);
 	
 	
 	/**
@@ -105,6 +108,15 @@ public interface BLFacade {
 	
 	
 	/**
+	 * This method adds a new bet to a certain pronostic
+	 *
+	 * @param the money betted
+	 * @param the user that made the bet
+	 * @param the pronostic that the bet is related to
+	 * @return the created bet, or null, or an exception
+	 */
+	public Bet addBetToPronostic(int betMoney, User betUser, Pronostic betPronostic);
+	/**
 	 * This method creates a movement
 	 * 
 	 * @param Type of movement
@@ -160,7 +172,8 @@ public interface BLFacade {
 	public void updateMovement(User user, Movement movement);
 
 	public int updateBalance(User pUser, int pMoney);
-
+	
+	public void updateUserBet(User betUser, Bet bet);
 	
 	/**
 	 * This method retrieves from the database the dates a month for which there are

@@ -79,7 +79,7 @@ public class CreatePronosticGUI extends JFrame {
 	{
 
 		this.getContentPane().setLayout(null);
-		this.setSize(new Dimension(750, 500));
+		this.setSize(new Dimension(750, 535));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("CreatePronostic"));
 
 		jLabelEventDate.setBounds(new Rectangle(40, 15, 140, 25));
@@ -90,7 +90,7 @@ public class CreatePronosticGUI extends JFrame {
 		this.getContentPane().add(jLabelQueries);
 		this.getContentPane().add(jLabelEvents);
 
-		jButtonClose.setBounds(new Rectangle(526, 419, 112, 30));
+		jButtonClose.setBounds(new Rectangle(526, 459, 112, 30));
 
 		jButtonClose.addActionListener(new ActionListener()
 		{

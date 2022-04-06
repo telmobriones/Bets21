@@ -44,6 +44,10 @@ public class User {
 	public int getBalance() {
 		return balance;
 	}
+	
+	public void addBet(Bet bet) {
+		this.bets.add(bet);
+	}
 
 	public void updateBalance(int money) {
 		System.out.println("Money before update: " + this.balance);

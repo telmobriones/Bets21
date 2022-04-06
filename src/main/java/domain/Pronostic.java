@@ -59,7 +59,12 @@ public class Pronostic {
 	public void setPronQuestion(Question pronQuestion) {
 		this.pronQuestion = pronQuestion;
 	}
-
+	
+	public Bet addBetToPronostic(User betUser, int betMoney) {
+		Bet bet = new Bet(betMoney, betUser, this);
+		this.pronBets.add(bet);
+		return bet;
+	}
 	public boolean isPronResult() {
 		return pronResult;
 	}

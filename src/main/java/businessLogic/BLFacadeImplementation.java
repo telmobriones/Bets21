@@ -12,6 +12,7 @@ import configuration.ConfigXML;
 import dataAccess.DataAccess;
 import domain.Question;
 import domain.User;
+import domain.Bet;
 import domain.Event;
 import domain.Movement;
 import domain.Pronostic;
@@ -94,6 +95,12 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.open(false);
 		Event ev = dbManager.findEventByN(evNumber);
 		return ev;
+	}
+	
+	public Pronostic getPronosticByID(int pronID) {
+		dbManager.open(false);
+		Pronostic pron = dbManager.findPronosticByID(pronID);
+		return pron;
 	}
 	/**
 	 * This method checks if a user can LogIn with the introduced credentials
@@ -278,6 +285,23 @@ public class BLFacadeImplementation implements BLFacade {
 		return mov;
 	}
 	
+	
+	/**
+	 * This method adds a new bet to a certain pronostic
+	 *
+	 * @param the money betted
+	 * @param the user that made the bet
+	 * @param the pronostic that the bet is related to
+	 * @return the created bet, or null, or an exception
+	 */
+	@Override
+	public Bet addBetToPronostic(int betMoney, User betUser, Pronostic betPronostic) {
+		dbManager.open(false);
+		Bet bet = dbManager.addBetToPronostic(betMoney, betUser, betPronostic);
+		dbManager.close();
+		return bet;
+	}
+	
 	/**
 	 * This method updates the movement 
 	 * 
@@ -285,6 +309,7 @@ public class BLFacadeImplementation implements BLFacade {
 	 * @param the new movement
 	 * @return nothing
 	 */
+	@Override
 	public void updateMovement(User user, Movement movement) {
 		dbManager.open(false);
 		dbManager.updateMovement(user, movement);
@@ -318,6 +343,12 @@ public class BLFacadeImplementation implements BLFacade {
 		int newBalance = dbManager.updateBalance(pUser,pMoney);
 		dbManager.close();
 		return newBalance;
+	}
+	
+	public void updateUserBet(User betUser, Bet bet) {
+		dbManager.open(false);
+		dbManager.updateUserBet(betUser, bet);
+		dbManager.close();
 	}
 
 	
