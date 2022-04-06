@@ -57,7 +57,6 @@ public class TopUpBalanceGUI extends JFrame {
 			}
 		});
 		initialize();
-		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	/**
