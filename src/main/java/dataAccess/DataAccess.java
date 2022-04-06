@@ -452,7 +452,7 @@ public class DataAccess {
 	}
 
 	
-	public Movement createMovement(String movType, int money, User pUser) {
+	public Movement createMovement(String movType, int money, User pUser, Event pEvent, Question pQuestion) {
 		
 		TypedQuery<Movement> query = db.createQuery("SELECT FROM Movement ORDER BY movID DESC", Movement.class);
 		Movement lastMovement = query.getResultList().get(0);
@@ -463,7 +463,7 @@ public class DataAccess {
 	
 		
 		db.getTransaction().begin();
-		Movement movement = new Movement(newMovID,money, movType, pUser,null,null);
+		Movement movement = new Movement(newMovID,money, movType, pUser,pEvent,pQuestion);
 		db.persist(movement);
 		db.getTransaction().commit();
 		System.out.println(movement+" added to the DB!");

@@ -18,7 +18,6 @@ import businessLogic.BLFacade;
 import domain.Movement;
 import domain.Pronostic;
 import domain.User;
-import jdk.internal.misc.FileSystemOption;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -142,15 +141,6 @@ public class SeeMovementsGUI extends JFrame {
 		return jButtonClose;
 	}
 
-	private void redibujar() {
-		this.loggedUser = facade.getLogUser();
-		this.lblUsername.setText(ResourceBundle.getBundle("Etiquetas").getString("User") + ":");
-		lblLoggedUsername.setText(loggedUser.getUsername());
-		lblCurrentBalance.setText(ResourceBundle.getBundle("Etiquetas").getString("CurrentBalance") + ":");
-		lblCurrentBalanceAmount.setText(facade.getLogUser().getBalance() + "€");
-		jButtonClose.setText(ResourceBundle.getBundle("Etiquetas").getString("Close"));
-		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("SeeMovements"));
-	}
 
 	private JScrollPane getScrollPaneMovements() {
 		if (scrollPaneMovements == null) {

@@ -271,13 +271,20 @@ public class BLFacadeImplementation implements BLFacade {
 	}
 	
 	@Override
-	public Movement createMovement(String movType, int money, User pUser) {
+	public Movement createMovement(String movType, int money, User pUser, Event pEvent, Question pQuestion) {
 		dbManager.open(false);
-		Movement mov = dbManager.createMovement(movType,money, pUser);
+		Movement mov = dbManager.createMovement(movType,money, pUser, pEvent, pQuestion);
 		dbManager.close();
 		return mov;
 	}
 	
+	/**
+	 * This method updates the movement 
+	 * 
+	 * @param the user it's related to
+	 * @param the new movement
+	 * @return nothing
+	 */
 	public void updateMovement(User user, Movement movement) {
 		dbManager.open(false);
 		dbManager.updateMovement(user, movement);

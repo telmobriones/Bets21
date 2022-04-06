@@ -211,7 +211,7 @@ public class TopUpBalanceGUI extends JFrame {
 			btnTopUp.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					int money2add = Integer.parseInt(txtFieldAmount.getText());
-					Movement movement = facade.createMovement("TopUp", money2add, loggedUser);
+					Movement movement = facade.createMovement("TopUp", money2add, loggedUser, null, null);
 					facade.updateMovement(loggedUser, movement);
 					int newBalance = facade.updateBalance(loggedUser, money2add);
 					btnTopUp.setEnabled(false);

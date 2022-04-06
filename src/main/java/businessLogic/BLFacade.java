@@ -103,7 +103,19 @@ public interface BLFacade {
 	 */
 	public Pronostic createPronostic(int pronOdd, String pronDescription, Question pronQuestion);
 	
-	public Movement createMovement(String movType, int money, User pUser);
+	
+	/**
+	 * This method creates a movement
+	 * 
+	 * @param Type of movement
+	 * @param Amount of money
+	 * @param The user who create the movement
+	 * @param The event it's related to
+	 * @param The question it's related to
+
+	 * @return new movement
+	 */
+	public Movement createMovement(String movType, int money, User pUser, Event pEvent, Question pQuestion);
 
 	
 	
