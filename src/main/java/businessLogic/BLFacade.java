@@ -37,15 +37,15 @@ public interface BLFacade {
 	@WebMethod
 	Question createQuestion(Event event, String question, float betMinimum) throws EventFinished, QuestionAlreadyExist;
 
-	
-	
+
+
 	public Question getQuestionByN(int qNumber);
-	
+
 	public Event getEventByN(int evNumber);
-	
+
 	public Pronostic getPronosticByID(int pronID);
-	
-	
+
+
 	/**
 	 * This method checks if a user can LogIn with the introduced credentials
 	 * 
@@ -55,7 +55,7 @@ public interface BLFacade {
 	 * 
 	 */
 	public User checkCredentials(String pUsername, char[] password);
-	
+
 	/**
 	 * This method checks if the login is already done
 	 * 
@@ -63,16 +63,16 @@ public interface BLFacade {
 	 * 
 	 */
 	public boolean checkCurrentLoginStatus();
-	
-	
+
+
 	/**
 	 * 
 	 * @return user if logged, null if there's no logged user
 	 * 
 	 */
 	public User getLogUser();
-	
-	
+
+
 	/**
 	 * This method tries to register a user with the introduced credentials
 	 * 
@@ -82,9 +82,9 @@ public interface BLFacade {
 	 * 
 	 */
 	public boolean registerUser(String pUsername, char[] password);
-	
-	
-	
+
+
+
 	/**
 	 * This method finds a pronostic by its description
 	 * 
@@ -93,8 +93,8 @@ public interface BLFacade {
 	 * 
 	 */
 	public Pronostic findPronosticByDescription(String pronDescription);
-	
-	
+
+
 	/**
 	 * This method creates a pronostic
 	 * 
@@ -105,8 +105,10 @@ public interface BLFacade {
 	 * 
 	 */
 	public Pronostic createPronostic(int pronOdd, String pronDescription, Question pronQuestion);
-	
-	
+
+
+	public void setPronosticResult(Pronostic betPronostic, boolean pronResult);
+
 	/**
 	 * This method adds a new bet to a certain pronostic
 	 *
@@ -129,8 +131,8 @@ public interface BLFacade {
 	 */
 	public Movement createMovement(String movType, int money, User pUser, Event pEvent, Question pQuestion);
 
-	
-	
+
+
 	/**
 	 * This method invokes the data access to create a new event
 	 * 
@@ -140,7 +142,7 @@ public interface BLFacade {
 	 * 
 	 */
 	public boolean createEvent(String pDescription, Date pDate);
-	
+
 	/**
 	 * This method retrieves the events of a given date
 	 * 
@@ -149,8 +151,8 @@ public interface BLFacade {
 	 */
 	@WebMethod
 	public Vector<Event> getEvents(Date date);
-	
-	
+
+
 	/**
 	 * This method retrieves the questions of a given event
 	 * 
@@ -159,8 +161,8 @@ public interface BLFacade {
 	 */
 	@WebMethod
 	public Vector<Question> getQuestions(Event event);
-	
-	
+
+
 	/**
 	 * This method updates the question with a new pronostic
 	 * 
@@ -172,9 +174,9 @@ public interface BLFacade {
 	public void updateMovement(User user, Movement movement);
 
 	public int updateBalance(User pUser, int pMoney);
-	
+
 	public void updateUserBet(User betUser, Bet bet);
-	
+
 	/**
 	 * This method retrieves from the database the dates a month for which there are
 	 * events
@@ -182,7 +184,7 @@ public interface BLFacade {
 	 * @param date of the month for which days with events want to be retrieved
 	 * @return collection of dates
 	 */
-	
+
 	@WebMethod
 	public Vector<Date> getEventsMonth(Date date);
 

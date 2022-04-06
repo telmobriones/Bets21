@@ -23,10 +23,10 @@ import javax.swing.table.DefaultTableModel;
 
 public class AddResultGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
-	
-	private User loggedUser;
-	private int betMoney;
-	private float minBetAmmount;
+
+	private int pronosticResult;
+	private int pronOdd;
+	private int gains;
 
 	private final JLabel jLabelEventDate = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("EventDate"));
 	private final JLabel jLabelQueries = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Queries"));
@@ -74,7 +74,14 @@ public class AddResultGUI extends JFrame {
 	private Pronostic betPronostic;
 
 	private static BLFacade facade = MainGUI.getBusinessLogic();
+	private final JButton btnPronosticResult = new JButton();
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private final JButton btnUpdateResults = new JButton("UpdateResults"); //$NON-NLS-1$ //$NON-NLS-2$
+	private final JLabel jLabelPronostic = new JLabel("Pronostic"); //$NON-NLS-1$ //$NON-NLS-2$
+	private final JLabel jLabelPronosticID = new JLabel("AddResultGUI.lblNewLabel.text"); //$NON-NLS-1$ //$NON-NLS-2$
+
+	private final JRadioButton rdbtnCorrectPronostic = new JRadioButton();
+	private final JRadioButton rdbtnFailedPronostic = new JRadioButton();
 
 	public AddResultGUI() {
 		try {
@@ -100,16 +107,6 @@ public class AddResultGUI extends JFrame {
 		this.getContentPane().add(jLabelEvents);
 		this.getContentPane().add(jLabelPronostics);
 
-		jButtonClose.setBounds(new Rectangle(527, 621, 112, 30));
-
-		jButtonClose.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				jButton2_actionPerformed(e);
-			}
-		});
-
-		this.getContentPane().add(jButtonClose, null);
-
 		jCalendar1.setBounds(new Rectangle(40, 50, 225, 150));
 
 		BLFacade facade = MainGUI.getBusinessLogic();
@@ -126,7 +123,7 @@ public class AddResultGUI extends JFrame {
 					calendarAnt = (Calendar) propertychangeevent.getOldValue();
 					calendarAct = (Calendar) propertychangeevent.getNewValue();
 					DateFormat dateformat1 = DateFormat.getDateInstance(1, jCalendar1.getLocale());
-//					jCalendar1.setCalendar(calendarAct);
+					// jCalendar1.setCalendar(calendarAct);
 					Date firstDay = UtilDate.trim(new Date(jCalendar1.getCalendar().getTime().getTime()));
 
 					int monthAnt = calendarAnt.get(Calendar.MONTH);
@@ -177,9 +174,9 @@ public class AddResultGUI extends JFrame {
 						tableEvents.getColumnModel().getColumn(0).setPreferredWidth(25);
 						tableEvents.getColumnModel().getColumn(1).setPreferredWidth(268);
 						tableEvents.getColumnModel().removeColumn(tableEvents.getColumnModel().getColumn(2)); // not
-																												// shown
-																												// in
-																												// JTable
+						// shown
+						// in
+						// JTable
 					} catch (Exception e1) {
 
 						jLabelQueries.setText(e1.getMessage());
@@ -278,6 +275,7 @@ public class AddResultGUI extends JFrame {
 				int i = tablePronostics.getSelectedRow();
 				int pronosticID = (int) tableModelPronostics.getValueAt(i, 0);
 				betPronostic = facade.getPronosticByID(pronosticID);
+				jLabelPronosticID.setText("" + betPronostic.getPronID());
 				System.out.println(betPronostic.getPronDescription());
 			}
 		});
@@ -290,63 +288,113 @@ public class AddResultGUI extends JFrame {
 		lblErrors.setForeground(Color.RED);
 		getContentPane().add(lblErrors);
 
-		JButton btnAddResult = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Bet")); //$NON-NLS-1$ //$NON-NLS-2$
-		btnAddResult.setBounds(505, 563, 200, 30);
-		btnAddResult.addActionListener(new ActionListener() {
+		jLabelPronostic.setBounds(505, 275, 98, 15);
+		getContentPane().add(jLabelPronostic);
+
+		jLabelPronosticID.setBounds(645, 275, 70, 15);
+		getContentPane().add(jLabelPronosticID);
+
+		btnPronosticResult.setText(ResourceBundle.getBundle("Etiquetas").getString("AddResultGUI.btnPronosticResult.text")); //$NON-NLS-1$ //$NON-NLS-2$
+		btnPronosticResult.setBounds(505, 375, 210, 30);
+		btnPronosticResult.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				boolean error = false;
-				loggedUser = facade.getLogUser();
-				minBetAmmount = pronQuestion.getBetMinimum();
-				
-				if (betPronostic == null) {
-					lblErrors.setText("Debe escoger un pronostico.");
-					error = true;
-				} else {
-					if (betMoney <= minBetAmmount) {
-						lblErrors.setText("La apuesta debe superar el minimo");
-						error = true;
-					} else if (betMoney > loggedUser.getBalance()) {
-						lblErrors.setText("No tiene suficiente saldo");
-						error = true;
-					}else if (new Date().compareTo(pronEvent.getEventDate()) > 0) {
-						lblErrors.setText("Debe escoger un evento que no haya pasado");
-						error = true;
-					}
-				}
-
+//
+//				if (new Date().compareTo(pronEvent.getEventDate()) <= 0) {
+//					lblErrors.setText("Event hasn't happened yet!");
+//					error = true;
+//				} else if (betPronostic == null) {
+//					lblErrors.setText("No pronostic selected!");
+//					error = true;
+//				} else if (pronosticResult == 2) {
+//					lblErrors.setText("No result selected!");
+//					error = true;
+//				}
 				if (!error) {
-
-					lblErrors.setText("Apuesta anadida!");
-					int money2add = -betMoney;
-					Movement movement = facade.createMovement("Bet Made", money2add, loggedUser, pronEvent, pronQuestion);
-					facade.updateMovement(loggedUser, movement);
-					facade.updateBalance(loggedUser, money2add);
-					Bet newBet = facade.addBetToPronostic(betMoney,loggedUser,betPronostic);
-					facade.updateUserBet(loggedUser, newBet);
+					betPronostic.setPronClosed(true);
+					if (pronosticResult == 1) {
+						facade.setPronosticResult(betPronostic, true);
+					} else if (pronosticResult == 0) {
+						facade.setPronosticResult(betPronostic, false);
+					} else {
+						betPronostic.setPronClosed(false);
+						System.out.println("UNEXPECTED ERROR!");
+					}
 				}
 			}
 		});
-		getContentPane().add(btnAddResult);
-		
-		JRadioButton rdbtnSuccess = new JRadioButton(ResourceBundle.getBundle("Etiquetas").getString("AddResultGUI.rdbtnNewRadioButton.text"));
-		buttonGroup.add(rdbtnSuccess);
-		rdbtnSuccess.setBounds(527, 302, 149, 23);
-		getContentPane().add(rdbtnSuccess);
-		
-		JRadioButton rdbtnFailure = new JRadioButton(ResourceBundle.getBundle("Etiquetas").getString("AddResultGUI.rdbtnNewRadioButton_1.text"));
-		buttonGroup.add(rdbtnFailure);
-		rdbtnFailure.setBounds(527, 341, 149, 23);
-		getContentPane().add(rdbtnFailure);
-		
-		JRadioButton rdbtnCanceled = new JRadioButton(ResourceBundle.getBundle("Etiquetas").getString("AddResultGUI.rdbtnNewRadioButton_2.text")); //$NON-NLS-1$ //$NON-NLS-2$
-		buttonGroup.add(rdbtnCanceled);
-		rdbtnCanceled.setBounds(527, 377, 149, 23);
-		getContentPane().add(rdbtnCanceled);
+		getContentPane().add(btnPronosticResult);
+
+		rdbtnCorrectPronostic.setText("CorrectPronostic");
+		buttonGroup.add(rdbtnCorrectPronostic);
+		rdbtnCorrectPronostic.setBounds(505, 317, 149, 23);
+		rdbtnCorrectPronostic.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pronosticResult = 1; // Correct pronostic!
+			}
+		});
+		getContentPane().add(rdbtnCorrectPronostic);
+
+		rdbtnFailedPronostic.setText("FailedPronostic");
+		buttonGroup.add(rdbtnFailedPronostic);
+		rdbtnFailedPronostic.setBounds(505, 344, 149, 23);
+		rdbtnFailedPronostic.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pronosticResult = 0; // Failed pronostic :(
+			}
+		});
+		getContentPane().add(rdbtnFailedPronostic);
+
+		btnUpdateResults.setBounds(510, 541, 205, 49);
+		btnUpdateResults.setEnabled(true);
+		btnUpdateResults.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Vector<Question> questions = new Vector<Question>();
+				ArrayList<Pronostic> pronostics = new ArrayList<Pronostic>();
+				ArrayList<Bet> bets = new ArrayList<Bet>();
+				questions = pronEvent.getQuestions();
+				if (!questions.isEmpty())
+					for (Question question : questions) {
+						pronostics = question.getPronostics();
+						if (!pronostics.isEmpty()) {
+							for (Pronostic pronostic : pronostics) {
+								// If the betted pronostic is right
+								if (pronostic.isPronResult()) {
+									pronOdd = pronostic.getPronOdd();
+									bets = pronostic.getBets4Pronostic();
+									if (!bets.isEmpty())
+										for (Bet bet : bets) {
+											gains = bet.getBetMoney() * pronOdd;
+											Movement movement = facade.createMovement("Bet Won", gains,
+													bet.getBetUser(), pronEvent, question);
+											facade.updateMovement(bet.getBetUser(), movement);
+											facade.updateBalance(bet.getBetUser(), gains);
+										}
+
+								}
+							}
+						} else
+							lblErrors.setText("Cierre todos los pronosticos.");
+
+					}
+				lblErrors.setText("Evento cerrado!");
+			}
+		});
+		getContentPane().add(btnUpdateResults);
+
+		jButtonClose.setBounds(new Rectangle(556, 602, 112, 30));
+		jButtonClose.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				closeAddResultGUI();
+				;
+			}
+		});
+		getContentPane().add(jButtonClose, null);
 
 	}
 
-	private void jButton2_actionPerformed(ActionEvent e) {
+	private void closeAddResultGUI() {
 		this.setVisible(false);
 	}
 }

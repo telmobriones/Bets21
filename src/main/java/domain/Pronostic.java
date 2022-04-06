@@ -80,5 +80,8 @@ public class Pronostic {
 	public void setPronClosed(boolean pronClosed) {
 		this.pronClosed = pronClosed;
 	}
+	public ArrayList<Bet> getBets4Pronostic(){
+		return this.pronBets;
+	}
 
 }

@@ -329,21 +329,21 @@ public class BetGUI extends JFrame {
 				betMoney = Integer.parseInt(textFieldBetMoney.getText());
 				minBetAmmount = pronQuestion.getBetMinimum();
 				
-				if (betPronostic == null) {
-					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorSelectPronostic"));
-					error = true;
-				} else {
-					if (betMoney <= minBetAmmount) {
-						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorBetMinimum"));
-						error = true;
-					} else if (betMoney > loggedUser.getBalance()) {
-						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorNoBalance"));
-						error = true;
-					}else if (new Date().compareTo(pronEvent.getEventDate()) > 0) {
-						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorPastEvent"));
-						error = true;
-					}
-				}
+//				if (betPronostic == null) {
+//					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorSelectPronostic"));
+//					error = true;
+//				} else {
+//					if (betMoney <= minBetAmmount) {
+//						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorBetMinimum"));
+//						error = true;
+//					} else if (betMoney > loggedUser.getBalance()) {
+//						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorNoBalance"));
+//						error = true;
+//					}else if (new Date().compareTo(pronEvent.getEventDate()) > 0) {
+//						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorPastEvent"));
+//						error = true;
+//					}
+//				}
 
 				if (!error) {
 

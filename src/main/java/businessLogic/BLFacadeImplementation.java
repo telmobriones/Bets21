@@ -83,20 +83,20 @@ public class BLFacadeImplementation implements BLFacade {
 
 		return qry;
 	};
-	
+
 	public Question getQuestionByN(int qNumber) {
 		dbManager.open(false);
 		Question q = dbManager.findQuestionByN(qNumber);
 		return q;
 	}
 
-	
+
 	public Event getEventByN(int evNumber) {
 		dbManager.open(false);
 		Event ev = dbManager.findEventByN(evNumber);
 		return ev;
 	}
-	
+
 	public Pronostic getPronosticByID(int pronID) {
 		dbManager.open(false);
 		Pronostic pron = dbManager.findPronosticByID(pronID);
@@ -123,7 +123,7 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();
 		return null;
 	};
-	
+
 	/**
 	 * This method checks if the login is already done
 	 * 
@@ -133,7 +133,7 @@ public class BLFacadeImplementation implements BLFacade {
 	public boolean checkCurrentLoginStatus() {
 		return logUser != null;
 	}
-	
+
 	/**
 	 * 
 	 * @return user if logged, null if there's no logged user
@@ -144,7 +144,7 @@ public class BLFacadeImplementation implements BLFacade {
 		this.logUser = dbManager.findUser(logUser.getUsername());
 		return this.logUser;
 	}
-	
+
 	/**
 	 * This method tries to register a user with the introduced credentials
 	 * 
@@ -165,8 +165,8 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();
 		return regSuccess;
 	};
-	
-	
+
+
 
 	/**
 	 * This method updates user's balance
@@ -176,15 +176,15 @@ public class BLFacadeImplementation implements BLFacade {
 	 * @return new balance after update
 	 * 
 	 */
-//	public int updateBalance(User pUser, int pMoney) {
-//		dbManager.open(false);
-//		int newBalance = dbManager.updateBalance(pUser,pMoney);
-//		dbManager.close();
-//		return newBalance;
-//	}
-//	
-	
-	
+	//	public int updateBalance(User pUser, int pMoney) {
+	//		dbManager.open(false);
+	//		int newBalance = dbManager.updateBalance(pUser,pMoney);
+	//		dbManager.close();
+	//		return newBalance;
+	//	}
+	//	
+
+
 	/**
 	 * This method invokes the data access to create a new event
 	 * 
@@ -213,7 +213,7 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();
 		return events;
 	}
-	
+
 	/**
 	 * This method invokes the data access to retrieve the questions of a given event
 	 * 
@@ -226,7 +226,7 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();
 		return questions;
 	}
-	
+
 	/**
 	 * This method invokes the data access to retrieve the dates a month for which
 	 * there are events
@@ -276,7 +276,7 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();
 		return pron;
 	}
-	
+
 	@Override
 	public Movement createMovement(String movType, int money, User pUser, Event pEvent, Question pQuestion) {
 		dbManager.open(false);
@@ -284,8 +284,16 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();
 		return mov;
 	}
-	
-	
+
+
+	@Override
+	public void setPronosticResult(Pronostic betPronostic, boolean pronResult) {
+		dbManager.open(false);
+		dbManager.setPronosticResult(betPronostic, pronResult);
+		dbManager.close();
+
+	}
+
 	/**
 	 * This method adds a new bet to a certain pronostic
 	 *
@@ -301,7 +309,7 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();
 		return bet;
 	}
-	
+
 	/**
 	 * This method updates the movement 
 	 * 
@@ -315,7 +323,7 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.updateMovement(user, movement);
 		dbManager.close();
 	}
-	
+
 	/**
 	 * This method updates the question with a new pronostic
 	 * 
@@ -344,15 +352,14 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();
 		return newBalance;
 	}
-	
+
 	public void updateUserBet(User betUser, Bet bet) {
 		dbManager.open(false);
 		dbManager.updateUserBet(betUser, bet);
 		dbManager.close();
 	}
-
-	
-
-
-
 }
+
+
+
+

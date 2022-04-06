@@ -282,28 +282,28 @@ public class CreatePronosticGUI extends JFrame {
 				int pronOdd = Integer.parseInt(textFieldOdds.getText());
 				boolean error = false;
 
-				if (new Date().compareTo(pronEvent.getEventDate()) > 0) {
-					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorPastEvent"));
-					error = true;
-				}
-				if (pronQuestion == null) {
-					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorSelectQuestion"));
-					error = true;
-				}
-				if (pronEvent == null) {
-					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorSelectEvent"));
-					error = true;
-				}
-				if ((pronEvent != null) && (pronQuestion != null)) {
-					if (pronDescription.equals("")) {
-						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorEnterData"));
-						error = true;
-					}
-					if (pronOdd <= 0 || textFieldOdds.getText().length()==0) {
-						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorNumber"));
-						error = true;
-					}
-				}
+//				if (new Date().compareTo(pronEvent.getEventDate()) > 0) {
+//					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorPastEvent"));
+//					error = true;
+//				}
+//				if (pronQuestion == null) {
+//					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorSelectQuestion"));
+//					error = true;
+//				}
+//				if (pronEvent == null) {
+//					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorSelectEvent"));
+//					error = true;
+//				}
+//				if ((pronEvent != null) && (pronQuestion != null)) {
+//					if (pronDescription.equals("")) {
+//						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorEnterData"));
+//						error = true;
+//					}
+//					if (pronOdd <= 0 || textFieldOdds.getText().length()==0) {
+//						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorNumber"));
+//						error = true;
+//					}
+//				}
 
 				if (!error) {
 					Pronostic pronostico = facade.createPronostic(pronOdd, pronDescription, pronQuestion);

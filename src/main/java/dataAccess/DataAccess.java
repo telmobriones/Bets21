@@ -37,7 +37,7 @@ public class DataAccess {
 	public DataAccess(boolean initializeMode) {
 
 		System.out.println("Creating DataAccess instance => isDatabaseLocal: " + c.isDatabaseLocal()
-				+ " getDatabBaseOpenMode: " + c.getDataBaseOpenMode());
+		+ " getDatabBaseOpenMode: " + c.getDataBaseOpenMode());
 
 		open(initializeMode);
 
@@ -195,8 +195,8 @@ public class DataAccess {
 		System.out.println("Gordeta " + name);
 		return user;
 	}
-	
-	
+
+
 	/**
 	 * This method adds a new pronostic to the DB
 	 *
@@ -206,13 +206,13 @@ public class DataAccess {
 	 * @return the created pronostic, or null, or an exception
 	 */
 	public Pronostic createPronostic(int pOdd, String pDescription, Question pQuestion) {
-		
+
 		TypedQuery<Pronostic> query = db.createQuery("SELECT FROM Pronostic ORDER BY pronID DESC", Pronostic.class);
 		Pronostic lastPronostic = query.getResultList().get(0);
 		System.out.println("LastEvent: " + lastPronostic);
 		int newPronID = lastPronostic.getPronID()+1;
 		System.out.println("NewEventNumber: " + newPronID);
-		
+
 		db.getTransaction().begin();
 		Pronostic pronostic = new Pronostic(newPronID, pOdd, pDescription, pQuestion);
 		db.persist(pronostic);
@@ -220,7 +220,7 @@ public class DataAccess {
 		System.out.println(pronostic.getPronDescription()+" added to the DB!");
 		return pronostic;
 	}
-	
+
 	/**
 	 * This method adds a new bet to a certain pronostic
 	 *
@@ -240,7 +240,7 @@ public class DataAccess {
 		} else {
 			newBetID = 0;
 		}
-		
+
 		db.getTransaction().begin();
 		Pronostic pronostic = findPronosticByID(betPronostic.getPronID());
 		Bet bet = pronostic.addBetToPronostic(newBetID,betUser, betMoney);
@@ -248,8 +248,8 @@ public class DataAccess {
 		db.getTransaction().commit();
 		return bet;
 	}
-	
-	
+
+
 	/**
 	 * This method finds a pronostic by its description
 	 *
@@ -265,19 +265,19 @@ public class DataAccess {
 			return null;
 		}
 	}
-	
-	
+
+
 	/**
-	 * Updates the pronostic result in the DB
+	 * set the pronostic result in the DB
 	 *
-	 * @param the pronostic to be updated
+	 * @param the pronostic
 	 * @param the result (true or false)
 	 * @return nothing
 	 */
-	public void updatePronosticResult(Pronostic pPronostic, boolean result) {
+	public void setPronosticResult(Pronostic betPronostic, boolean pronResult) {
 		db.getTransaction().begin();
-		Pronostic pronostic = db.find(Pronostic.class, pPronostic.getPronID());
-		pronostic.setPronResult(result);
+		Pronostic pronostic = db.find(Pronostic.class, betPronostic.getPronID());
+		pronostic.setPronResult(pronResult);
 		db.persist(pronostic);
 		db.getTransaction().commit();
 	}
@@ -300,8 +300,8 @@ public class DataAccess {
 		User u = db.find(User.class, name);
 		return u;
 	}
-	
-	
+
+
 	/**
 	 * This method updates user's balance
 	 * 
@@ -310,18 +310,18 @@ public class DataAccess {
 	 * @return new balance after update
 	 * 
 	 */
-//	public int updateBalance(User pUser, int pMoney) {
-//		db.getTransaction().begin();
-//		User u = db.find(User.class, pUser.getUsername());
-//		if(u != null) {
-//			u.updateBalance(pMoney);
-//			db.persist(u);
-//		} else {
-//			System.out.println("UNEXPECTED ERROR OCCURRED WHEN UPDATING BALANCE!");
-//		}
-//		db.getTransaction().commit();
-//		return u.getBalance();
-//	}
+	//	public int updateBalance(User pUser, int pMoney) {
+	//		db.getTransaction().begin();
+	//		User u = db.find(User.class, pUser.getUsername());
+	//		if(u != null) {
+	//			u.updateBalance(pMoney);
+	//			db.persist(u);
+	//		} else {
+	//			System.out.println("UNEXPECTED ERROR OCCURRED WHEN UPDATING BALANCE!");
+	//		}
+	//		db.getTransaction().commit();
+	//		return u.getBalance();
+	//	}
 
 	/**
 	 * This method creates a question for an event, with a question text and the
@@ -347,13 +347,13 @@ public class DataAccess {
 		Question q = ev.addQuestion(question, betMinimum);
 		// db.persist(q);
 		db.persist(ev); // db.persist(q) not required when CascadeType.PERSIST is added in questions
-						// property of Event class
-						// @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+		// property of Event class
+		// @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 		db.getTransaction().commit();
 		return q;
 
 	}
-	
+
 	/**
 	 * This method creates a new event
 	 * 
@@ -381,7 +381,7 @@ public class DataAccess {
 		return ev;
 
 	}
-	
+
 	/**
 	 * This method retrieves from the database if there is the event with a given ID number
 	 * 
@@ -393,7 +393,7 @@ public class DataAccess {
 		query.setParameter(1,pN);
 		List<Event> ev = query.getResultList();
 		return (ev == null);
-		
+
 	}
 
 	/**
@@ -414,7 +414,7 @@ public class DataAccess {
 		}
 		return res;
 	}
-	
+
 	/**
 	 * This method retrieves from the database the questions of a given event
 	 * 
@@ -433,8 +433,8 @@ public class DataAccess {
 		}
 		return res;
 	}
-	
-	
+
+
 	/**
 	 * This method updates the question with a new pronostic
 	 * 
@@ -449,23 +449,23 @@ public class DataAccess {
 		db.getTransaction().commit();
 		System.out.println(pronostic.getPronDescription() + " pronostic added to the question" + question.getQuestion());
 	}
-	
-	
+
+
 	public Question findQuestionByN(int qNumber) {
 		Question q = db.find(Question.class, qNumber);
 		return q;
 	}
-	
+
 	public Event findEventByN(int evNumber) {
 		Event ev = db.find(Event.class, evNumber);
 		return ev;
 	}
-	
+
 	public Pronostic findPronosticByID(int pronID) {
 		Pronostic pron = db.find(Pronostic.class, pronID);
 		return pron;
 	}
-	
+
 
 	/**
 	 * This method retrieves from the database the dates a month for which there are
@@ -493,17 +493,17 @@ public class DataAccess {
 		return res;
 	}
 
-	
+
 	public Movement createMovement(String movType, int money, User pUser, Event pEvent, Question pQuestion) {
-		
+
 		TypedQuery<Movement> query = db.createQuery("SELECT FROM Movement ORDER BY movID DESC", Movement.class);
 		Movement lastMovement = query.getResultList().get(0);
 		System.out.println("LastMovement: " + lastMovement);
 		int newMovID = lastMovement.getMovID()+1;
 		System.out.println("NewMovNum: " + newMovID);
-		
-	
-		
+
+
+
 		db.getTransaction().begin();
 		Movement movement = new Movement(newMovID,money, movType, pUser,pEvent,pQuestion);
 		db.persist(movement);
@@ -511,7 +511,7 @@ public class DataAccess {
 		System.out.println(movement+" added to the DB!");
 		return movement;
 	}
-	
+
 	public void updateMovement(User user, Movement movement) {
 		db.getTransaction().begin();
 		User us = db.find(User.class, user.getUsername());
@@ -519,22 +519,22 @@ public class DataAccess {
 		db.getTransaction().commit();
 		System.out.println(movement + " movement added to the user" + user);
 	}
-	
-//	public int updateBalance(User pUser) {
-////		TypedQuery<Movement> query = db.createQuery("SELECT FROM Movement ORDER BY movID DESC", Movement.class);
-////		Movement lastMovement = query.getResultList().get(0);
-////		System.out.println("LastMovement: " + lastMovement);
-////		int newMovID = lastMovement.getMovID()+1;
-////		System.out.println("NewMovNum: " + newMovID);
-////		
-////		db.getTransaction().begin();
-////		Movement movement = new Movement(newMovID,money, movType);
-////		db.persist(movement);
-////		db.getTransaction().commit();
-////		System.out.println(movement+" added to the DB!");
-////		return movement;
-//	}
-	
+
+	//	public int updateBalance(User pUser) {
+	////		TypedQuery<Movement> query = db.createQuery("SELECT FROM Movement ORDER BY movID DESC", Movement.class);
+	////		Movement lastMovement = query.getResultList().get(0);
+	////		System.out.println("LastMovement: " + lastMovement);
+	////		int newMovID = lastMovement.getMovID()+1;
+	////		System.out.println("NewMovNum: " + newMovID);
+	////		
+	////		db.getTransaction().begin();
+	////		Movement movement = new Movement(newMovID,money, movType);
+	////		db.persist(movement);
+	////		db.getTransaction().commit();
+	////		System.out.println(movement+" added to the DB!");
+	////		return movement;
+	//	}
+
 	/**
 	 * This method updates user's balance
 	 * 
@@ -558,7 +558,7 @@ public class DataAccess {
 	public void open(boolean initializeMode) {
 
 		System.out.println("Opening DataAccess instance => isDatabaseLocal: " + c.isDatabaseLocal()
-				+ " getDatabBaseOpenMode: " + c.getDataBaseOpenMode());
+		+ " getDatabBaseOpenMode: " + c.getDataBaseOpenMode());
 
 		String fileName = c.getDbFilename();
 		if (initializeMode) {
@@ -593,5 +593,5 @@ public class DataAccess {
 		System.out.println("DataBase closed");
 	}
 
-	
+
 }
