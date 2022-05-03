@@ -361,17 +361,18 @@ public class AddResultGUI extends JFrame {
 							for (Pronostic pronostic : pronostics) {
 								// If the betted pronostic is right
 								if (pronostic.isPronResult()) {
+									System.out.println(pronostic.getPronDescription());
 									pronOdd = pronostic.getPronOdd();
 									bets = pronostic.getBets4Pronostic();
 									if (!bets.isEmpty())
 										for (Bet bet : bets) {
+											System.out.println("Updating bet...");
 											gains = bet.getBetMoney() * pronOdd;
 											Movement movement = facade.createMovement("Bet Won", gains,
 													bet.getBetUser(), pronEvent, question);
 											facade.updateMovement(bet.getBetUser(), movement);
 											facade.updateBalance(bet.getBetUser(), gains);
 										}
-
 								}
 							}
 						} else

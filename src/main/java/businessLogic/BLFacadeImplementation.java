@@ -74,8 +74,8 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.open(false);
 		Question qry = null;
 
-		if (new Date().compareTo(event.getEventDate()) > 0)
-			throw new EventFinished(ResourceBundle.getBundle("Etiquetas").getString("ErrorEventHasFinished"));
+//		if (new Date().compareTo(event.getEventDate()) > 0)
+//			throw new EventFinished(ResourceBundle.getBundle("Etiquetas").getString("ErrorEventHasFinished"));
 
 		qry = dbManager.createQuestion(event, question, betMinimum);
 

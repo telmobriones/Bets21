@@ -282,10 +282,10 @@ public class CreatePronosticGUI extends JFrame {
 				int pronOdd = Integer.parseInt(textFieldOdds.getText());
 				boolean error = false;
 
-				if (new Date().compareTo(pronEvent.getEventDate()) > 0) {
-					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorPastEvent"));
-					error = true;
-				}
+//				if (new Date().compareTo(pronEvent.getEventDate()) > 0) {
+//					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorPastEvent"));
+//					error = true;
+//				}
 				if (pronQuestion == null) {
 					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorSelectQuestion"));
 					error = true;

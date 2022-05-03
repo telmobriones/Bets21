@@ -339,9 +339,9 @@ public class BetGUI extends JFrame {
 					} else if (betMoney > loggedUser.getBalance()) {
 						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorNoBalance"));
 						error = true;
-					}else if (new Date().compareTo(pronEvent.getEventDate()) > 0) {
-						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorPastEvent"));
-						error = true;
+//					}else if (new Date().compareTo(pronEvent.getEventDate()) > 0) {
+//						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorPastEvent"));
+//						error = true;
 					}
 				}
 

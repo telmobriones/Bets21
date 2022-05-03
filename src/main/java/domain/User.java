@@ -1,7 +1,10 @@
 package domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import java.util.ArrayList;
 import java.util.Vector;
@@ -13,7 +16,9 @@ public class User {
 	private String password;
 	private boolean isAdmin;
 	private int balance; // Kontuko saldoa
+	//@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private ArrayList<Bet> bets = new ArrayList<Bet>();
+	//@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Vector<Movement> movements = new Vector<Movement>(); // Erabiltzailearen diru mugimenduen lista
 	
 	public User (String pUsername, String pPassword, boolean pIsAdmin) {

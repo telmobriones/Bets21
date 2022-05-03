@@ -2616,3 +2616,95 @@ Type domain.Bet is not enhanced.
 [2022-04-06 20:26:49 #7 type] 
 Type domain.Movement is not enhanced.
 
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-04-06 22:46:24 #1 store] 
+Database '/home/artiom/git/3_Maila/SI/bets21/src/main/resources/bets.temp' is opened by 88229@Artioms-Laptop
+
+[2022-04-06 22:46:24 #2 type] 
+Type domain.Question is not enhanced.
+
+[2022-04-06 22:46:24 #3 type] 
+Type domain.Event is not enhanced.
+
+[2022-04-06 22:46:24 #4 type] 
+Type domain.User is not enhanced.
+
+[2022-04-06 22:46:24 #5 type] 
+Type domain.Pronostic is not enhanced.
+
+[2022-04-06 22:46:24 #6 type] 
+Type domain.Bet is not enhanced.
+
+[2022-04-06 22:46:24 #7 type] 
+Type domain.Movement is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-04-06 22:57:41 #1 store] 
+Database '/home/artiom/git/3_Maila/SI/bets21/src/main/resources/bets.temp' is opened by 89858@Artioms-Laptop
+
+[2022-04-06 22:57:42 #2 type] 
+Type domain.Question is not enhanced.
+
+[2022-04-06 22:57:42 #3 type] 
+Type domain.Event is not enhanced.
+
+[2022-04-06 22:57:42 #4 type] 
+Type domain.User is not enhanced.
+
+[2022-04-06 22:57:42 #5 type] 
+Type domain.Pronostic is not enhanced.
+
+[2022-04-06 22:57:42 #6 type] 
+Type domain.Bet is not enhanced.
+
+[2022-04-06 22:57:42 #7 type] 
+Type domain.Movement is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-04-06 23:33:22 #1 store] 
+Database '/home/artiom/git/3_Maila/SI/bets21/src/main/resources/bets.temp' is opened by 93307@Artioms-Laptop
+
+[2022-04-06 23:33:22 #2 type] 
+Type domain.Question is not enhanced.
+
+[2022-04-06 23:33:22 #3 type] 
+Type domain.Event is not enhanced.
+
+[2022-04-06 23:33:22 #4 type] 
+Type domain.User is not enhanced.
+
+[2022-04-06 23:33:22 #5 type] 
+Type domain.Pronostic is not enhanced.
+
+[2022-04-06 23:33:22 #6 type] 
+Type domain.Bet is not enhanced.
+
+[2022-04-06 23:33:22 #7 type] 
+Type domain.Movement is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-04-06 23:34:15 #1 store] 
+Database '/home/artiom/git/3_Maila/SI/bets21/src/main/resources/bets.temp' is opened by 93411@Artioms-Laptop
+
+[2022-04-06 23:34:15 #2 type] 
+Type domain.Question is not enhanced.
+
+[2022-04-06 23:34:15 #3 type] 
+Type domain.Event is not enhanced.
+
+[2022-04-06 23:34:15 #4 type] 
+Type domain.User is not enhanced.
+
+[2022-04-06 23:34:15 #5 type] 
+Type domain.Pronostic is not enhanced.
+
+[2022-04-06 23:34:15 #6 type] 
+Type domain.Bet is not enhanced.
+
+[2022-04-06 23:34:15 #7 type] 
+Type domain.Movement is not enhanced.
+
