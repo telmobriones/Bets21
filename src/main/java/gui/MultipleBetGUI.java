@@ -21,12 +21,12 @@ import java.util.*;
 
 import javax.swing.table.DefaultTableModel;
 
-public class AddResultGUI extends JFrame {
+public class MultipleBetGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
-
-	private int pronosticResult;
-	private int pronOdd;
-	private int gains;
+	
+	private User loggedUser;
+	private int betMoney;
+	private float minBetAmmount;
 
 	private final JLabel jLabelEventDate = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("EventDate"));
 	private final JLabel jLabelQueries = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Queries"));
@@ -66,7 +66,10 @@ public class AddResultGUI extends JFrame {
 			ResourceBundle.getBundle("Etiquetas").getString("Pronostic")
 
 	};
+
+	private JTextField textFieldBetMoney;
 	private JTextField textFieldOdds;
+	private JLabel lblPronOdds;
 	private final JLabel lblErrors = new JLabel("");
 
 	private Event pronEvent;
@@ -74,16 +77,8 @@ public class AddResultGUI extends JFrame {
 	private Pronostic betPronostic;
 
 	private static BLFacade facade = MainGUI.getBusinessLogic();
-	private final JButton btnPronosticResult = new JButton();
-	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private final JButton btnUpdateResults = new JButton("UpdateResults"); //$NON-NLS-1$ //$NON-NLS-2$
-	private final JLabel jLabelPronostic = new JLabel("Pronostic"); //$NON-NLS-1$ //$NON-NLS-2$
-	private final JLabel jLabelPronosticID = new JLabel("AddResultGUI.lblNewLabel.text"); //$NON-NLS-1$ //$NON-NLS-2$
 
-	private final JRadioButton rdbtnCorrectPronostic = new JRadioButton();
-	private final JRadioButton rdbtnFailedPronostic = new JRadioButton();
-
-	public AddResultGUI() {
+	public MultipleBetGUI() {
 		try {
 			jbInit();
 		} catch (Exception e) {
@@ -107,6 +102,16 @@ public class AddResultGUI extends JFrame {
 		this.getContentPane().add(jLabelEvents);
 		this.getContentPane().add(jLabelPronostics);
 
+		jButtonClose.setBounds(new Rectangle(527, 621, 112, 30));
+
+		jButtonClose.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				jButton2_actionPerformed(e);
+			}
+		});
+
+		this.getContentPane().add(jButtonClose, null);
+
 		jCalendar1.setBounds(new Rectangle(40, 50, 225, 150));
 
 		BLFacade facade = MainGUI.getBusinessLogic();
@@ -123,7 +128,7 @@ public class AddResultGUI extends JFrame {
 					calendarAnt = (Calendar) propertychangeevent.getOldValue();
 					calendarAct = (Calendar) propertychangeevent.getNewValue();
 					DateFormat dateformat1 = DateFormat.getDateInstance(1, jCalendar1.getLocale());
-					// jCalendar1.setCalendar(calendarAct);
+//					jCalendar1.setCalendar(calendarAct);
 					Date firstDay = UtilDate.trim(new Date(jCalendar1.getCalendar().getTime().getTime()));
 
 					int monthAnt = calendarAnt.get(Calendar.MONTH);
@@ -174,9 +179,9 @@ public class AddResultGUI extends JFrame {
 						tableEvents.getColumnModel().getColumn(0).setPreferredWidth(25);
 						tableEvents.getColumnModel().getColumn(1).setPreferredWidth(268);
 						tableEvents.getColumnModel().removeColumn(tableEvents.getColumnModel().getColumn(2)); // not
-						// shown
-						// in
-						// JTable
+																												// shown
+																												// in
+																												// JTable
 					} catch (Exception e1) {
 
 						jLabelQueries.setText(e1.getMessage());
@@ -275,7 +280,7 @@ public class AddResultGUI extends JFrame {
 				int i = tablePronostics.getSelectedRow();
 				int pronosticID = (int) tableModelPronostics.getValueAt(i, 0);
 				betPronostic = facade.getPronosticByID(pronosticID);
-				jLabelPronosticID.setText("" + betPronostic.getPronID());
+				lblPronOdds.setText("" + betPronostic.getPronOdd());
 				System.out.println(betPronostic.getPronDescription());
 			}
 		});
@@ -284,120 +289,79 @@ public class AddResultGUI extends JFrame {
 		this.getContentPane().add(scrollPaneQueries, null);
 		this.getContentPane().add(scrollPanePronostics, null);
 
+		////////////////////////////////////////////////////
+		JLabel lblBetMoney = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Money")); //$NON-NLS-1$ //$NON-NLS-2$
+		lblBetMoney.setBounds(480, 403, 90, 15);
+		getContentPane().add(lblBetMoney);
+
+		JLabel lblPronosticOdds = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("PronosticOdds")); //$NON-NLS-1$ //$NON-NLS-2$
+		lblPronosticOdds.setBounds(480, 329, 149, 14);
+		getContentPane().add(lblPronosticOdds);
+
+		lblPronOdds = new JLabel(); // $NON-NLS-1$ //$NON-NLS-2$
+		lblPronOdds.setBounds(635, 329, 70, 15);
+		getContentPane().add(lblPronOdds);
+
+		textFieldBetMoney = new JTextField();
+		textFieldBetMoney.setBounds(602, 401, 134, 19);
+		textFieldBetMoney.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+					e.consume(); // if it's not a number, ignore the event
+				}
+			}
+		});
+		getContentPane().add(textFieldBetMoney);
+		textFieldBetMoney.setColumns(10);
+
 		lblErrors.setBounds(490, 514, 225, 15);
 		lblErrors.setForeground(Color.RED);
 		getContentPane().add(lblErrors);
 
-		jLabelPronostic.setBounds(505, 275, 98, 15);
-		getContentPane().add(jLabelPronostic);
-
-		jLabelPronosticID.setBounds(645, 275, 70, 15);
-		getContentPane().add(jLabelPronosticID);
-
-		btnPronosticResult.setText(ResourceBundle.getBundle("Etiquetas").getString("AddResultGUI.btnPronosticResult.text")); //$NON-NLS-1$ //$NON-NLS-2$
-		btnPronosticResult.setBounds(505, 375, 210, 30);
-		btnPronosticResult.addActionListener(new ActionListener() {
+		JButton btnMakeBet = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Bet")); //$NON-NLS-1$ //$NON-NLS-2$
+		btnMakeBet.setBounds(490, 456, 200, 30);
+		btnMakeBet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				
 				boolean error = false;
-
-				if (new Date().compareTo(pronEvent.getEventDate()) <= 0) {
-					lblErrors.setText("Event hasn't happened yet!");
+				loggedUser = facade.getLogUser();
+				betMoney = Integer.parseInt(textFieldBetMoney.getText());
+				minBetAmmount = pronQuestion.getBetMinimum();
+				
+				if (betPronostic == null) {
+					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorSelectPronostic"));
 					error = true;
-				} else if (betPronostic == null) {
-					lblErrors.setText("No pronostic selected!");
-					error = true;
-				} else if (pronosticResult == 2) {
-					lblErrors.setText("No result selected!");
-					error = true;
-				}
-				if (!error) {
-					betPronostic.setPronClosed(true);
-					if (pronosticResult == 1) {
-						facade.setPronosticResult(betPronostic, true);
-					} else if (pronosticResult == 0) {
-						facade.setPronosticResult(betPronostic, false);
-					} else {
-						betPronostic.setPronClosed(false);
-						System.out.println("UNEXPECTED ERROR!");
-					}
-				}
-			}
-		});
-		getContentPane().add(btnPronosticResult);
-
-		rdbtnCorrectPronostic.setText("CorrectPronostic");
-		buttonGroup.add(rdbtnCorrectPronostic);
-		rdbtnCorrectPronostic.setBounds(505, 317, 149, 23);
-		rdbtnCorrectPronostic.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				pronosticResult = 1; // Correct pronostic!
-			}
-		});
-		getContentPane().add(rdbtnCorrectPronostic);
-
-		rdbtnFailedPronostic.setText("FailedPronostic");
-		buttonGroup.add(rdbtnFailedPronostic);
-		rdbtnFailedPronostic.setBounds(505, 344, 149, 23);
-		rdbtnFailedPronostic.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				pronosticResult = 0; // Failed pronostic :(
-			}
-		});
-		getContentPane().add(rdbtnFailedPronostic);
-
-		btnUpdateResults.setBounds(510, 541, 205, 49);
-		btnUpdateResults.setEnabled(true);
-		btnUpdateResults.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Vector<Question> questions = new Vector<Question>();
-				ArrayList<Pronostic> pronostics = new ArrayList<Pronostic>();
-				ArrayList<Bet> bets = new ArrayList<Bet>();
-				questions = pronEvent.getQuestions();
-				if (!questions.isEmpty()) {
-					for (Question question : questions) {
-						pronostics = question.getPronostics();
-						if (!pronostics.isEmpty()) {
-							for (Pronostic pronostic : pronostics) {
-								// If the betted pronostic is right
-								if (pronostic.isPronResult()) {
-									System.out.println(pronostic.getPronDescription());
-									pronOdd = pronostic.getPronOdd();
-									bets = pronostic.getBets4Pronostic();
-									if (!bets.isEmpty()) {
-										for (Bet bet : bets) {
-											System.out.println("Updating bet...");
-											gains = bet.getBetMoney() * pronOdd;
-											Movement movement = facade.createMovement("Bet Won", gains,
-													bet.getBetUser(), pronEvent, question);
-											facade.updateMovement(bet.getBetUser(), movement);
-											facade.updateBalance(bet.getBetUser(), gains);
-										}
-									}
-								}
-							}
-						}
-					}
 				} else {
-					lblErrors.setText("Close all pronostics first");
+					if (betMoney <= minBetAmmount) {
+						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorBetMinimum"));
+						error = true;
+					} else if (betMoney > loggedUser.getBalance()) {
+						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorNoBalance"));
+						error = true;
+//					}else if (new Date().compareTo(pronEvent.getEventDate()) > 0) {
+//						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorPastEvent"));
+//						error = true;
+					}
 				}
-				lblErrors.setText("Money returned!");
-			}
-		});
-		getContentPane().add(btnUpdateResults);
 
-		jButtonClose.setBounds(new Rectangle(556, 602, 112, 30));
-		jButtonClose.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				closeAddResultGUI();
-				;
+				if (!error) {
+
+					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("BetAdded"));
+					int money2add = -betMoney;
+					Movement movement = facade.createMovement("Bet Made", money2add, loggedUser, pronEvent, pronQuestion);
+					facade.updateMovement(loggedUser, movement);
+					facade.updateBalance(loggedUser, money2add);
+					Bet newBet = facade.addBetToPronostic(betMoney,loggedUser,betPronostic);
+					facade.updateUserBet(loggedUser, newBet);
+				}
 			}
 		});
-		getContentPane().add(jButtonClose, null);
+		getContentPane().add(btnMakeBet);
 
 	}
 
-	private void closeAddResultGUI() {
+	private void jButton2_actionPerformed(ActionEvent e) {
 		this.setVisible(false);
 	}
 }
