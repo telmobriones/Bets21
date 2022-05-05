@@ -19,6 +19,7 @@ import configuration.ConfigXML;
 import configuration.UtilDate;
 import domain.Bet;
 import domain.Event;
+import domain.Message;
 import domain.Movement;
 import domain.Pronostic;
 import domain.Question;
@@ -586,6 +587,77 @@ public class DataAccess {
 		Event ev = db.find(Event.class, event.getEventNumber());
 		return ev.DoesQuestionExists(question);
 
+	}
+	/**
+	 * This method add a message
+	 * 
+	 * @param The remitent
+	 * @param The desinatary
+	 * @param The date the message was sent
+	 * @return a new message
+	 * 
+	 */
+	public Message  createMessage(User pRemitent, String pDestinataryUsername, String pDate, String pMessage) {
+
+		User destinatary = findUser(pDestinataryUsername);
+		System.out.println(">> DataAccess: createMessage=> remitent= " + pRemitent + "desinatary= " + destinatary
+				+ "message= " + pMessage + " Date= " + pDate);
+		TypedQuery<Message> query = db.createQuery("SELECT FROM Message ORDER BY messageID DESC", Message.class);
+		Message lastMessage;
+		int newMessageID;
+		try {
+			lastMessage= query.getResultList().get(0);
+			newMessageID = lastMessage.getMesID()+1;
+		} catch (Exception e) {
+			newMessageID = 1;
+		}
+
+		System.out.println("NewMessageID: " + newMessageID);
+		Message mes;
+		db.getTransaction().begin();
+		mes = new Message(newMessageID, pRemitent, destinatary, pDate, pMessage);
+		db.persist(mes);
+		db.getTransaction().commit();
+		System.out.println("The new message has been saved successfully!");
+
+		return mes;
+
+	}
+	/**
+	 * This method retrieves from the database all the messages related to that chat
+	 * 
+	 * @param the remitent of the messages
+	 * @param the destinatary of the messages
+	 * @return collection of messages
+	 */
+	public Vector<Message> getMessagesForThisChat(String pRemitentUsername, String pDestinataryUsername){
+		System.out.println(">> DataAccess: getMessagesForThisChat");
+		User remitent = findUser(pRemitentUsername);
+		User destinatary = findUser(pDestinataryUsername);
+		Vector<Message> res = new Vector<Message>();
+		TypedQuery<Message> query = db.createQuery("SELECT FROM Message WHERE (remitent=?1 AND destinatary=?2) OR (remitent=?2 AND destinatary=?1) ORDER BY messageID ASC", Message.class);
+		query.setParameter(1, remitent);
+		query.setParameter(2, destinatary);
+		List<Message> messages = query.getResultList();
+		for (Message mes : messages) {
+			System.out.println(mes.toString());
+			res.add(mes);
+		}
+		return res;
+	}
+
+	/**
+	 * This method chech if a user exists
+	 * 
+	 * @param username
+	 * @return if the user exist
+	 * 
+	 */
+	public boolean existUser(String pUsername) {
+		User user = findUser(pUsername);
+		System.out.println("Check if exists: " + user);
+		if (user == null) return false;
+		else return true;
 	}
 
 	public void close() {

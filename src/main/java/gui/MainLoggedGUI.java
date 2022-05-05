@@ -25,10 +25,10 @@ import java.awt.event.ActionEvent;
 
 
 public class MainLoggedGUI extends JFrame {
-	
+
 	private User loggedUser;
 	private static BLFacade facade = MainGUI.getBusinessLogic();
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private JPanel jContentPane = null;
@@ -36,13 +36,14 @@ public class MainLoggedGUI extends JFrame {
 	private JButton jButtonTopUpBalance = null;
 	private JButton jButtonSeeMovements = null;
 	private JButton jButtonBet = null;
-	
-    private static BLFacade appFacadeInterface;
-	
+	private JButton jButtonSendMessages = null;
+
+	private static BLFacade appFacadeInterface;
+
 	public static BLFacade getBusinessLogic(){
 		return appFacadeInterface;
 	}
-	
+
 	public static void setBussinessLogic (BLFacade afi){
 		appFacadeInterface=afi;
 	}
@@ -52,15 +53,15 @@ public class MainLoggedGUI extends JFrame {
 	private JRadioButton rdbtnNewRadioButton_2;
 	private JPanel panel;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	
+
 	/**
 	 * This is the default constructor
 	 */
 	public MainLoggedGUI() {
 		super();
-		
+
 		this.loggedUser = facade.getLogUser();
-		
+
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -77,8 +78,8 @@ public class MainLoggedGUI extends JFrame {
 		initialize();
 		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
-	
+
+
 
 	/**
 	 * This method initializes this
@@ -105,17 +106,18 @@ public class MainLoggedGUI extends JFrame {
 			jContentPane.add(getBoton3());
 			jContentPane.add(getTopUpBalanceButton());
 			jContentPane.add(getSeeMovementsButton());
+			jContentPane.add(getSendMessages());
 			jContentPane.add(getBetButton());
 			jContentPane.add(getPanel());
-	
+
 		}
 		return jContentPane;
 	}
-	
+
 	private JButton getBetButton() {
 		if(jButtonBet == null) {
 			jButtonBet = new JButton();
-			jButtonBet.setBounds(0, 113, 495, 61);
+			jButtonBet.setBounds(0, 113, 248, 61);
 			jButtonBet.setText(ResourceBundle.getBundle("Etiquetas").getString("Bet"));
 			jButtonBet.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -126,7 +128,7 @@ public class MainLoggedGUI extends JFrame {
 		}
 		return jButtonBet;
 	}
-	
+
 	/**jButtonQueryQuery
 	 * This method initializes boton3
 	 * 
@@ -135,7 +137,7 @@ public class MainLoggedGUI extends JFrame {
 	private JButton getBoton3() {
 		if (jButtonQueryQueries == null) {
 			jButtonQueryQueries = new JButton();
-			jButtonQueryQueries.setBounds(0, 51, 495, 61);
+			jButtonQueryQueries.setBounds(0, 51, 248, 61);
 			jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
 			jButtonQueryQueries.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -147,7 +149,7 @@ public class MainLoggedGUI extends JFrame {
 		}
 		return jButtonQueryQueries;
 	}
-	
+
 
 	/**jButtonTopUpBalance
 	 * This method initializes topUpBalance button
@@ -157,7 +159,7 @@ public class MainLoggedGUI extends JFrame {
 	private JButton getTopUpBalanceButton() {
 		if (jButtonTopUpBalance == null) {
 			jButtonTopUpBalance = new JButton();
-			jButtonTopUpBalance.setBounds(0, 237, 495, 61);
+			jButtonTopUpBalance.setBounds(0, 237, 248, 61);
 			jButtonTopUpBalance.setText(ResourceBundle.getBundle("Etiquetas").getString("TopUpBalance"));
 			jButtonTopUpBalance.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -168,7 +170,7 @@ public class MainLoggedGUI extends JFrame {
 		}
 		return jButtonTopUpBalance;
 	}
-	
+
 
 	/**jButtonSeeMovements
 	 * This method initializes SeeMovement button
@@ -178,7 +180,7 @@ public class MainLoggedGUI extends JFrame {
 	private JButton getSeeMovementsButton() {
 		if (jButtonSeeMovements == null) {
 			jButtonSeeMovements = new JButton();
-			jButtonSeeMovements.setBounds(0, 175, 495, 61);
+			jButtonSeeMovements.setBounds(0, 176, 248, 61);
 			jButtonSeeMovements.setText(ResourceBundle.getBundle("Etiquetas").getString("SeeMovements"));
 			jButtonSeeMovements.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -191,7 +193,25 @@ public class MainLoggedGUI extends JFrame {
 	}
 
 
-	
+	/**jButtonSeeMovements
+	 * This method initializes SendMessages button
+	 * 
+	 * @return javax.swing.JButton
+	 */
+	private JButton getSendMessages() {
+		if (jButtonSendMessages == null) {
+			jButtonSendMessages = new JButton();
+			jButtonSendMessages.setBounds(247, 113, 248, 61);
+			jButtonSendMessages.setText("SendMessages");
+			jButtonSendMessages.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					SendMessageGUI a = new SendMessageGUI();
+					a.setVisible(true);
+				}
+			});
+		}
+		return jButtonSendMessages;
+	}
 	private JLabel getLblNewLabel() {
 		if (jLabelSelectOption == null) {
 			jLabelSelectOption = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("SelectOption"));
@@ -243,7 +263,7 @@ public class MainLoggedGUI extends JFrame {
 		return rdbtnNewRadioButton_2;
 	}
 
-	
+
 
 	private JPanel getPanel() {
 		if (panel == null) {
@@ -255,7 +275,7 @@ public class MainLoggedGUI extends JFrame {
 		}
 		return panel;
 	}
-	
+
 	private void redibujar() {
 		jLabelSelectOption.setText(ResourceBundle.getBundle("Etiquetas").getString("SelectOption"));
 		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
@@ -264,9 +284,8 @@ public class MainLoggedGUI extends JFrame {
 		jButtonBet.setText(ResourceBundle.getBundle("Etiquetas").getString("Bet"));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("LoggedTitle") + ": " + loggedUser.getUsername());
 	}
-	
+
 	private void closeMain() {
 		this.setVisible(false);
 	}
 } // @jve:decl-index=0:visual-constraint="0,0"
-

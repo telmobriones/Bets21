@@ -8,6 +8,7 @@ import domain.Question;
 import domain.User;
 import domain.Bet;
 import domain.Event;
+import domain.Message;
 import domain.Movement;
 import domain.Pronostic;
 import exceptions.EventFinished;
@@ -195,6 +196,36 @@ public interface BLFacade {
 	 */
 	@WebMethod
 	public void initializeBD();
+	
+	/**
+	 * This method add a message
+	 * 
+	 * @param The remitent
+	 * @param The desinatary
+	 * @param The date the message was sent
+	 * @return a new message
+	 * 
+	 */
+	public Message createMessage(User remitent, String destinataryUsername, String formatDate, String Message);
+	
+	/**
+	 * This method retrieves from the database all the messages related to that chat
+	 * 
+	 * @param the remitent of the messages
+	 * @param the destinatary of the messages
+	 * @return collection of messages
+	 */
+
+	public Vector<Message>getMessagesForThisChat(String pRemitent, String pDestinataryUsername);
+	
+	/**
+	 * This method chech if a user exists
+	 * 
+	 * @param username
+	 * @return if the user exist
+	 * 
+	 */
+	public boolean existUser(String pUsername);
 
 
 }

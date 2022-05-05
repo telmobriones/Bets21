@@ -14,6 +14,7 @@ import domain.Question;
 import domain.User;
 import domain.Bet;
 import domain.Event;
+import domain.Message;
 import domain.Movement;
 import domain.Pronostic;
 import exceptions.EventFinished;
@@ -74,8 +75,8 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.open(false);
 		Question qry = null;
 
-//		if (new Date().compareTo(event.getEventDate()) > 0)
-//			throw new EventFinished(ResourceBundle.getBundle("Etiquetas").getString("ErrorEventHasFinished"));
+		//		if (new Date().compareTo(event.getEventDate()) > 0)
+		//			throw new EventFinished(ResourceBundle.getBundle("Etiquetas").getString("ErrorEventHasFinished"));
 
 		qry = dbManager.createQuestion(event, question, betMinimum);
 
@@ -357,6 +358,43 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.open(false);
 		dbManager.updateUserBet(betUser, bet);
 		dbManager.close();
+	}
+	@Override
+	public Message createMessage(User remitent, String destinataryUsername, String formateDate, String message) {
+		dbManager.open(false);
+		Message mes = dbManager.createMessage(remitent, destinataryUsername, formateDate, message);
+		dbManager.close();
+		return mes;
+	}
+
+	/**
+	 * This method retrieves from the database all the messages related to that chat
+	 * 
+	 * @param the remitent of the messages
+	 * @param the destinatary of the messages
+	 * @return collection of messages
+	 */
+	@Override
+	public Vector<Message> getMessagesForThisChat(String pRemitentUsername, String pDestinataryUsername) {
+		dbManager.open(false);
+		Vector<Message> messages = dbManager.getMessagesForThisChat(pRemitentUsername, pDestinataryUsername);
+		dbManager.close();
+		return messages;
+	}
+
+
+	/**
+	 * This method chech if a user exists
+	 * 
+	 * @param username
+	 * @return if the user exist
+	 * 
+	 */
+	public boolean existUser(String pUsername) {
+		dbManager.open(false);
+		boolean existUser = dbManager.existUser(pUsername);
+		dbManager.close();
+		return existUser;
 	}
 }
 
