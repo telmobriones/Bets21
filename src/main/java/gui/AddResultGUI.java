@@ -354,24 +354,36 @@ public class AddResultGUI extends JFrame {
 				ArrayList<Pronostic> pronostics = new ArrayList<Pronostic>();
 				ArrayList<Bet> bets = new ArrayList<Bet>();
 				questions = pronEvent.getQuestions();
-				if (!questions.isEmpty()) {
-					for (Question question : questions) {
+				if (!questions.isEmpty())
+				{
+					for (Question question : questions)
+					{
 						pronostics = question.getPronostics();
-						if (!pronostics.isEmpty()) {
-							for (Pronostic pronostic : pronostics) {
+						if (!pronostics.isEmpty())
+						{
+							for (Pronostic pronostic : pronostics)
+							{
 								// If the betted pronostic is right
-								if (pronostic.isPronResult()) {
+								if (pronostic.isPronResult())
+								{
 									System.out.println(pronostic.getPronDescription());
 									pronOdd = pronostic.getPronOdd();
 									bets = pronostic.getBets4Pronostic();
-									if (!bets.isEmpty()) {
-										for (Bet bet : bets) {
-											System.out.println("Updating bet...");
-											gains = bet.getBetMoney() * pronOdd;
-											Movement movement = facade.createMovement("Bet Won", gains,
-													bet.getBetUser(), pronEvent, question);
-											facade.updateMovement(bet.getBetUser(), movement);
-											facade.updateBalance(bet.getBetUser(), gains);
+									
+									if (!bets.isEmpty())
+									{
+										for (Bet bet : bets)
+										{
+											if(!bet.isBetMultiple()) {
+												System.out.println("Updating bet...");
+												gains = bet.getBetMoney() * pronOdd;
+												Movement movement = facade.createMovement("Bet Won", gains,
+														bet.getBetUser(), pronEvent, question);
+												facade.updateMovement(bet.getBetUser(), movement);
+												facade.updateBalance(bet.getBetUser(), gains);
+											} else {
+												// MULTIPLE BET CODE!!!
+											}
 										}
 									}
 								}

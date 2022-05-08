@@ -32,6 +32,7 @@ public class MultipleBetGUI extends JFrame {
 	private final JLabel jLabelQueries = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Queries"));
 	private final JLabel jLabelEvents = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Events"));
 	private final JLabel jLabelPronostics = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Pronostics"));
+	private final JLabel jLabelMultipleBet = new JLabel("Multiple Bet");
 
 	private JButton jButtonClose = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Close"));
 
@@ -42,22 +43,28 @@ public class MultipleBetGUI extends JFrame {
 	private JScrollPane scrollPaneEvents = new JScrollPane();
 	private JScrollPane scrollPaneQueries = new JScrollPane();
 	private JScrollPane scrollPanePronostics = new JScrollPane();
+	private JScrollPane scrollPaneMultipleBet = new JScrollPane();
 
 	private Vector<Date> datesWithEventsCurrentMonth = new Vector<Date>();
 
 	private JTable tableEvents = new JTable();
 	private JTable tableQueries = new JTable();
 	private JTable tablePronostics = new JTable();
+	private JTable tableMultipleBet = new JTable();
 
 	private DefaultTableModel tableModelEvents;
 	private DefaultTableModel tableModelQueries;
 	private DefaultTableModel tableModelPronostics;
+	private DefaultTableModel tableModelMultipleBet;
+	
 
-	private String[] columnNamesEvents = new String[] { ResourceBundle.getBundle("Etiquetas").getString("EventN"),
+	private String[] columnNamesEvents = new String[] {
+			ResourceBundle.getBundle("Etiquetas").getString("EventN"),
 			ResourceBundle.getBundle("Etiquetas").getString("Event"),
 
 	};
-	private String[] columnNamesQueries = new String[] { ResourceBundle.getBundle("Etiquetas").getString("QueryN"),
+	private String[] columnNamesQueries = new String[] {
+			ResourceBundle.getBundle("Etiquetas").getString("QueryN"),
 			ResourceBundle.getBundle("Etiquetas").getString("Query")
 
 	};
@@ -66,10 +73,17 @@ public class MultipleBetGUI extends JFrame {
 			ResourceBundle.getBundle("Etiquetas").getString("Pronostic")
 
 	};
+	private String[] columnNamesMultipleBet = new String[] {
+			ResourceBundle.getBundle("Etiquetas").getString("Event"),
+			ResourceBundle.getBundle("Etiquetas").getString("Query"),
+			ResourceBundle.getBundle("Etiquetas").getString("Pronostic"),
+			ResourceBundle.getBundle("Etiquetas").getString("PronosticOdds")
+	};
 
 	private JTextField textFieldBetMoney;
 	private JTextField textFieldOdds;
 	private JLabel lblPronOdds;
+	
 	private final JLabel lblErrors = new JLabel("");
 
 	private Event pronEvent;
@@ -89,27 +103,29 @@ public class MultipleBetGUI extends JFrame {
 	private void jbInit() throws Exception {
 
 		this.getContentPane().setLayout(null);
-		this.setSize(new Dimension(750, 710));
+		this.setSize(new Dimension(1025, 767));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("CreatePronostic"));
 
 		jLabelEventDate.setBounds(new Rectangle(40, 15, 140, 25));
 		jLabelQueries.setBounds(40, 247, 406, 14);
 		jLabelEvents.setBounds(295, 19, 259, 16);
 		jLabelPronostics.setBounds(40, 463, 259, 16);
+		jLabelMultipleBet.setBounds(507, 247, 406, 16);
+		
 
 		this.getContentPane().add(jLabelEventDate, null);
 		this.getContentPane().add(jLabelQueries);
 		this.getContentPane().add(jLabelEvents);
 		this.getContentPane().add(jLabelPronostics);
+		this.getContentPane().add(jLabelMultipleBet);
 
-		jButtonClose.setBounds(new Rectangle(527, 621, 112, 30));
+		jButtonClose.setBounds(new Rectangle(636, 621, 112, 30));
 
 		jButtonClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				jButton2_actionPerformed(e);
 			}
 		});
-
 		this.getContentPane().add(jButtonClose, null);
 
 		jCalendar1.setBounds(new Rectangle(40, 50, 225, 150));
@@ -196,6 +212,7 @@ public class MultipleBetGUI extends JFrame {
 		scrollPaneEvents.setBounds(new Rectangle(292, 50, 346, 150));
 		scrollPaneQueries.setBounds(new Rectangle(40, 274, 406, 160));
 		scrollPanePronostics.setBounds(new Rectangle(40, 491, 406, 160));
+		scrollPaneMultipleBet.setBounds(new Rectangle(493, 274, 495, 160));
 
 		scrollPaneEvents.setViewportView(tableEvents);
 		tableModelEvents = new DefaultTableModel(null, columnNamesEvents);
@@ -214,6 +231,13 @@ public class MultipleBetGUI extends JFrame {
 		tablePronostics.setModel(tableModelPronostics);
 		tablePronostics.getColumnModel().getColumn(0).setPreferredWidth(25);
 		tablePronostics.getColumnModel().getColumn(1).setPreferredWidth(268);
+		
+		scrollPaneMultipleBet.setViewportView(tableMultipleBet);
+		tableModelMultipleBet = new DefaultTableModel(null, columnNamesMultipleBet);
+		tableMultipleBet.setModel(tableModelMultipleBet);
+		tableMultipleBet.getColumnModel().getColumn(0).setPreferredWidth(180);
+		tableMultipleBet.getColumnModel().getColumn(1).setPreferredWidth(150);
+		tableMultipleBet.getColumnModel().getColumn(2).setPreferredWidth(150);
 
 		tableEvents.addMouseListener(new MouseAdapter() {
 			@Override
@@ -288,22 +312,23 @@ public class MultipleBetGUI extends JFrame {
 		this.getContentPane().add(scrollPaneEvents, null);
 		this.getContentPane().add(scrollPaneQueries, null);
 		this.getContentPane().add(scrollPanePronostics, null);
+		this.getContentPane().add(scrollPaneMultipleBet, null);
 
 		////////////////////////////////////////////////////
 		JLabel lblBetMoney = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Money")); //$NON-NLS-1$ //$NON-NLS-2$
-		lblBetMoney.setBounds(480, 403, 90, 15);
+		lblBetMoney.setBounds(589, 515, 90, 15);
 		getContentPane().add(lblBetMoney);
 
 		JLabel lblPronosticOdds = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("PronosticOdds")); //$NON-NLS-1$ //$NON-NLS-2$
-		lblPronosticOdds.setBounds(480, 329, 149, 14);
+		lblPronosticOdds.setBounds(40, 663, 149, 14);
 		getContentPane().add(lblPronosticOdds);
 
 		lblPronOdds = new JLabel(); // $NON-NLS-1$ //$NON-NLS-2$
-		lblPronOdds.setBounds(635, 329, 70, 15);
+		lblPronOdds.setBounds(195, 663, 70, 15);
 		getContentPane().add(lblPronOdds);
 
 		textFieldBetMoney = new JTextField();
-		textFieldBetMoney.setBounds(602, 401, 134, 19);
+		textFieldBetMoney.setBounds(711, 513, 134, 19);
 		textFieldBetMoney.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
 				char c = e.getKeyChar();
@@ -315,12 +340,12 @@ public class MultipleBetGUI extends JFrame {
 		getContentPane().add(textFieldBetMoney);
 		textFieldBetMoney.setColumns(10);
 
-		lblErrors.setBounds(490, 514, 225, 15);
+		lblErrors.setBounds(599, 514, 225, 15);
 		lblErrors.setForeground(Color.RED);
 		getContentPane().add(lblErrors);
 
 		JButton btnMakeBet = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Bet")); //$NON-NLS-1$ //$NON-NLS-2$
-		btnMakeBet.setBounds(490, 456, 200, 30);
+		btnMakeBet.setBounds(599, 568, 200, 30);
 		btnMakeBet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
