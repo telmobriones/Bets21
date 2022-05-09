@@ -1,5 +1,6 @@
 package businessLogic;
 
+import java.util.ArrayList;
 //hola
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -279,7 +280,7 @@ public class BLFacadeImplementation implements BLFacade {
 	}
 
 	@Override
-	public Movement createMovement(String movType, int money, User pUser, Event pEvent, Question pQuestion) {
+	public Movement createMovement(String movType, float money, User pUser, Event pEvent, Question pQuestion) {
 		dbManager.open(false);
 		Movement mov = dbManager.createMovement(movType,money, pUser, pEvent, pQuestion);
 		dbManager.close();
@@ -296,7 +297,7 @@ public class BLFacadeImplementation implements BLFacade {
 	}
 
 	/**
-	 * This method adds a new bet to a certain pronostic
+	 * This method adds a new bet to the pronostic
 	 *
 	 * @param the money betted
 	 * @param the user that made the bet
@@ -304,9 +305,9 @@ public class BLFacadeImplementation implements BLFacade {
 	 * @return the created bet, or null, or an exception
 	 */
 	@Override
-	public Bet addBetToPronostic(int betMoney, User betUser, Pronostic betPronostic) {
+	public Bet addBetToPronostic(int betMoney, User betUser, Pronostic betPronostic, ArrayList<Pronostic> multBetPronostics) {
 		dbManager.open(false);
-		Bet bet = dbManager.addBetToPronostic(betMoney, betUser, betPronostic);
+		Bet bet = dbManager.addBetToPronostic(betMoney, betUser, betPronostic, multBetPronostics);
 		dbManager.close();
 		return bet;
 	}
@@ -347,9 +348,9 @@ public class BLFacadeImplementation implements BLFacade {
 	 * @return new balance after update
 	 * 
 	 */
-	public int updateBalance(User pUser, int pMoney) {
+	public float updateBalance(User pUser, float pMoney) {
 		dbManager.open(false);
-		int newBalance = dbManager.updateBalance(pUser,pMoney);
+		float newBalance = dbManager.updateBalance(pUser,pMoney);
 		dbManager.close();
 		return newBalance;
 	}

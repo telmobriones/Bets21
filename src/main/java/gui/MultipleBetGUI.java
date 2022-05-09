@@ -27,6 +27,14 @@ public class MultipleBetGUI extends JFrame {
 	private User loggedUser;
 	private int betMoney;
 	private float minBetAmmount;
+	
+	private Event pronEvent;
+	private Question pronQuestion;
+	private Pronostic betPronostic;
+	
+	private int nMultBet = 0;
+	private float minMultBetAmmount = 0; // We will set the minimum bet to the value of the highest minBetAmmount among all the answered questions
+	private ArrayList<Pronostic> multBetPronostics = new ArrayList<Pronostic>(); // We will pass this to the Bet.class constructor
 
 	private final JLabel jLabelEventDate = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("EventDate"));
 	private final JLabel jLabelQueries = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Queries"));
@@ -86,10 +94,7 @@ public class MultipleBetGUI extends JFrame {
 	
 	private final JLabel lblErrors = new JLabel("");
 
-	private Event pronEvent;
-	private Question pronQuestion;
-	private Pronostic betPronostic;
-
+	
 	private static BLFacade facade = MainGUI.getBusinessLogic();
 
 	public MultipleBetGUI() {
@@ -343,6 +348,34 @@ public class MultipleBetGUI extends JFrame {
 		lblErrors.setBounds(599, 514, 225, 15);
 		lblErrors.setForeground(Color.RED);
 		getContentPane().add(lblErrors);
+		
+		
+		JButton btnAdd2Bet = new JButton("Add to Bet"); //$NON-NLS-1$ //$NON-NLS-2$
+		btnAdd2Bet.setBounds(140, 689, 200, 30);
+		btnAdd2Bet.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (betPronostic == null) {
+					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorSelectPronostic"));
+				} else {
+					// pronEvent
+					// pronQuestion
+					// betPronostic
+					Vector<Object> row = new Vector<Object>();
+					row.add(pronEvent.getDescription());
+					row.add(pronQuestion.getQuestion());
+					row.add(betPronostic.getPronDescription());
+					row.add(betPronostic.getPronOdd());
+					tableModelPronostics.addRow(row);
+					
+					multBetPronostics.add(betPronostic);
+					nMultBet++;
+					if(pronQuestion.getBetMinimum() > minMultBetAmmount) {
+						minMultBetAmmount = pronQuestion.getBetMinimum();
+					}
+				}
+			}
+		});
+		getContentPane().add(btnAdd2Bet);
 
 		JButton btnMakeBet = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Bet")); //$NON-NLS-1$ //$NON-NLS-2$
 		btnMakeBet.setBounds(599, 568, 200, 30);
@@ -352,13 +385,12 @@ public class MultipleBetGUI extends JFrame {
 				boolean error = false;
 				loggedUser = facade.getLogUser();
 				betMoney = Integer.parseInt(textFieldBetMoney.getText());
-				minBetAmmount = pronQuestion.getBetMinimum();
 				
-				if (betPronostic == null) {
-					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorSelectPronostic"));
+				if (nMultBet < 2) {
+					lblErrors.setText("Multiple bet requires at least two answers");
 					error = true;
 				} else {
-					if (betMoney <= minBetAmmount) {
+					if (betMoney <= minMultBetAmmount) {
 						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorBetMinimum"));
 						error = true;
 					} else if (betMoney > loggedUser.getBalance()) {
@@ -374,10 +406,10 @@ public class MultipleBetGUI extends JFrame {
 
 					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("BetAdded"));
 					int money2add = -betMoney;
-					Movement movement = facade.createMovement("Bet Made", money2add, loggedUser, pronEvent, pronQuestion);
+					Movement movement = facade.createMovement("Multiple Bet Made", money2add, loggedUser, null, null);
 					facade.updateMovement(loggedUser, movement);
 					facade.updateBalance(loggedUser, money2add);
-					Bet newBet = facade.addBetToPronostic(betMoney,loggedUser,betPronostic);
+					Bet newBet = facade.addBetToPronostic(betMoney,loggedUser,null,multBetPronostics);
 					facade.updateUserBet(loggedUser, newBet);
 				}
 			}

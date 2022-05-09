@@ -1,6 +1,7 @@
 package businessLogic;
 
 import java.util.Vector;
+import java.util.ArrayList;
 import java.util.Date;
 
 //import domain.Booking;
@@ -118,7 +119,7 @@ public interface BLFacade {
 	 * @param the pronostic that the bet is related to
 	 * @return the created bet, or null, or an exception
 	 */
-	public Bet addBetToPronostic(int betMoney, User betUser, Pronostic betPronostic);
+	public Bet addBetToPronostic(int betMoney, User betUser, Pronostic betPronostic, ArrayList<Pronostic> multBetPronostics);
 	/**
 	 * This method creates a movement
 	 * 
@@ -130,7 +131,7 @@ public interface BLFacade {
 
 	 * @return new movement
 	 */
-	public Movement createMovement(String movType, int money, User pUser, Event pEvent, Question pQuestion);
+	public Movement createMovement(String movType, float money, User pUser, Event pEvent, Question pQuestion);
 
 
 
@@ -174,7 +175,7 @@ public interface BLFacade {
 	public void updateQuestion(Question question, Pronostic pronostic);
 	public void updateMovement(User user, Movement movement);
 
-	public int updateBalance(User pUser, int pMoney);
+	public float updateBalance(User pUser, float pMoney);
 
 	public void updateUserBet(User betUser, Bet bet);
 

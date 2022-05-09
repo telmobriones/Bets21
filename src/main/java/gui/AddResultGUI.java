@@ -25,8 +25,8 @@ public class AddResultGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private int pronosticResult;
-	private int pronOdd;
-	private int gains;
+	private float pronOdd;
+	private float gains;
 
 	private final JLabel jLabelEventDate = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("EventDate"));
 	private final JLabel jLabelQueries = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Queries"));

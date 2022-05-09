@@ -15,7 +15,7 @@ public class User {
 	private String username;
 	private String password;
 	private boolean isAdmin;
-	private int balance; // Kontuko saldoa
+	private float balance; // Kontuko saldoa
 	//@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private ArrayList<Bet> bets = new ArrayList<Bet>();
 	//@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -46,7 +46,7 @@ public class User {
 		this.isAdmin = pIsAdmin;
 	}
 
-	public int getBalance() {
+	public float getBalance() {
 		return balance;
 	}
 	
@@ -54,7 +54,7 @@ public class User {
 		this.bets.add(bet);
 	}
 
-	public void updateBalance(int money) {
+	public void updateBalance(float money) {
 		System.out.println("Money before update: " + this.balance);
 		this.balance += money;
 		System.out.println("Money after update: " + this.balance);

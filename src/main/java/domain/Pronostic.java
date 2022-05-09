@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Pronostic {
@@ -14,14 +14,14 @@ public class Pronostic {
 	@GeneratedValue
 	private int pronID;
 	private String pronDescription;
-	private int pronOdd;
+	private float pronOdd;
 	private Question pronQuestion;
 	private boolean pronResult;
 	private boolean pronClosed;
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private ArrayList<Bet> pronBets;
 	
-	public Pronostic(int pronID, int odd, String pronDescription, Question pronQuestion) {
+	public Pronostic(int pronID, float odd, String pronDescription, Question pronQuestion) {
 		super();
 		this.pronID = pronID;
 		this.pronOdd = odd;
@@ -44,7 +44,7 @@ public class Pronostic {
 		this.pronDescription = pronDescription;
 	}
 
-	public int getPronOdd() {
+	public float getPronOdd() {
 		return pronOdd;
 	}
 
@@ -60,10 +60,8 @@ public class Pronostic {
 		this.pronQuestion = pronQuestion;
 	}
 	
-	public Bet addBetToPronostic(int betID, User betUser, int betMoney) {
-		Bet bet = new Bet(betID, betMoney, betUser, this);
+	public void addBetToPronostic(Bet bet) {
 		this.pronBets.add(bet);
-		return bet;
 	}
 	public boolean isPronResult() {
 		return pronResult;

@@ -352,7 +352,7 @@ public class BetGUI extends JFrame {
 					Movement movement = facade.createMovement("Bet Made", money2add, loggedUser, pronEvent, pronQuestion);
 					facade.updateMovement(loggedUser, movement);
 					facade.updateBalance(loggedUser, money2add);
-					Bet newBet = facade.addBetToPronostic(betMoney,loggedUser,betPronostic);
+					Bet newBet = facade.addBetToPronostic(betMoney,loggedUser,betPronostic,null);
 					facade.updateUserBet(loggedUser, newBet);
 				}
 			}

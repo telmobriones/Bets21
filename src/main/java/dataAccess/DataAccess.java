@@ -1,5 +1,6 @@
 package dataAccess;
 
+import java.util.ArrayList;
 //hello
 import java.util.Calendar;
 import java.util.Date;
@@ -230,7 +231,7 @@ public class DataAccess {
 	 * @param the pronostic that the bet is related to
 	 * @return the created bet, or null, or an exception
 	 */
-	public Bet addBetToPronostic(int betMoney, User betUser, Pronostic betPronostic) {
+	public Bet addBetToPronostic(int betMoney, User betUser, Pronostic betPronostic, ArrayList<Pronostic> multBetPronostics) {
 		int newBetID;
 		TypedQuery<Bet> query = db.createQuery("SELECT FROM Bet ORDER BY betID DESC", Bet.class);
 		if(query.getResultList().size() != 0) {
@@ -243,9 +244,20 @@ public class DataAccess {
 		}
 
 		db.getTransaction().begin();
-		Pronostic pronostic = findPronosticByID(betPronostic.getPronID());
-		Bet bet = pronostic.addBetToPronostic(newBetID,betUser, betMoney);
-		db.persist(pronostic);
+		Bet bet;
+		if(betPronostic == null){
+			bet = new Bet(newBetID, betMoney, betUser, multBetPronostics);
+			for (Pronostic p : multBetPronostics) {
+				p.addBetToPronostic(bet);
+			}
+		} else if (multBetPronostics == null) {
+			bet = new Bet(newBetID, betMoney, betUser, betPronostic);
+			betPronostic.addBetToPronostic(bet);
+		} else {
+			bet = null;
+			System.out.println("AN ERROR OCURRED WITH THE Bet.class CONSTRUCTOR!");
+		}
+		db.persist(bet);
 		db.getTransaction().commit();
 		return bet;
 	}
@@ -495,7 +507,7 @@ public class DataAccess {
 	}
 
 
-	public Movement createMovement(String movType, int money, User pUser, Event pEvent, Question pQuestion) {
+	public Movement createMovement(String movType, float money, User pUser, Event pEvent, Question pQuestion) {
 
 		TypedQuery<Movement> query = db.createQuery("SELECT FROM Movement ORDER BY movID DESC", Movement.class);
 		Movement lastMovement = query.getResultList().get(0);
@@ -544,7 +556,7 @@ public class DataAccess {
 	 * @return new balance after update
 	 * 
 	 */
-	public int updateBalance(User pUser, int pMoney) {
+	public float updateBalance(User pUser, float pMoney) {
 		db.getTransaction().begin();
 		User u = db.find(User.class, pUser.getUsername());
 		if(u != null) {
