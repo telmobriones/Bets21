@@ -305,9 +305,9 @@ public class BLFacadeImplementation implements BLFacade {
 	 * @return the created bet, or null, or an exception
 	 */
 	@Override
-	public Bet addBetToPronostic(int betMoney, User betUser, Pronostic betPronostic, ArrayList<Pronostic> multBetPronostics) {
+	public Bet addBetToPronostic(int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics) {
 		dbManager.open(false);
-		Bet bet = dbManager.addBetToPronostic(betMoney, betUser, betPronostic, multBetPronostics);
+		Bet bet = dbManager.addBetToPronostic(betMoney, betUser, isMultipleBet, betPronostics);
 		dbManager.close();
 		return bet;
 	}

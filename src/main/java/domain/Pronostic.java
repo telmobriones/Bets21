@@ -1,5 +1,6 @@
 package domain;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -19,7 +20,7 @@ public class Pronostic {
 	private boolean pronResult;
 	private boolean pronClosed;
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private ArrayList<Bet> pronBets;
+	private List<Bet> pronBets;
 	
 	public Pronostic(int pronID, float odd, String pronDescription, Question pronQuestion) {
 		super();
@@ -79,7 +80,7 @@ public class Pronostic {
 		this.pronClosed = pronClosed;
 	}
 	public ArrayList<Bet> getBets4Pronostic(){
-		return this.pronBets;
+		return (ArrayList<Bet>) this.pronBets;
 	}
 
 }

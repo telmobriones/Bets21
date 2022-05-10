@@ -1,5 +1,6 @@
 package domain;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,27 +16,16 @@ public class Bet {
 	private int betID;
 	private int betMoney;
 	private User betUser;
-	private boolean multipleBet;
-	private Pronostic betPronostic;
-	@ManyToMany
-	private ArrayList<Pronostic> multipleBetPronostic;
+	private boolean isMultipleBet;
+	@ManyToMany(mappedBy = "pronBets")
+	private List<Pronostic> betPronostics;
 	
-	public Bet(int betID, int betMoney, User betUser, Pronostic betPronostic) {
+	public Bet(int betID, int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics) {
 		this.betID = betID;
 		this.betMoney = betMoney;
 		this.betUser = betUser;
-		this.multipleBet = false;
-		this.betPronostic = betPronostic;
-		this.multipleBetPronostic = null;
-	}
-	
-	public Bet(int betID, int betMoney, User betUser, ArrayList<Pronostic> multipleBetPronostic) {
-		this.betID = betID;
-		this.betMoney = betMoney;
-		this.betUser = betUser;
-		this.multipleBet = true;
-		this.betPronostic = null;
-		this.multipleBetPronostic = multipleBetPronostic;
+		this.isMultipleBet = isMultipleBet;
+		this.betPronostics = betPronostics;
 	}
 	
 	public int getBetID() {
@@ -51,20 +41,24 @@ public class Bet {
 		return betUser;
 	}
 	public Pronostic getBetPronostic() {
-		return betPronostic;
+		if(!isMultipleBet) {
+			return betPronostics.get(0);
+		} else {
+			return null;
+		}
 	}
 	public boolean isBetMultiple() {
-		return multipleBet;
+		return isMultipleBet;
 	}
 	public ArrayList<Pronostic> getMultipleBetPronostic(){
-		return multipleBetPronostic;
+		return (ArrayList<Pronostic>) betPronostics;
 	}
 	public void addPronosticToMultipleBet(Pronostic p) {
-		this.multipleBetPronostic.add(p);
+		this.betPronostics.add(p);
 	}
 	public float getMultipleBetOdd() {
 		float odd = 1;
-		for(Pronostic p : multipleBetPronostic) {
+		for(Pronostic p : betPronostics) {
 			odd = odd * p.getPronOdd();
 		}
 		return odd;

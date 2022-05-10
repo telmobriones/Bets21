@@ -231,7 +231,7 @@ public class DataAccess {
 	 * @param the pronostic that the bet is related to
 	 * @return the created bet, or null, or an exception
 	 */
-	public Bet addBetToPronostic(int betMoney, User betUser, Pronostic betPronostic, ArrayList<Pronostic> multBetPronostics) {
+	public Bet addBetToPronostic(int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics) {
 		int newBetID;
 		TypedQuery<Bet> query = db.createQuery("SELECT FROM Bet ORDER BY betID DESC", Bet.class);
 		if(query.getResultList().size() != 0) {
@@ -245,21 +245,18 @@ public class DataAccess {
 
 		db.getTransaction().begin();
 		Bet bet;
-		if(betPronostic == null){
-			bet = new Bet(newBetID, betMoney, betUser, multBetPronostics);
-			for (Pronostic p : multBetPronostics) {
+		if(isMultipleBet){
+			bet = new Bet(newBetID, betMoney, betUser, isMultipleBet,betPronostics);
+			for (Pronostic pron : betPronostics) {
+				Pronostic p = db.find(Pronostic.class, pron.getPronID());
 				p.addBetToPronostic(bet);
-				db.persist(p);
 			}
-		} else if (multBetPronostics == null) {
-			bet = new Bet(newBetID, betMoney, betUser, betPronostic);
-			betPronostic.addBetToPronostic(bet);
-			db.persist(betPronostic);
 		} else {
-			bet = null;
-			System.out.println("AN ERROR OCURRED WITH THE Bet.class CONSTRUCTOR!");
+			Pronostic p = db.find(Pronostic.class, betPronostics.get(0).getPronID());
+			bet = new Bet(newBetID, betMoney, betUser, isMultipleBet,betPronostics);
+			p.addBetToPronostic(bet);
 		}
-		//db.persist(bet);
+		db.persist(bet);
 		db.getTransaction().commit();
 		return bet;
 	}

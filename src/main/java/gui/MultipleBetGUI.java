@@ -344,8 +344,9 @@ public class MultipleBetGUI extends JFrame {
 		});
 		getContentPane().add(textFieldBetMoney);
 		textFieldBetMoney.setColumns(10);
+		lblErrors.setHorizontalAlignment(SwingConstants.CENTER);
 
-		lblErrors.setBounds(599, 514, 225, 15);
+		lblErrors.setBounds(507, 541, 388, 15);
 		lblErrors.setForeground(Color.RED);
 		getContentPane().add(lblErrors);
 		
@@ -385,7 +386,6 @@ public class MultipleBetGUI extends JFrame {
 				boolean error = false;
 				loggedUser = facade.getLogUser();
 				
-				
 				if (nMultBet < 2) {
 					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorBetMore"));
 					error = true;
@@ -393,6 +393,7 @@ public class MultipleBetGUI extends JFrame {
 					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorEnterMoney"));
 					error = true;
 				} else {
+					betMoney = Integer.parseInt(textFieldBetMoney.getText());
 					if (betMoney <= minMultBetAmmount) {
 						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorBetMinimum"));
 						error = true;
@@ -406,8 +407,7 @@ public class MultipleBetGUI extends JFrame {
 				}
 
 				if (!error) {
-					betMoney = Integer.parseInt(textFieldBetMoney.getText());
-					Bet newBet = facade.addBetToPronostic(betMoney,loggedUser,null,multBetPronostics);
+					Bet newBet = facade.addBetToPronostic(betMoney,loggedUser,true,multBetPronostics);
 					int money2add = -betMoney;
 					Movement movement = facade.createMovement("Multiple Bet Made", money2add, loggedUser, null, null);
 					facade.updateMovement(loggedUser, movement);

@@ -119,7 +119,7 @@ public interface BLFacade {
 	 * @param the pronostic that the bet is related to
 	 * @return the created bet, or null, or an exception
 	 */
-	public Bet addBetToPronostic(int betMoney, User betUser, Pronostic betPronostic, ArrayList<Pronostic> multBetPronostics);
+	public Bet addBetToPronostic(int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics);
 	/**
 	 * This method creates a movement
 	 * 
