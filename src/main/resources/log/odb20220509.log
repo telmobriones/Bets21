@@ -1,0 +1,29 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-05-09 20:20:01 #1 store] 
+Database '/home/artiom/git/3_Maila/SI/bets21/src/main/resources/bets.temp' has been recovered (tr. 292-293)
+
+[2022-05-09 20:20:01 #2 store] 
+Database '/home/artiom/git/3_Maila/SI/bets21/src/main/resources/bets.temp' is opened by 27506@Artioms-Laptop
+
+[2022-05-09 20:20:01 #3 type] 
+Type domain.Question is not enhanced.
+
+[2022-05-09 20:20:01 #4 type] 
+Type domain.Event is not enhanced.
+
+[2022-05-09 20:20:01 #5 type] 
+Type domain.User is not enhanced.
+
+[2022-05-09 20:20:01 #6 type] 
+Type domain.Pronostic is not enhanced.
+
+[2022-05-09 20:20:01 #7 type] 
+Type domain.Bet is not enhanced.
+
+[2022-05-09 20:20:01 #8 type] 
+Type domain.Movement is not enhanced.
+
+[2022-05-09 20:20:01 #9 type] 
+Type domain.Message is not enhanced.
+
