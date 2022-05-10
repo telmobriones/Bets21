@@ -17,7 +17,7 @@ public class Bet {
 	private User betUser;
 	private boolean multipleBet;
 	private Pronostic betPronostic;
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany
 	private ArrayList<Pronostic> multipleBetPronostic;
 	
 	public Bet(int betID, int betMoney, User betUser, Pronostic betPronostic) {

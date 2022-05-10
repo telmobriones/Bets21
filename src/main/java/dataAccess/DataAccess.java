@@ -249,15 +249,17 @@ public class DataAccess {
 			bet = new Bet(newBetID, betMoney, betUser, multBetPronostics);
 			for (Pronostic p : multBetPronostics) {
 				p.addBetToPronostic(bet);
+				db.persist(p);
 			}
 		} else if (multBetPronostics == null) {
 			bet = new Bet(newBetID, betMoney, betUser, betPronostic);
 			betPronostic.addBetToPronostic(bet);
+			db.persist(betPronostic);
 		} else {
 			bet = null;
 			System.out.println("AN ERROR OCURRED WITH THE Bet.class CONSTRUCTOR!");
 		}
-		db.persist(bet);
+		//db.persist(bet);
 		db.getTransaction().commit();
 		return bet;
 	}
@@ -514,8 +516,6 @@ public class DataAccess {
 		System.out.println("LastMovement: " + lastMovement);
 		int newMovID = lastMovement.getMovID()+1;
 		System.out.println("NewMovNum: " + newMovID);
-
-
 
 		db.getTransaction().begin();
 		Movement movement = new Movement(newMovID,money, movType, pUser,pEvent,pQuestion);

@@ -37,6 +37,7 @@ public class MainLoggedGUI extends JFrame {
 	private JButton jButtonSeeMovements = null;
 	private JButton jButtonBet = null;
 	private JButton jButtonSendMessages = null;
+	private JButton jButtonMultipleBet = null;
 
 	private static BLFacade appFacadeInterface;
 
@@ -106,6 +107,7 @@ public class MainLoggedGUI extends JFrame {
 			jContentPane.add(getBoton3());
 			jContentPane.add(getTopUpBalanceButton());
 			jContentPane.add(getSeeMovementsButton());
+			jContentPane.add(getMultipleBetButton());
 			jContentPane.add(getSendMessages());
 			jContentPane.add(getBetButton());
 			jContentPane.add(getPanel());
@@ -180,7 +182,7 @@ public class MainLoggedGUI extends JFrame {
 	private JButton getSeeMovementsButton() {
 		if (jButtonSeeMovements == null) {
 			jButtonSeeMovements = new JButton();
-			jButtonSeeMovements.setBounds(0, 176, 248, 61);
+			jButtonSeeMovements.setBounds(0, 175, 248, 61);
 			jButtonSeeMovements.setText(ResourceBundle.getBundle("Etiquetas").getString("SeeMovements"));
 			jButtonSeeMovements.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -191,9 +193,29 @@ public class MainLoggedGUI extends JFrame {
 		}
 		return jButtonSeeMovements;
 	}
+	
+	/**jButtonMultipleBet
+	 * This method initializes SeeMovement button
+	 * 
+	 * @return javax.swing.JButton
+	 */
+	private JButton getMultipleBetButton() {
+		if (jButtonMultipleBet == null) {
+			jButtonMultipleBet = new JButton();
+			jButtonMultipleBet.setBounds(247, 51, 248, 61);
+			jButtonMultipleBet.setText("MultipleBet");
+			jButtonMultipleBet.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					MultipleBetGUI a = new MultipleBetGUI();
+					a.setVisible(true);
+				}
+			});
+		}
+		return jButtonMultipleBet;
+	}
 
 
-	/**jButtonSeeMovements
+	/**jButtonSendMessages
 	 * This method initializes SendMessages button
 	 * 
 	 * @return javax.swing.JButton

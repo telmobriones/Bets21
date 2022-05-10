@@ -365,7 +365,7 @@ public class MultipleBetGUI extends JFrame {
 					row.add(pronQuestion.getQuestion());
 					row.add(betPronostic.getPronDescription());
 					row.add(betPronostic.getPronOdd());
-					tableModelPronostics.addRow(row);
+					tableModelMultipleBet.addRow(row);
 					
 					multBetPronostics.add(betPronostic);
 					nMultBet++;
@@ -384,10 +384,13 @@ public class MultipleBetGUI extends JFrame {
 				
 				boolean error = false;
 				loggedUser = facade.getLogUser();
-				betMoney = Integer.parseInt(textFieldBetMoney.getText());
+				
 				
 				if (nMultBet < 2) {
-					lblErrors.setText("Multiple bet requires at least two answers");
+					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorBetMore"));
+					error = true;
+				} else if(textFieldBetMoney.getText().trim() == ""){
+					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorEnterMoney"));
 					error = true;
 				} else {
 					if (betMoney <= minMultBetAmmount) {
@@ -403,14 +406,14 @@ public class MultipleBetGUI extends JFrame {
 				}
 
 				if (!error) {
-
-					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("BetAdded"));
+					betMoney = Integer.parseInt(textFieldBetMoney.getText());
+					Bet newBet = facade.addBetToPronostic(betMoney,loggedUser,null,multBetPronostics);
 					int money2add = -betMoney;
 					Movement movement = facade.createMovement("Multiple Bet Made", money2add, loggedUser, null, null);
 					facade.updateMovement(loggedUser, movement);
 					facade.updateBalance(loggedUser, money2add);
-					Bet newBet = facade.addBetToPronostic(betMoney,loggedUser,null,multBetPronostics);
 					facade.updateUserBet(loggedUser, newBet);
+					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("BetAdded"));
 				}
 			}
 		});
