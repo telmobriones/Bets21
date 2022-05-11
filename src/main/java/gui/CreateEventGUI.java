@@ -233,9 +233,22 @@ public static void paintDaysWithEvents(JCalendar jCalendar,Vector<Date> datesWit
 	 
 	private void jButtonCreate_actionPerformed(ActionEvent e) {
 		String description = jTextFieldDescription.getText();
-		System.out.println("Creating " + description + " event at date: " + firstDay);
-		facade.createEvent(description, firstDay);
-		jButtonCreate.setEnabled(false);
+		boolean success = false;
+		if(description.trim()!="") {
+			System.out.println("Creating " + description + " event at date: " + firstDay);
+			success = facade.createEvent(description, firstDay);
+			if (success) {
+				System.out.println("New event created!");
+				jTextFieldDescription.setText("");
+			} else {
+				System.out.println("Unexpected error occurred...");
+				jButtonCreate.setEnabled(false);
+			}
+		} else {
+			System.out.println("ERROR! -> Empty description field, add text and try again.");
+		}
+		
+		
 	}
 
 	private void jButtonClose_actionPerformed(ActionEvent e) {

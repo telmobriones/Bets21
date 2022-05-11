@@ -191,7 +191,7 @@ public class DataAccess {
 	 */
 	public boolean createUser(String name, String password) {
 		System.out.println(">> DataAccess: createUser=>  name= " + name);
-		User user = findUser(name);
+		User user = db.find(User.class, name);
 		if (user == null) {
 			db.getTransaction().begin();
 			user = new User(name, password, false);
@@ -380,24 +380,25 @@ public class DataAccess {
 	 * @param pDate   			Date of the new event
 	 * @return the new event or null if there is a problem
 	 */
-	public Event createEvent(String pDescription, Date pDate){
+	public boolean createEvent(String pDescription, Date pDate){
 		System.out.println(">> DataAccess: createEvent=> eventDesc= " + pDescription + " Date= " + pDate);
 		TypedQuery<Event> query = db.createQuery("SELECT FROM Event ORDER BY eventNumber DESC", Event.class);
 		Event lastEvent = query.getResultList().get(0);
 		System.out.println("LastEvent: " + lastEvent);
 		int newEvNumber = lastEvent.getEventNumber()+1;
 		System.out.println("NewEventNumber: " + newEvNumber);
-		Event ev;
+		
 		if(!isThereEventByNumber(newEvNumber)) {
 			db.getTransaction().begin();
-			ev = new Event(newEvNumber, pDescription, pDate);
+			Event ev = new Event(newEvNumber, pDescription, pDate);
 			db.persist(ev);
 			db.getTransaction().commit();
 			System.out.println("New event created successfully!");
+			return true;
 		} else {
-			ev = null;
+			return false;
 		}
-		return ev;
+		
 
 	}
 

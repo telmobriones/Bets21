@@ -192,9 +192,9 @@ public class BLFacadeImplementation implements BLFacade {
 	 */
 	public boolean createEvent(String pDescription, Date pDate) {
 		dbManager.open(false);
-		Event ev = dbManager.createEvent(pDescription, pDate);
+		boolean ev = dbManager.createEvent(pDescription, pDate);
 		dbManager.close();
-		return (ev != null);
+		return ev;
 	};
 
 	/**
