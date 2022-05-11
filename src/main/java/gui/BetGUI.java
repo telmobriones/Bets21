@@ -349,7 +349,7 @@ public class BetGUI extends JFrame {
 
 					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("BetAdded"));
 					int money2add = -betMoney;
-					Movement movement = facade.createMovement("Bet Made", money2add, loggedUser, pronEvent, pronQuestion);
+					Movement movement = facade.createMovement("Bet Made", money2add, loggedUser, pronEvent.getDescription(), pronQuestion.getQuestion());
 					facade.updateMovement(loggedUser, movement);
 					facade.updateBalance(loggedUser, money2add);
 					ArrayList<Pronostic> pronList=new ArrayList<Pronostic>();

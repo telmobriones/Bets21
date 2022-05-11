@@ -12,19 +12,20 @@ public class Movement {
 	private int movID;
 	private String movementType;
 	private float money;
-	private int balance;
 	private User user;
-	private Event event;
-	private Question question;
+	private String eventDesc;
+	private String questionDesc;
 	
-	public Movement(int pMovID, float pMoney, String pMovType, User pUser, Event pEvent, Question pQuestion) {
+
+
+	public Movement(int movID, String movementType, float money, User user, String eventDesc, String questionDesc) {
 		super();
-		this.movID = pMovID;
-		this.movementType = pMovType;
-		this.money= pMoney;
-		this.user = pUser;
-		this.event = pEvent;
-		this.question = pQuestion;
+		this.movID = movID;
+		this.movementType = movementType;
+		this.money = money;
+		this.user = user;
+		this.eventDesc = eventDesc;
+		this.questionDesc = questionDesc;
 	}
 
 	public int getMovID() {
@@ -51,20 +52,22 @@ public class Movement {
 		this.user = user;
 	}
 
-	public Event getEvent() {
-		return event;
+
+
+	public String getEventDesc() {
+		return eventDesc;
 	}
 
-	public void setEvent(Event event) {
-		this.event = event;
+	public void setEventDesc(String eventDesc) {
+		this.eventDesc = eventDesc;
 	}
 
-	public Question getQuestion() {
-		return question;
+	public String getQuestionDesc() {
+		return questionDesc;
 	}
 
-	public void setQuestion(Question question) {
-		this.question = question;
+	public void setQuestionDesc(String questionDesc) {
+		this.questionDesc = questionDesc;
 	}
 
 	public float getMoney() {

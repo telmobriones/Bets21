@@ -159,8 +159,8 @@ public class SeeMovementsGUI extends JFrame {
 			for (domain.Movement mov:movements) {
 				Vector<Object> row = new Vector<Object>();
 				row.add(mov.getMovementType());
-				row.add(mov.getEvent());
-				row.add(mov.getQuestion());
+				row.add(mov.getEventDesc());
+				row.add(mov.getQuestionDesc());
 				row.add(mov.getMoney());
 				tableModelMovements.addRow(row);
 			}

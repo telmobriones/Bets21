@@ -20,10 +20,12 @@ import configuration.ConfigXML;
 import configuration.UtilDate;
 import domain.Bet;
 import domain.Event;
+import domain.Lottery;
 import domain.Message;
 import domain.Movement;
 import domain.Pronostic;
 import domain.Question;
+import domain.Ticket;
 import domain.User;
 import exceptions.QuestionAlreadyExist;
 
@@ -506,7 +508,7 @@ public class DataAccess {
 	}
 
 
-	public Movement createMovement(String movType, float money, User pUser, Event pEvent, Question pQuestion) {
+	public Movement createMovement(String movType, float money, User pUser, String pEventDesc, String pQuestionDesc) {
 
 		TypedQuery<Movement> query = db.createQuery("SELECT FROM Movement ORDER BY movID DESC", Movement.class);
 		Movement lastMovement = query.getResultList().get(0);
@@ -515,7 +517,7 @@ public class DataAccess {
 		System.out.println("NewMovNum: " + newMovID);
 
 		db.getTransaction().begin();
-		Movement movement = new Movement(newMovID,money, movType, pUser,pEvent,pQuestion);
+		Movement movement = new Movement(newMovID,movType, money, pUser,pEventDesc,pQuestionDesc);
 		db.persist(movement);
 		db.getTransaction().commit();
 		System.out.println(movement+" added to the DB!");
@@ -668,6 +670,52 @@ public class DataAccess {
 		if (user == null) return false;
 		else return true;
 	}
+	
+	/**
+	 * This method distributes the prize of 
+	 * the last lottery that is not closed among all 
+	 * the participants who have bought a ticket
+	 */
+	public void giveJackpot(int ticketPrice) {
+		TypedQuery<Lottery> query = db.createQuery("SELECT FROM Lottery WHERE isRaffle='false' ORDER BY lotteryID ASC", Lottery.class);
+		Lottery lastLottery;
+		try {
+			lastLottery = query.getResultList().get(0);
+			createLottery(ticketPrice);
+		}catch (Exception e){
+			createLottery(ticketPrice);		
+		}
+		
+	}
+	
+	/**
+	 * This method creates a new lottery
+	 * 
+	 * @return the new lottery
+	 */
+	public void createLottery(int ticketPrice){
+		System.out.println(">> DataAccess: createLottery");
+		TypedQuery<Lottery> query = db.createQuery("SELECT FROM Lottery ORDER BY lotteryID ASC", Lottery.class);
+		Lottery lastLottery;
+		int newLotteryID;
+		try {
+			lastLottery= query.getResultList().get(0);
+			newLotteryID = lastLottery.getLotteryID()+1;
+		} catch (Exception e) {
+			newLotteryID = 1;
+		}
+
+		System.out.println("NewLotteryID: " + newLotteryID);
+		Lottery lot;
+		db.getTransaction().begin();
+		Vector<Ticket> tickets = new Vector<Ticket>();
+		lot = new Lottery(newLotteryID, 0, tickets, false, ticketPrice);
+		db.persist(lot);
+		db.getTransaction().commit();
+		System.out.println("The new lottery has been created successfully!");
+
+	}
+
 
 	public void close() {
 		db.close();

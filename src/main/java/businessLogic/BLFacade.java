@@ -126,12 +126,12 @@ public interface BLFacade {
 	 * @param Type of movement
 	 * @param Amount of money
 	 * @param The user who create the movement
-	 * @param The event it's related to
+	 * @param The description of the event it's related to
 	 * @param The question it's related to
 
 	 * @return new movement
 	 */
-	public Movement createMovement(String movType, float money, User pUser, Event pEvent, Question pQuestion);
+	public Movement createMovement(String movType, float money, User pUser, String pEventDesc, String pQuestionDesc);
 
 
 
@@ -220,13 +220,23 @@ public interface BLFacade {
 	public Vector<Message>getMessagesForThisChat(String pRemitent, String pDestinataryUsername);
 	
 	/**
-	 * This method chech if a user exists
+	 * This method checks if a user exists
 	 * 
 	 * @param username
 	 * @return if the user exist
 	 * 
 	 */
 	public boolean existUser(String pUsername);
+
+
+	/**
+	 * This method distributes the prize of 
+	 * the last lottery that is not closed among all 
+	 * the participants who have bought a ticket
+	 * 
+	 * @param the new price for the next lottery
+	 */
+	public void giveJackpot(int ticketPrice);
 
 
 }

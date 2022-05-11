@@ -38,6 +38,8 @@ public class MainLoggedGUI extends JFrame {
 	private JButton jButtonBet = null;
 	private JButton jButtonSendMessages = null;
 	private JButton jButtonMultipleBet = null;
+	private JButton jButtonBuyTickets = null;
+
 
 	private static BLFacade appFacadeInterface;
 
@@ -110,6 +112,7 @@ public class MainLoggedGUI extends JFrame {
 			jContentPane.add(getMultipleBetButton());
 			jContentPane.add(getSendMessages());
 			jContentPane.add(getBetButton());
+			jContentPane.add(getBuyTickets());
 			jContentPane.add(getPanel());
 
 		}
@@ -234,6 +237,28 @@ public class MainLoggedGUI extends JFrame {
 		}
 		return jButtonSendMessages;
 	}
+	
+	/**jButtonBuyTickets
+	 * This method initializes BuyTickets button
+	 * 
+	 * @return javax.swing.JButton
+	 */
+	private JButton getBuyTickets() {
+		if (jButtonBuyTickets == null) {
+			jButtonBuyTickets = new JButton();
+			jButtonBuyTickets.setBounds(247, 175, 248, 61);
+			jButtonBuyTickets.setText("BuyTickets");
+			jButtonBuyTickets.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					BuyTicketsGUI a = new BuyTicketsGUI();
+					a.setVisible(true);
+				}
+			});
+		}
+		return jButtonBuyTickets;
+	}
+	
+	
 	private JLabel getLblNewLabel() {
 		if (jLabelSelectOption == null) {
 			jLabelSelectOption = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("SelectOption"));

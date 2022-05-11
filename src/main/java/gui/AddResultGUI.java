@@ -378,7 +378,7 @@ public class AddResultGUI extends JFrame {
 												System.out.println("Updating bet...");
 												gains = bet.getBetMoney() * pronOdd;
 												Movement movement = facade.createMovement("Bet Won", gains,
-														bet.getBetUser(), pronEvent, question);
+														bet.getBetUser(), pronEvent.getDescription(), question.getQuestion());
 												facade.updateMovement(bet.getBetUser(), movement);
 												facade.updateBalance(bet.getBetUser(), gains);
 											} else {

@@ -280,9 +280,9 @@ public class BLFacadeImplementation implements BLFacade {
 	}
 
 	@Override
-	public Movement createMovement(String movType, float money, User pUser, Event pEvent, Question pQuestion) {
+	public Movement createMovement(String movType, float money, User pUser, String pEventDesc, String pQuestionDesc) {
 		dbManager.open(false);
-		Movement mov = dbManager.createMovement(movType,money, pUser, pEvent, pQuestion);
+		Movement mov = dbManager.createMovement(movType,money, pUser, pEventDesc, pQuestionDesc);
 		dbManager.close();
 		return mov;
 	}
@@ -396,6 +396,18 @@ public class BLFacadeImplementation implements BLFacade {
 		boolean existUser = dbManager.existUser(pUsername);
 		dbManager.close();
 		return existUser;
+	}
+
+	/**
+	 * This method distributes the prize of 
+	 * the last lottery that is not closed among all 
+	 * the participants who have bought a ticket
+	 */
+	@Override
+	public void giveJackpot(int ticketPrice) {
+		dbManager.open(false);
+		dbManager.giveJackpot(ticketPrice);
+		dbManager.close();
 	}
 }
 

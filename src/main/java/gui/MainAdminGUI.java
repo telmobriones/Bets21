@@ -33,6 +33,7 @@ public class MainAdminGUI extends JFrame {
 	private JButton jButtonCreateEvent = null;
 	private JButton jButtonCreatePronostic = null;
 	private JButton jButtonAddResult = null;
+	private JButton jButtonGiveJackpot = null;
 	
     private static BLFacade appFacadeInterface;
 	
@@ -102,6 +103,7 @@ public class MainAdminGUI extends JFrame {
 			jContentPane.add(getjButtonCreateEvent());
 			jContentPane.add(getjButtonCreatePronostic());
 			jContentPane.add(getjButtonAddResult());
+			jContentPane.add(getjButtonGiveJackpot());
 			jContentPane.add(getPanel());
 	
 		}
@@ -207,6 +209,25 @@ public class MainAdminGUI extends JFrame {
 		}
 		return jButtonAddResult;
 	}
+	
+	/**
+	 * This method initializes GiveJackpot button
+	 * 
+	 * @return javax.swing.JButton
+	 */
+	private JButton getjButtonGiveJackpot() {
+		if (jButtonGiveJackpot == null) {
+			jButtonGiveJackpot = new JButton("GiveJackpot");
+			jButtonGiveJackpot.setBounds(246, 178, 249, 61);
+			jButtonGiveJackpot.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JFrame a = new GiveJackpotGUI();
+					a.setVisible(true);
+				}
+			});
+		}
+		return jButtonGiveJackpot;
+	}
 
 	private JLabel getLblNewLabel() {
 		if (jLabelSelectOption == null) {
@@ -279,6 +300,7 @@ public class MainAdminGUI extends JFrame {
 		jButtonCreateEvent.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateEvent"));
 		jButtonCreatePronostic.setText(ResourceBundle.getBundle("Etiquetas").getString("CreatePronostic"));
 		jButtonAddResult.setText(ResourceBundle.getBundle("Etiquetas").getString("AddResult"));
+		jButtonGiveJackpot.setText("GiveJackpot");
 		
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainTitle"));
 	}

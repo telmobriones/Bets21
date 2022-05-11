@@ -1,0 +1,140 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-05-11 14:19:27 #1 store] 
+Database '/home/josue/git/Bets21/src/main/resources/bets.temp' is opened by 11013@josue
+
+[2022-05-11 14:19:28 #2 type] 
+Type domain.Question is not enhanced.
+
+[2022-05-11 14:19:28 #3 type] 
+Type domain.Event is not enhanced.
+
+[2022-05-11 14:19:28 #4 type] 
+Type domain.User is not enhanced.
+
+[2022-05-11 14:19:28 #5 type] 
+Type domain.Pronostic is not enhanced.
+
+[2022-05-11 14:19:28 #6 type] 
+Type domain.Bet is not enhanced.
+
+[2022-05-11 14:19:28 #7 type] 
+Type domain.Movement is not enhanced.
+
+[2022-05-11 14:19:28 #8 type] 
+Type domain.Message is not enhanced.
+
+[2022-05-11 14:19:54 #9 type.registry] 
+New type domain.Lottery
+
+[2022-05-11 14:19:54 #10 type] 
+Type domain.Lottery is not enhanced.
+
+[2022-05-11 14:19:54 #11 type.registry] 
+New type domain.Ticket
+
+[2022-05-11 14:19:54 #12 type.registry] 
+New type java.util.Vector<domain.Ticket>
+
+[2022-05-11 14:19:54 #13 type] 
+Type domain.Ticket is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-05-11 14:21:47 #1 store] 
+Database '/home/josue/git/Bets21/src/main/resources/bets.temp' has been recovered (tr. 340-340)
+
+[2022-05-11 14:21:47 #2 store] 
+Database '/home/josue/git/Bets21/src/main/resources/bets.temp' is opened by 11349@josue
+
+[2022-05-11 14:21:47 #3 type] 
+Type domain.Question is not enhanced.
+
+[2022-05-11 14:21:47 #4 type] 
+Type domain.Event is not enhanced.
+
+[2022-05-11 14:21:47 #5 type] 
+Type domain.User is not enhanced.
+
+[2022-05-11 14:21:47 #6 type] 
+Type domain.Pronostic is not enhanced.
+
+[2022-05-11 14:21:47 #7 type] 
+Type domain.Bet is not enhanced.
+
+[2022-05-11 14:21:47 #8 type] 
+Type domain.Movement is not enhanced.
+
+[2022-05-11 14:21:47 #9 type] 
+Type domain.Message is not enhanced.
+
+[2022-05-11 14:21:47 #10 type] 
+Type domain.Lottery is not enhanced.
+
+[2022-05-11 14:21:47 #11 type] 
+Type domain.Ticket is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-05-11 14:26:40 #1 store] 
+Database '/home/josue/git/Bets21/src/main/resources/bets.temp' is opened by 11729@josue
+
+[2022-05-11 14:26:41 #2 type] 
+Type domain.Question is not enhanced.
+
+[2022-05-11 14:26:41 #3 type] 
+Type domain.Event is not enhanced.
+
+[2022-05-11 14:26:41 #4 type] 
+Type domain.User is not enhanced.
+
+[2022-05-11 14:26:41 #5 type] 
+Type domain.Pronostic is not enhanced.
+
+[2022-05-11 14:26:41 #6 type] 
+Type domain.Bet is not enhanced.
+
+[2022-05-11 14:26:41 #7 type] 
+Type domain.Movement is not enhanced.
+
+[2022-05-11 14:26:41 #8 type] 
+Type domain.Message is not enhanced.
+
+[2022-05-11 14:26:41 #9 type] 
+Type domain.Lottery is not enhanced.
+
+[2022-05-11 14:26:41 #10 type] 
+Type domain.Ticket is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-05-11 15:04:23 #1 store] 
+Database '/home/josue/git/Bets21/src/main/resources/bets.temp' is opened by 14599@josue
+
+[2022-05-11 15:04:23 #2 type] 
+Type domain.Question is not enhanced.
+
+[2022-05-11 15:04:23 #3 type] 
+Type domain.Event is not enhanced.
+
+[2022-05-11 15:04:23 #4 type] 
+Type domain.User is not enhanced.
+
+[2022-05-11 15:04:23 #5 type] 
+Type domain.Pronostic is not enhanced.
+
+[2022-05-11 15:04:23 #6 type] 
+Type domain.Bet is not enhanced.
+
+[2022-05-11 15:04:23 #7 type] 
+Type domain.Movement is not enhanced.
+
+[2022-05-11 15:04:23 #8 type] 
+Type domain.Message is not enhanced.
+
+[2022-05-11 15:04:23 #9 type] 
+Type domain.Lottery is not enhanced.
+
+[2022-05-11 15:04:23 #10 type] 
+Type domain.Ticket is not enhanced.
+
