@@ -109,7 +109,7 @@ public class BLFacadeImplementation implements BLFacade {
 	 * 
 	 * @param username wich is trying to get logged in
 	 * @param password associated with the specified username
-	 * @return true or false
+	 * @return user
 	 * 
 	 */
 	public User checkCredentials(String pUsername, char[] pPassword) {
@@ -158,11 +158,9 @@ public class BLFacadeImplementation implements BLFacade {
 	public boolean registerUser(String pUsername, char[] pPassword) {
 		dbManager.open(false);
 		boolean regSuccess = false;
-		if(dbManager.findUser(pUsername)==null) {
-			User u = dbManager.createUser(pUsername, String.valueOf(pPassword));
-			if(u!=null) {
-				regSuccess=true;
-			}
+		User u = dbManager.createUser(pUsername, String.valueOf(pPassword));
+		if(u!=null) {
+			regSuccess=true;
 		}
 		dbManager.close();
 		return regSuccess;

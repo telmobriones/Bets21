@@ -174,7 +174,7 @@ public class DataAccess {
 		if (obj == null) {
 			System.out.println("Username not found");
 			return null;
-		} else if (obj.getPassword().equals(pPassword)) {
+		} else if (obj.checkPassword(pPassword)) {
 			return obj;
 		}
 		System.out.println("Password is not correct");
@@ -191,12 +191,17 @@ public class DataAccess {
 	 */
 	public User createUser(String name, String password) {
 		System.out.println(">> DataAccess: createUser=>  name= " + name);
-		db.getTransaction().begin();
-		User user = new User(name, password, false);
-		db.persist(user);
-		db.getTransaction().commit();
-
-		System.out.println("Gordeta " + name);
+		User user = findUser(name);
+		if (user == null) {
+			db.getTransaction().begin();
+			user = new User(name, password, false);
+			db.persist(user);
+			db.getTransaction().commit();
+			System.out.println("Gordeta " + name);
+		} else {
+			user = null;
+			System.out.println(name + "jadanik existitzen da!");
+		}
 		return user;
 	}
 

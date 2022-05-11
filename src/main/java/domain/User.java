@@ -38,6 +38,10 @@ public class User {
 		return password;
 	}
 	
+	public boolean checkPassword(String pass) {
+		return this.password.equals(pass);
+	}
+	
 	public boolean isUserAdmin() {
 		return isAdmin;
 	}
