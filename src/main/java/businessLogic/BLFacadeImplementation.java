@@ -15,6 +15,7 @@ import domain.Question;
 import domain.User;
 import domain.Bet;
 import domain.Event;
+import domain.Lottery;
 import domain.Message;
 import domain.Movement;
 import domain.Pronostic;
@@ -403,6 +404,26 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.open(false);
 		dbManager.giveJackpot(ticketPrice);
 		dbManager.close();
+	}
+	/**
+	 * This method buys a ticket for the active lottery
+	 */
+	@Override
+	public void buyTicket(User user, Lottery lottery) {
+		dbManager.open(false);
+		dbManager.buyTicket(user, lottery);
+		dbManager.close();	
+	}
+
+
+	/**
+	 * This method gets the last active lottery
+	 */
+	public Lottery getLastActiveLottery() {
+		dbManager.open(false);
+		Lottery lot = dbManager.getLastActiveLottery();
+		dbManager.close();	
+		return lot;
 	}
 }
 

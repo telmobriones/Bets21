@@ -9,6 +9,7 @@ import domain.Question;
 import domain.User;
 import domain.Bet;
 import domain.Event;
+import domain.Lottery;
 import domain.Message;
 import domain.Movement;
 import domain.Pronostic;
@@ -237,6 +238,17 @@ public interface BLFacade {
 	 * @param the new price for the next lottery
 	 */
 	public void giveJackpot(int ticketPrice);
+	
+	
+	/**
+	 * This method buys a ticket for the user and a lottery
+	 */
+	public void buyTicket(User user, Lottery lottery);
+	
+	/**
+	 * This method gets the last active lottery
+	 */
+	public Lottery getLastActiveLottery();
 
 
 }

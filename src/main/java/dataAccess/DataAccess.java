@@ -683,7 +683,7 @@ public class DataAccess {
 	 * the participants who have bought a ticket
 	 */
 	public void giveJackpot(int ticketPrice) {
-		TypedQuery<Lottery> query = db.createQuery("SELECT FROM Lottery WHERE isRaffle='false' ORDER BY lotteryID ASC", Lottery.class);
+		TypedQuery<Lottery> query = db.createQuery("SELECT FROM Lottery WHERE isRaffle=false ORDER BY lotteryID DESC", Lottery.class);
 		Lottery lastLottery;
 		try {
 			lastLottery = query.getResultList().get(0);
@@ -691,9 +691,9 @@ public class DataAccess {
 		}catch (Exception e){
 			createLottery(ticketPrice);		
 		}
-		
+
 	}
-	
+
 	/**
 	 * This method creates a new lottery
 	 * 
@@ -701,7 +701,7 @@ public class DataAccess {
 	 */
 	public void createLottery(int ticketPrice){
 		System.out.println(">> DataAccess: createLottery");
-		TypedQuery<Lottery> query = db.createQuery("SELECT FROM Lottery ORDER BY lotteryID ASC", Lottery.class);
+		TypedQuery<Lottery> query = db.createQuery("SELECT FROM Lottery ORDER BY lotteryID DESC", Lottery.class);
 		Lottery lastLottery;
 		int newLotteryID;
 		try {
@@ -720,6 +720,52 @@ public class DataAccess {
 		db.getTransaction().commit();
 		System.out.println("The new lottery has been created successfully!");
 
+	}
+	
+	/**
+	 * This method gets the last active lottery
+	 */
+	public Lottery getLastActiveLottery() {
+		System.out.println(">> DataAccess: getLastActiveLottery");
+		TypedQuery<Lottery> query = db.createQuery("SELECT FROM Lottery WHERE isRaffle=false ORDER BY lotteryID DESC", Lottery.class);		
+		try {
+			Lottery lastLottery = query.getResultList().get(0);
+			System.out.println("The last lottery whitout raffle is " + lastLottery);
+			return lastLottery;
+		}catch (Exception e) {
+			System.out.println("There are not active lotteries");
+			return null;
+		}
+		
+	}
+	
+	/**
+	 * This method buys a ticket for the active lottery
+	 */
+	public void buyTicket(User user, Lottery lastLottery) {
+		System.out.println(">> DataAccess: buyTicket");
+		
+		TypedQuery<Ticket> query2 = db.createQuery("SELECT FROM Ticket ORDER BY ticketID DESC", Ticket.class);
+		int newTicketID;
+		try {
+			Ticket lastTicket = query2.getResultList().get(0);
+			newTicketID = lastTicket.getTicketID()+1;
+		} catch (Exception e) {
+			newTicketID = 1;
+		}
+		System.out.println("New ID for ticket "+ newTicketID);
+
+		//create new Ticket
+		db.getTransaction().begin();
+		Ticket t = new Ticket(newTicketID, lastLottery,user, lastLottery.getTicketPrice());
+		lastLottery.addTicket(t);
+		int prevJackpot = lastLottery.getJackpot();
+		lastLottery.setJackpot(prevJackpot + t.getPrice());
+		System.out.println("Ticket added to the lottery");
+		db.persist(t);
+		user.addTicket(t);
+		db.getTransaction().commit();
+		System.out.println("Ticket added " + t);
 	}
 
 
