@@ -144,6 +144,7 @@ public class BLFacadeImplementation implements BLFacade {
 	public User getLogUser() {
 		dbManager.open(false);
 		this.logUser = dbManager.findUser(logUser.getUsername());
+		dbManager.close();
 		return this.logUser;
 	}
 
@@ -157,11 +158,7 @@ public class BLFacadeImplementation implements BLFacade {
 	 */
 	public boolean registerUser(String pUsername, char[] pPassword) {
 		dbManager.open(false);
-		boolean regSuccess = false;
-		User u = dbManager.createUser(pUsername, String.valueOf(pPassword));
-		if(u!=null) {
-			regSuccess=true;
-		}
+		boolean regSuccess = dbManager.createUser(pUsername, String.valueOf(pPassword));
 		dbManager.close();
 		return regSuccess;
 	};

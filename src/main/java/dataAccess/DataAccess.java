@@ -187,9 +187,9 @@ public class DataAccess {
 	 * @param username name of the user
 	 * @param password the password of the user
 	 * @return the created user, or null, or an exception
-	 * @throws UserAlreadyExist if the same user already exists for the event
+	 * @throws true or false
 	 */
-	public User createUser(String name, String password) {
+	public boolean createUser(String name, String password) {
 		System.out.println(">> DataAccess: createUser=>  name= " + name);
 		User user = findUser(name);
 		if (user == null) {
@@ -198,11 +198,11 @@ public class DataAccess {
 			db.persist(user);
 			db.getTransaction().commit();
 			System.out.println("Gordeta " + name);
+			return true;
 		} else {
-			user = null;
 			System.out.println(name + "jadanik existitzen da!");
+			return false;
 		}
-		return user;
 	}
 
 
