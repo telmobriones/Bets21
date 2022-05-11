@@ -21,6 +21,8 @@ public class User {
 	//@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Vector<Movement> movements = new Vector<Movement>(); // Erabiltzailearen diru mugimenduen lista
 	
+	private Vector<Ticket> tickets = new Vector<Ticket>();
+	
 	public User (String pUsername, String pPassword, boolean pIsAdmin) {
 		super();
 		this.username = pUsername;
@@ -80,5 +82,14 @@ public class User {
 	 */
 	public void newMovement(Movement movement) {
 		movements.add(movement);
+	}
+	
+	/**
+	 * Add a new ticket to this user
+	 * 
+	 * @param the ticket to be added
+	 */
+	public void addTicket(Ticket ticket) {
+		tickets.add(ticket);
 	}
 }

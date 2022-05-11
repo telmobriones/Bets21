@@ -63,6 +63,10 @@ public class Lottery {
 	public void setTicketPrice(int ticketPrice) {
 		this.ticketPrice = ticketPrice;
 	}
+	
+	public void addTicket(Ticket ticket) {
+		this.tickets.add(ticket);
+	}
 
 	
 }
