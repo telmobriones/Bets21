@@ -164,9 +164,9 @@ public class BuyTicketsGUI extends JFrame {
 			btnBuyTickets.setBounds(134, 136, 179, 47);
 			btnBuyTickets.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					facade.buyTicket(loggedUser, lottery);
-					lblAmoPeople.setText(String.valueOf(lottery.getParticipantsNumber()));
-					lblAmoMoney.setText(String.valueOf(lottery.getJackpot()));
+					facade.buyTicket(loggedUser, lottery, "Ticket purchased");
+					lblAmoPeople.setText(String.valueOf(lottery.getParticipantsNumber()+1));
+					lblAmoMoney.setText(String.valueOf(lottery.getJackpot()+ lottery.getTicketPrice()));
 				}
 			});
 		}

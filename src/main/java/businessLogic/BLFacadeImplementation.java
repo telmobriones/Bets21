@@ -413,9 +413,9 @@ public class BLFacadeImplementation implements BLFacade {
 	 * This method buys a ticket for the active lottery
 	 */
 	@Override
-	public void buyTicket(User user, Lottery lottery) {
+	public void buyTicket(User user, Lottery lottery, String movDesc) {
 		dbManager.open(false);
-		dbManager.buyTicket(user, lottery);
+		dbManager.buyTicket(user, lottery, movDesc);
 		dbManager.close();	
 	}
 
@@ -428,6 +428,17 @@ public class BLFacadeImplementation implements BLFacade {
 		Lottery lot = dbManager.getLastActiveLottery();
 		dbManager.close();	
 		return lot;
+	}
+	
+	/**
+	 * This method returns the players of a lottery
+	 * @return a list of players
+	 */
+	public ArrayList<User> getPlayersLottery(Lottery lottery) {
+		dbManager.open(false);
+		ArrayList<User> players = dbManager.getPlayersLottery(lottery);
+		dbManager.close();
+		return players;
 	}
 }
 

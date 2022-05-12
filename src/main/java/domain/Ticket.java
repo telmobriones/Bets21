@@ -8,14 +8,12 @@ public class Ticket {
 
 	@Id
 	private int ticketID;
-	private Lottery lottery;
 	private User user;
 	private int price;
 	
-	public Ticket(int ticketID, Lottery lottery, User user, int price) {
+	public Ticket(int ticketID, User user, int price) {
 		super();
 		this.ticketID = ticketID;
-		this.lottery = lottery;
 		this.user = user;
 		this.price = price;
 	}
@@ -26,14 +24,6 @@ public class Ticket {
 
 	public void setTicketID(int ticketID) {
 		this.ticketID = ticketID;
-	}
-
-	public Lottery getLottery() {
-		return lottery;
-	}
-
-	public void setLottery(Lottery lottery) {
-		this.lottery = lottery;
 	}
 
 	public User getUser() {

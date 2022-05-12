@@ -270,7 +270,7 @@ public class DataAccess {
 		db.getTransaction().commit();
 		return bet;
 	}
-	
+
 	public float createMovement(String movType, float money, User pUser, String pEventDesc, String pQuestionDesc) {
 
 		TypedQuery<Movement> query = db.createQuery("SELECT FROM Movement ORDER BY movID DESC", Movement.class);
@@ -288,7 +288,7 @@ public class DataAccess {
 		System.out.println(mov+" added to the DB!");
 		return newBalance;
 	}
-	
+
 	public Bet makeBet(int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics, String movType, String pEventDesc, String pQuestionDesc) {
 		Bet bet = addBetToPronostic(betMoney, betUser, isMultipleBet, betPronostics);
 		createMovement(movType, betMoney, betUser, pEventDesc, pQuestionDesc);
@@ -414,7 +414,7 @@ public class DataAccess {
 		System.out.println("LastEvent: " + lastEvent);
 		int newEvNumber = lastEvent.getEventNumber()+1;
 		System.out.println("NewEventNumber: " + newEvNumber);
-		
+
 		if(!isThereEventByNumber(newEvNumber)) {
 			db.getTransaction().begin();
 			Event ev = new Event(newEvNumber, pDescription, pDate);
@@ -425,7 +425,7 @@ public class DataAccess {
 		} else {
 			return false;
 		}
-		
+
 
 	}
 
@@ -539,8 +539,8 @@ public class DataAccess {
 		}
 		return res;
 	}
-	
-	
+
+
 	public ArrayList<Movement> getUserMovements(String username) {
 		System.out.println(">> DataAccess: getUserMovements");
 		User user = db.find(User.class, username);
@@ -548,7 +548,7 @@ public class DataAccess {
 		return movements;
 	}
 
-	
+
 
 
 	//	public int updateBalance(User pUser) {
@@ -689,7 +689,7 @@ public class DataAccess {
 		if (user == null) return false;
 		else return true;
 	}
-	
+
 	/**
 	 * This method distributes the prize of 
 	 * the last lottery that is not closed among all 
@@ -727,14 +727,13 @@ public class DataAccess {
 		System.out.println("NewLotteryID: " + newLotteryID);
 		Lottery lot;
 		db.getTransaction().begin();
-		Vector<Ticket> tickets = new Vector<Ticket>();
-		lot = new Lottery(newLotteryID, 0, tickets, false, ticketPrice);
+		lot = new Lottery(newLotteryID, 0, false, ticketPrice);
 		db.persist(lot);
 		db.getTransaction().commit();
 		System.out.println("The new lottery has been created successfully!");
 
 	}
-	
+
 	/**
 	 * This method gets the last active lottery
 	 */
@@ -749,15 +748,15 @@ public class DataAccess {
 			System.out.println("There are not active lotteries");
 			return null;
 		}
-		
+
 	}
-	
+
 	/**
 	 * This method buys a ticket for the active lottery
 	 */
-	public void buyTicket(User user, Lottery lastLottery) {
+	public void buyTicket(User user, Lottery lastLottery, String movDesc) {
 		System.out.println(">> DataAccess: buyTicket");
-		
+
 		TypedQuery<Ticket> query2 = db.createQuery("SELECT FROM Ticket ORDER BY ticketID DESC", Ticket.class);
 		int newTicketID;
 		try {
@@ -770,15 +769,40 @@ public class DataAccess {
 
 		//create new Ticket
 		db.getTransaction().begin();
-		Ticket t = new Ticket(newTicketID, lastLottery,user, lastLottery.getTicketPrice());
-		lastLottery.addTicket(t);
-		int prevJackpot = lastLottery.getJackpot();
-		lastLottery.setJackpot(prevJackpot + t.getPrice());
+		Lottery lot = db.find(Lottery.class, lastLottery.getLotteryID());
+		Ticket t = new Ticket(newTicketID,user, lastLottery.getTicketPrice());
+		lot.addTicket(t);
+		int prevJackpot = lot.getJackpot();
+		lot.setJackpot(prevJackpot + t.getPrice());
 		System.out.println("Ticket added to the lottery");
-		db.persist(t);
+		db.persist(lot);
 		user.addTicket(t);
 		db.getTransaction().commit();
 		System.out.println("Ticket added " + t);
+		createMovement(movDesc, -t.getPrice(), user, null, null);
+		
+		System.out.println("Tickets: " + lot.getTickets());
+//		User user = db.find(User.class, pUser.getUsername());
+//		Movement mov = user.newMovement(newMovID, movType, money, pEventDesc, pQuestionDesc);
+//		db.persist(user);
+//		db.getTransaction().commit();
+//		float newBalance = updateBalance(pUser, money);
+//		System.out.println(mov+" added to the DB!");
+//		return newBalance;
+	}
+
+	/**
+	 * This method returns the players of a lottery
+	 * @return a list of players
+	 */
+	public ArrayList<User> getPlayersLottery(Lottery lottery) {
+		System.out.println(">> DataAccess: getPlayersLottery");
+		//User user = db.find(User.class, username);
+		ArrayList<User> players = lottery.getParticipants();
+		System.out.println("The players are: " + players);
+
+		return players;
+
 	}
 
 
@@ -786,6 +810,8 @@ public class DataAccess {
 		db.close();
 		System.out.println("DataBase closed");
 	}
+
+
 
 
 

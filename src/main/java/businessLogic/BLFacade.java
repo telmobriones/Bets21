@@ -246,13 +246,25 @@ public interface BLFacade {
 	
 	/**
 	 * This method buys a ticket for the user and a lottery
+	 * 
+	 * @param the use who buys the ticket
+	 * @param the lottery
+	 * @param the description of the movement
 	 */
-	public void buyTicket(User user, Lottery lottery);
+	public void buyTicket(User user, Lottery lottery, String movDesc);
 	
 	/**
 	 * This method gets the last active lottery
 	 */
 	public Lottery getLastActiveLottery();
+	
+	/**
+	 * This method returns the players of a lottery
+	 * 
+	 * @param the lottery
+	 * @return a list of players
+	 */
+	public ArrayList<User> getPlayersLottery(Lottery lottery);
 
 
 }

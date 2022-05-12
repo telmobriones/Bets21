@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.persistence.CascadeType;
@@ -10,23 +11,22 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Lottery {
-	
+
 	@Id
 	private int lotteryID;
-	
+
 	private int jackpot;
 	private boolean isRaffle;
 	private int ticketPrice;
-	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	private Vector<Ticket> tickets = new Vector<Ticket>();;
-	
-	
-	public Lottery(int lotteryID, int jackpot, Vector<Ticket> tickets, boolean isRaffle, int ticketPrice) {
+
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private ArrayList<Ticket> tickets = new ArrayList<Ticket>();;
+
+
+	public Lottery(int lotteryID, int jackpot, boolean isRaffle, int ticketPrice) {
 		super();
 		this.lotteryID = lotteryID;
 		this.jackpot = jackpot;
-		this.tickets = tickets;
 		this.isRaffle = isRaffle;
 		this.ticketPrice = ticketPrice;
 	}
@@ -47,11 +47,11 @@ public class Lottery {
 		this.jackpot = jackpot;
 	}
 
-	public Vector<Ticket> getTickets() {
+	public ArrayList<Ticket> getTickets() {
 		return tickets;
 	}
 
-	public void setTickets(Vector<Ticket> tickets) {
+	public void setTickets(ArrayList<Ticket> tickets) {
 		this.tickets = tickets;
 	}
 
@@ -80,9 +80,9 @@ public class Lottery {
 	 * @return Ticket
 	 */
 	public void addTicket(Ticket t) {
-			tickets.add(t);
+		tickets.add(t);
 	}
-	
+
 	public int getParticipantsNumber() {
 		if(tickets != null) {
 			return tickets.size();
@@ -91,5 +91,19 @@ public class Lottery {
 			return 0;
 		}
 
+	}
+
+	public ArrayList<User> getParticipants() {
+		if(tickets != null) {
+			ArrayList<User> players = new ArrayList<User>();
+			for (Ticket t:tickets) {
+				players.add(t.getUser());
+				System.out.println(t.getUser().getUsername() + "\n");
+			}
+			return players;
+		}
+		else {
+			return null;
+		}
 	}
 }
