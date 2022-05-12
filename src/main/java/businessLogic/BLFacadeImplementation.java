@@ -378,6 +378,13 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();
 		return messages;
 	}
+	
+	public ArrayList<Movement> getUserMovements(String username) {
+		dbManager.open(false);
+		ArrayList<Movement> movements = dbManager.getUserMovements(username);
+		dbManager.close();
+		return movements;
+	}
 
 
 	/**

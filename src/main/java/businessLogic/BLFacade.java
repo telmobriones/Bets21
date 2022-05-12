@@ -220,6 +220,10 @@ public interface BLFacade {
 
 	public Vector<Message>getMessagesForThisChat(String pRemitent, String pDestinataryUsername);
 	
+	
+	public ArrayList<Movement> getUserMovements(String username);
+	
+	
 	/**
 	 * This method checks if a user exists
 	 * 

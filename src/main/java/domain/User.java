@@ -19,7 +19,7 @@ public class User {
 	//@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private ArrayList<Bet> bets = new ArrayList<Bet>();
 	//@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private Vector<Movement> movements = new Vector<Movement>(); // Erabiltzailearen diru mugimenduen lista
+	private ArrayList<Movement> movements = new ArrayList<Movement>(); // Erabiltzailearen diru mugimenduen lista
 	
 	private Vector<Ticket> tickets = new Vector<Ticket>();
 	
@@ -67,11 +67,11 @@ public class User {
 		
 	}
 		
-	public Vector<Movement> getMovements() {
-		return movements;
+	public ArrayList<Movement> getMovements() {
+		return this.movements;
 	}
 
-	public void setMovements(Vector<Movement> movements) {
+	public void setMovements(ArrayList<Movement> movements) {
 		this.movements = movements;
 	}
 
@@ -81,7 +81,7 @@ public class User {
 	 * @param the movement to be added
 	 */
 	public void newMovement(Movement movement) {
-		movements.add(movement);
+		this.movements.add(movement);
 	}
 	
 	/**

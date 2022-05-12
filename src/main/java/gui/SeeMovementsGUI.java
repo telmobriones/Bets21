@@ -6,6 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
@@ -155,8 +156,11 @@ public class SeeMovementsGUI extends JFrame {
 			tableMovements.getColumnModel().getColumn(2).setPreferredWidth(150);
 			tableMovements.getColumnModel().getColumn(3).setPreferredWidth(5);
 			
-			Vector<Movement> movements = loggedUser.getMovements();
-			for (domain.Movement mov:movements) {
+			System.out.println("LoggedUser: "  + loggedUser.getUsername());
+			ArrayList<Movement> movements = facade.getUserMovements(loggedUser.getUsername());
+			System.out.println(movements);
+			
+			for (Movement mov:movements) {
 				Vector<Object> row = new Vector<Object>();
 				row.add(mov.getMovementType());
 				row.add(mov.getEventDesc());

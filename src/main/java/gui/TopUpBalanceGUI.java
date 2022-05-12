@@ -237,7 +237,6 @@ public class TopUpBalanceGUI extends JFrame {
 	}
 	
 	private void redibujar() {
-		this.loggedUser = facade.getLogUser();
 		this.lblUsername.setText(ResourceBundle.getBundle("Etiquetas").getString("User") + ":");
 		lblLoggedUsername.setText(loggedUser.getUsername());
 		lblCurrentBalance.setText(ResourceBundle.getBundle("Etiquetas").getString("CurrentBalance") + ":");

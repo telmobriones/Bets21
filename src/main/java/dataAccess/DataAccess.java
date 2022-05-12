@@ -512,8 +512,16 @@ public class DataAccess {
 		}
 		return res;
 	}
+	
+	
+	public ArrayList<Movement> getUserMovements(String username) {
+		System.out.println(">> DataAccess: getUserMovements");
+		User user = db.find(User.class, username);
+		ArrayList<Movement> movements = user.getMovements();
+		return movements;
+	}
 
-
+	
 	public Movement createMovement(String movType, float money, User pUser, String pEventDesc, String pQuestionDesc) {
 
 		TypedQuery<Movement> query = db.createQuery("SELECT FROM Movement ORDER BY movID DESC", Movement.class);
@@ -773,6 +781,8 @@ public class DataAccess {
 		db.close();
 		System.out.println("DataBase closed");
 	}
+
+
 
 
 }
