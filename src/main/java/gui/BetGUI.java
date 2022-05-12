@@ -346,16 +346,11 @@ public class BetGUI extends JFrame {
 				}
 
 				if (!error) {
-
 					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("BetAdded"));
 					int money2add = -betMoney;
-					Movement movement = facade.createMovement("Bet Made", money2add, loggedUser, pronEvent.getDescription(), pronQuestion.getQuestion());
-					facade.updateMovement(loggedUser, movement);
-					facade.updateBalance(loggedUser, money2add);
 					ArrayList<Pronostic> pronList=new ArrayList<Pronostic>();
 					pronList.add(betPronostic);
-					Bet newBet = facade.addBetToPronostic(betMoney,loggedUser,false,pronList);
-					facade.updateUserBet(loggedUser, newBet);
+					facade.makeBet(money2add, loggedUser, false, pronList, "Bet Made", pronEvent.getDescription(), pronQuestion.getQuestion());
 				}
 			}
 		});

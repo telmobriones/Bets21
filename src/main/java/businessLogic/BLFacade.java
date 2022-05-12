@@ -132,9 +132,10 @@ public interface BLFacade {
 
 	 * @return new movement
 	 */
-	public Movement createMovement(String movType, float money, User pUser, String pEventDesc, String pQuestionDesc);
-
-
+	public float createMovement(String movType, float betMoney, User pUser, String pEventDesc, String pQuestionDesc);
+	
+	
+	public Bet makeBet(int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics, String movType, String pEventDesc, String pQuestionDesc);
 
 	/**
 	 * This method invokes the data access to create a new event
@@ -174,7 +175,6 @@ public interface BLFacade {
 	 * @return nothing
 	 */
 	public void updateQuestion(Question question, Pronostic pronostic);
-	public void updateMovement(User user, Movement movement);
 
 	public float updateBalance(User pUser, float pMoney);
 

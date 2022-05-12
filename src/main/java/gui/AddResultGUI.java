@@ -377,10 +377,8 @@ public class AddResultGUI extends JFrame {
 											if(!bet.isBetMultiple()) {
 												System.out.println("Updating bet...");
 												gains = bet.getBetMoney() * pronOdd;
-												Movement movement = facade.createMovement("Bet Won", gains,
+												float newBalance = facade.createMovement("Bet Won", gains,
 														bet.getBetUser(), pronEvent.getDescription(), question.getQuestion());
-												facade.updateMovement(bet.getBetUser(), movement);
-												facade.updateBalance(bet.getBetUser(), gains);
 											} else {
 												// MULTIPLE BET CODE!!!
 											}

@@ -156,10 +156,8 @@ public class SeeMovementsGUI extends JFrame {
 			tableMovements.getColumnModel().getColumn(2).setPreferredWidth(150);
 			tableMovements.getColumnModel().getColumn(3).setPreferredWidth(5);
 			
-			System.out.println("LoggedUser: "  + loggedUser.getUsername());
 			ArrayList<Movement> movements = facade.getUserMovements(loggedUser.getUsername());
-			System.out.println(movements);
-			
+			System.out.println("Movements.isEmpty() --> " + movements.isEmpty());
 			for (Movement mov:movements) {
 				Vector<Object> row = new Vector<Object>();
 				row.add(mov.getMovementType());

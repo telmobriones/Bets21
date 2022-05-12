@@ -407,12 +407,12 @@ public class MultipleBetGUI extends JFrame {
 				}
 
 				if (!error) {
-					Bet newBet = facade.addBetToPronostic(betMoney,loggedUser,true,multBetPronostics);
+//					Bet newBet = facade.addBetToPronostic(betMoney,loggedUser,true,multBetPronostics);
+//					
+//					facade.createMovement("Multiple Bet Made", money2add, loggedUser, null, null);
+//					facade.updateUserBet(loggedUser, newBet);
 					int money2add = -betMoney;
-					Movement movement = facade.createMovement("Multiple Bet Made", money2add, loggedUser, null, null);
-					facade.updateMovement(loggedUser, movement);
-					facade.updateBalance(loggedUser, money2add);
-					facade.updateUserBet(loggedUser, newBet);
+					facade.makeBet(money2add, loggedUser, true, multBetPronostics, "MultipleBet Made", "---", "---");
 					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("BetAdded"));
 				}
 			}

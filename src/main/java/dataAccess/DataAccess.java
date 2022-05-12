@@ -263,8 +263,35 @@ public class DataAccess {
 			bet = new Bet(newBetID, betMoney, betUser, isMultipleBet,betPronostics);
 			p.addBetToPronostic(bet);
 		}
+		User user = db.find(User.class, betUser.getUsername());
+		user.addBet(bet);
+		db.persist(user);
 		db.persist(bet);
 		db.getTransaction().commit();
+		return bet;
+	}
+	
+	public float createMovement(String movType, float money, User pUser, String pEventDesc, String pQuestionDesc) {
+
+		TypedQuery<Movement> query = db.createQuery("SELECT FROM Movement ORDER BY movID DESC", Movement.class);
+		Movement lastMovement = query.getResultList().get(0);
+		System.out.println("LastMovement: " + lastMovement);
+		int newMovID = lastMovement.getMovID()+1;
+		System.out.println("NewMovNum: " + newMovID);
+
+		db.getTransaction().begin();
+		User user = db.find(User.class, pUser.getUsername());
+		Movement mov = user.newMovement(newMovID, movType, money, pEventDesc, pQuestionDesc);
+		db.persist(user);
+		db.getTransaction().commit();
+		float newBalance = updateBalance(pUser, money);
+		System.out.println(mov+" added to the DB!");
+		return newBalance;
+	}
+	
+	public Bet makeBet(int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics, String movType, String pEventDesc, String pQuestionDesc) {
+		Bet bet = addBetToPronostic(betMoney, betUser, isMultipleBet, betPronostics);
+		createMovement(movType, betMoney, betUser, pEventDesc, pQuestionDesc);
 		return bet;
 	}
 
@@ -522,29 +549,7 @@ public class DataAccess {
 	}
 
 	
-	public Movement createMovement(String movType, float money, User pUser, String pEventDesc, String pQuestionDesc) {
 
-		TypedQuery<Movement> query = db.createQuery("SELECT FROM Movement ORDER BY movID DESC", Movement.class);
-		Movement lastMovement = query.getResultList().get(0);
-		System.out.println("LastMovement: " + lastMovement);
-		int newMovID = lastMovement.getMovID()+1;
-		System.out.println("NewMovNum: " + newMovID);
-
-		db.getTransaction().begin();
-		Movement movement = new Movement(newMovID,movType, money, pUser,pEventDesc,pQuestionDesc);
-		db.persist(movement);
-		db.getTransaction().commit();
-		System.out.println(movement+" added to the DB!");
-		return movement;
-	}
-
-	public void updateMovement(User user, Movement movement) {
-		db.getTransaction().begin();
-		User us = db.find(User.class, user.getUsername());
-		us.newMovement(movement);
-		db.getTransaction().commit();
-		System.out.println(movement + " movement added to the user" + user);
-	}
 
 	//	public int updateBalance(User pUser) {
 	////		TypedQuery<Movement> query = db.createQuery("SELECT FROM Movement ORDER BY movID DESC", Movement.class);

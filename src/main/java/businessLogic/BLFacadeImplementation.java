@@ -275,13 +275,7 @@ public class BLFacadeImplementation implements BLFacade {
 		return pron;
 	}
 
-	@Override
-	public Movement createMovement(String movType, float money, User pUser, String pEventDesc, String pQuestionDesc) {
-		dbManager.open(false);
-		Movement mov = dbManager.createMovement(movType,money, pUser, pEventDesc, pQuestionDesc);
-		dbManager.close();
-		return mov;
-	}
+
 
 
 	@Override
@@ -307,20 +301,23 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();
 		return bet;
 	}
-
-	/**
-	 * This method updates the movement 
-	 * 
-	 * @param the user it's related to
-	 * @param the new movement
-	 * @return nothing
-	 */
+	
 	@Override
-	public void updateMovement(User user, Movement movement) {
+	public float createMovement(String movType, float betMoney, User pUser, String pEventDesc, String pQuestionDesc) {
 		dbManager.open(false);
-		dbManager.updateMovement(user, movement);
+		float newBalance = dbManager.createMovement(movType, betMoney, pUser, pEventDesc, pQuestionDesc);
 		dbManager.close();
+		return newBalance;
 	}
+	
+	
+	public Bet makeBet(int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics, String movType, String pEventDesc, String pQuestionDesc) {
+		dbManager.open(false);
+		Bet bet = dbManager.makeBet(betMoney,betUser,isMultipleBet, betPronostics, movType, pEventDesc, pQuestionDesc);
+		dbManager.close();
+		return bet;
+	}
+
 
 	/**
 	 * This method updates the question with a new pronostic

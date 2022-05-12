@@ -16,9 +16,9 @@ public class User {
 	private String password;
 	private boolean isAdmin;
 	private float balance; // Kontuko saldoa
-	//@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private ArrayList<Bet> bets = new ArrayList<Bet>();
-	//@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private ArrayList<Movement> movements = new ArrayList<Movement>(); // Erabiltzailearen diru mugimenduen lista
 	
 	private Vector<Ticket> tickets = new Vector<Ticket>();
@@ -64,26 +64,25 @@ public class User {
 		System.out.println("Money before update: " + this.balance);
 		this.balance += money;
 		System.out.println("Money after update: " + this.balance);
-		
+	}
+	
+	/**
+	 * Add a new movement to this user
+	 * 
+	 */
+	public Movement newMovement(int movID, String movementType, float money, String eventDesc, String questionDesc) {
+		System.out.println("Creating movement...");
+		Movement mov = new Movement(movID, movementType, money, this, eventDesc, questionDesc);
+		movements.add(mov);
+		System.out.println("Movement added!");
+		return mov;
 	}
 		
 	public ArrayList<Movement> getMovements() {
 		return this.movements;
 	}
 
-	public void setMovements(ArrayList<Movement> movements) {
-		this.movements = movements;
-	}
 
-	/**
-	 * Add a new movemento to this user
-	 * 
-	 * @param the movement to be added
-	 */
-	public void newMovement(Movement movement) {
-		this.movements.add(movement);
-	}
-	
 	/**
 	 * Add a new ticket to this user
 	 * 
