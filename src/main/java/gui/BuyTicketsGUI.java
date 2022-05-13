@@ -36,6 +36,7 @@ public class BuyTicketsGUI extends JFrame {
 	private static LoginGUI frame = new LoginGUI();
 	private User loggedUser;
 	private int lotteryID;
+	private boolean canPlay;
 	JLabel lblErrors;
 	JButton btnClose;
 	JLabel lblJackpot;
@@ -116,9 +117,9 @@ public class BuyTicketsGUI extends JFrame {
 
 	private JLabel getlblError() {
 		if(lblErrors == null) {
-			lblErrors = new JLabel("");
+			lblErrors = new JLabel();
 			lblErrors.setForeground(Color.RED);
-			lblErrors.setBounds(71, 121, 336, 25);
+			lblErrors.setBounds(36, 110, 370, 25);
 		}
 		return lblErrors;
 	}
@@ -167,8 +168,11 @@ public class BuyTicketsGUI extends JFrame {
 			btnBuyTickets.setBounds(134, 136, 179, 47);
 			btnBuyTickets.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					facade.buyTicket(loggedUser, lotteryID, "Ticket purchased");
+					canPlay = facade.buyTicket(loggedUser.getUsername(), lotteryID, "Ticket purchased");
 					redibujar(lotteryID);
+					if (canPlay == false) {
+						lblErrors.setText("You have alredy played this lottery");
+					}
 				}
 			});
 		}
@@ -191,6 +195,7 @@ public class BuyTicketsGUI extends JFrame {
 	}
 
 	public void redibujar(int lotID) {
+		System.out.println("The lottery ID is: " + lotID);
 		Lottery lot = facade.getLotteryByID(lotID);
 		if (lot != null) {
 			lblAmoPeople.setText(String.valueOf(lot.getParticipantsNumber()));

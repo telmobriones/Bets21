@@ -694,8 +694,9 @@ public class DataAccess {
 	 * This method distributes the prize of 
 	 * the last lottery that is not closed among all 
 	 * the participants who have bought a ticket
+	 * @return 
 	 */
-	public void giveJackpot(int lotID) {
+	public String giveJackpot(int lotID) {
 		System.out.println("The lotteryID is: " + lotID);
 		db.getTransaction().begin();
 		Lottery l = getLotteryByID(lotID);
@@ -706,6 +707,7 @@ public class DataAccess {
 		db.getTransaction().commit();
 		createMovement("Lottery won", l.getJackpot(), winner, null, null);
 		System.out.println("Lottery is raffled: " + l.isRaffle());
+		return winner.getUsername();
 
 	}
 
@@ -757,9 +759,16 @@ public class DataAccess {
 	/**
 	 * This method buys a ticket for the active lottery
 	 */
-	public void buyTicket(User user, int lastLotteryID, String movDesc) {
+	public boolean buyTicket(String username, int lastLotteryID, String movDesc) {
 		System.out.println(">> DataAccess: buyTicket");
+		Lottery lot = getLotteryByID(lastLotteryID);
+		User user = findUser(username);
+		ArrayList<User> players = lot.getParticipants();
+		boolean contains = players.contains(user);
+		if (contains == true ) return false;
+		System.out.println("Can play? " + !contains);
 
+		System.out.println("The player " + user.getUsername() + " can play this lottery");
 		TypedQuery<Ticket> query2 = db.createQuery("SELECT FROM Ticket ORDER BY ticketID DESC", Ticket.class);
 		int newTicketID;
 		try {
@@ -772,7 +781,7 @@ public class DataAccess {
 
 		//create new Ticket
 		db.getTransaction().begin();
-		Lottery lot = getLotteryByID(lastLotteryID);
+		
 		Ticket t = new Ticket(newTicketID,user, lot.getTicketPrice());
 		lot.addTicket(t);
 		int prevJackpot = lot.getJackpot();
@@ -785,7 +794,7 @@ public class DataAccess {
 		createMovement(movDesc, -t.getPrice(), user, null, null);
 
 		System.out.println("Tickets: " + lot.getTickets());
-
+		return true;
 	}
 
 	/**

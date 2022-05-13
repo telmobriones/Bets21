@@ -402,21 +402,30 @@ public class BLFacadeImplementation implements BLFacade {
 	 * This method distributes the prize of 
 	 * the last lottery that is not closed among all 
 	 * the participants who have bought a ticket
+	 * 
+	 * @param the id of the lottery
+	 * @return the winner username
 	 */
 	
-	public void giveJackpot(int lotID) {
+	public String giveJackpot(int lotID) {
 		dbManager.open(false);
-		dbManager.giveJackpot(lotID);
+		String winner = dbManager.giveJackpot(lotID);
 		dbManager.close();
+		return winner;
 	}
 	/**
-	 * This method buys a ticket for the active lottery
+	 * This method buys a ticket for the user and a lottery
+	 * 
+	 * @param the use who buys the ticket
+	 * @param the id of the lottery
+	 * @param the description of the movement
+	 * @return if the user can play
 	 */
-	@Override
-	public void buyTicket(User user, int lotID, String movDesc) {
+	public boolean buyTicket(String username, int lotID, String movDesc) {
 		dbManager.open(false);
-		dbManager.buyTicket(user, lotID, movDesc);
+		boolean canPlay = dbManager.buyTicket(username, lotID, movDesc);
 		dbManager.close();	
+		return canPlay;
 	}
 
 

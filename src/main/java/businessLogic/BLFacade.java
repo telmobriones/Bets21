@@ -242,8 +242,9 @@ public interface BLFacade {
 	 * @param the id of the lottery
 	 * 
 	 * @param the new price for the next lottery
+	 * @return the winner username
 	 */
-	public void giveJackpot(int lotID);
+	public String giveJackpot(int lotID);
 
 	/**
 	 * This method creates and return a new Lottery
@@ -258,11 +259,12 @@ public interface BLFacade {
 	/**
 	 * This method buys a ticket for the user and a lottery
 	 * 
-	 * @param the use who buys the ticket
+	 * @param the username who buys the ticket
 	 * @param the id of the lottery
 	 * @param the description of the movement
+	 * @return if the user can play
 	 */
-	public void buyTicket(User user, int lotID, String movDesc);
+	public boolean buyTicket(String username, int lotID, String movDesc);
 
 	/**
 	 * This method gets the id of last active lottery
