@@ -133,8 +133,8 @@ public interface BLFacade {
 	 * @return new movement
 	 */
 	public float createMovement(String movType, float betMoney, User pUser, String pEventDesc, String pQuestionDesc);
-	
-	
+
+
 	public Bet makeBet(int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics, String movType, String pEventDesc, String pQuestionDesc);
 
 	/**
@@ -198,7 +198,7 @@ public interface BLFacade {
 	 */
 	@WebMethod
 	public void initializeBD();
-	
+
 	/**
 	 * This method add a message
 	 * 
@@ -209,7 +209,7 @@ public interface BLFacade {
 	 * 
 	 */
 	public Message createMessage(User remitent, String destinataryUsername, String formatDate, String Message);
-	
+
 	/**
 	 * This method retrieves from the database all the messages related to that chat
 	 * 
@@ -219,11 +219,11 @@ public interface BLFacade {
 	 */
 
 	public Vector<Message>getMessagesForThisChat(String pRemitent, String pDestinataryUsername);
-	
-	
+
+
 	public ArrayList<Movement> getUserMovements(String username);
-	
-	
+
+
 	/**
 	 * This method checks if a user exists
 	 * 
@@ -239,12 +239,12 @@ public interface BLFacade {
 	 * the last lottery that is not closed among all 
 	 * the participants who have bought a ticket
 	 * 
-	 * @param the lottery
+	 * @param the id of the lottery
 	 * 
 	 * @param the new price for the next lottery
 	 */
-	public void giveJackpot(Lottery lottery);
-	
+	public void giveJackpot(int lotID);
+
 	/**
 	 * This method creates and return a new Lottery
 	 * 
@@ -252,30 +252,39 @@ public interface BLFacade {
 	 * 
 	 * @return a the new lottery
 	 */
-	public Lottery createLottery(int ticketPrice);
-	
-	
+	public int createLottery(int ticketPrice);
+
+
 	/**
 	 * This method buys a ticket for the user and a lottery
 	 * 
 	 * @param the use who buys the ticket
-	 * @param the lottery
+	 * @param the id of the lottery
 	 * @param the description of the movement
 	 */
-	public void buyTicket(User user, Lottery lottery, String movDesc);
-	
+	public void buyTicket(User user, int lotID, String movDesc);
+
 	/**
-	 * This method gets the last active lottery
+	 * This method gets the id of last active lottery
 	 */
-	public Lottery getLastActiveLottery();
-	
+	public int getLastActiveLotteryID();
+
 	/**
 	 * This method returns the players of a lottery
 	 * 
 	 * @param the lottery
 	 * @return a list of players
 	 */
-	public ArrayList<User> getPlayersLottery(Lottery lottery);
+	public ArrayList<User> getPlayersLottery(int lotteryID);
+
+	/**
+	 * This method a lottery with a given a id
+	 *  
+	 * @param the lottery id
+	 * @return the lottery
+	 */
+
+	public Lottery getLotteryByID(int lotteryID);
 
 
 }

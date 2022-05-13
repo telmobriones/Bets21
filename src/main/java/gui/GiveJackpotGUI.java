@@ -43,8 +43,8 @@ public class GiveJackpotGUI extends JFrame {
 	private JPanel contentPane;
 	private static BLFacade facade = MainGUI.getBusinessLogic();
 	private static LoginGUI frame = new LoginGUI();
-	private Lottery lottery;
-	private Lottery newLottery;
+	private int lotteryID;
+	private int newLotteryID;
 	JLabel lblErrors;
 	JButton btnClose;
 	JButton btnGiveJackpot;
@@ -85,7 +85,8 @@ public class GiveJackpotGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public GiveJackpotGUI() {
-		lottery = facade.getLastActiveLottery();
+		lotteryID = facade.getLastActiveLotteryID();
+		System.out.println("The lotteryID is: "+lotteryID);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -109,6 +110,7 @@ public class GiveJackpotGUI extends JFrame {
 		setTitle(ResourceBundle.getBundle("Etiquetas").getString("Login")); //$NON-NLS-1$ //$NON-NLS-2$
 		this.setBounds(100, 100, 695, 406);
 		setContentPane(getJContentPane());
+		redibujar(lotteryID);
 	}
 
 	private JPanel getJContentPane() {
@@ -170,7 +172,6 @@ public class GiveJackpotGUI extends JFrame {
 	private JLabel getlblAmoMoney(){
 		if(lblAmoMoney == null) {
 			lblAmoMoney = new JLabel();
-			lblAmoMoney.setText(String.valueOf(lottery.getJackpot()));
 			lblAmoMoney.setBounds(267, 47, 70, 15);
 		}
 		return lblAmoMoney;
@@ -178,7 +179,6 @@ public class GiveJackpotGUI extends JFrame {
 	private JLabel getlblLotteryID(){
 		if(lblLotID == null) {
 			lblLotID = new JLabel();
-			lblLotID.setText(String.valueOf(lottery.getLotteryID()));
 			lblLotID.setBounds(25, 13, 96, 15);
 		}
 		return lblLotID;
@@ -195,17 +195,14 @@ public class GiveJackpotGUI extends JFrame {
 	private JButton getbtnNewLottery() {
 		if(btnNewLottery == null) {
 			btnNewLottery = new JButton();
-
-			if(lottery == null) btnNewLottery.setEnabled(true);
-			else btnNewLottery.setEnabled(false);
-
 			btnNewLottery.setText(ResourceBundle.getBundle("Etiquetas").getString("GiveJackpotGUI.btnNewLottery.text")); //$NON-NLS-1$ //$NON-NLS-2$
 			btnNewLottery.setBounds(218, 300, 179, 47);
 			btnNewLottery.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					String num = textField.getText();
-					newLottery = facade.createLottery(Integer.valueOf(num));
-					redibujar(newLottery);
+					newLotteryID = facade.createLottery(Integer.valueOf(num));
+					tableModelPlayers.setRowCount(0);
+					redibujar(newLotteryID);
 				}
 			});
 		}
@@ -217,13 +214,10 @@ public class GiveJackpotGUI extends JFrame {
 			btnGiveJackpot = new JButton();
 			btnGiveJackpot.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					facade.giveJackpot(lottery);
+					facade.giveJackpot(lotteryID);
 				}
 			});
-			
-			if(lottery != null) btnNewLottery.setEnabled(true);
-			else btnNewLottery.setEnabled(false);
-			
+
 			btnGiveJackpot.setText("Give Jackpot");
 			btnGiveJackpot.setBounds(96, 248, 159, 40);
 
@@ -235,7 +229,6 @@ public class GiveJackpotGUI extends JFrame {
 	private JLabel getlblAmoPeople() {
 		if(lblAmoPeople == null) {
 			lblAmoPeople = new JLabel();
-			lblAmoPeople.setText(String.valueOf(lottery.getParticipantsNumber()));
 			lblAmoPeople.setBounds(267, 93, 70, 15);
 		}
 		return lblAmoPeople;
@@ -281,23 +274,37 @@ public class GiveJackpotGUI extends JFrame {
 			tablePlayers.setModel(tableModelPlayers);
 			tablePlayers.getColumnModel().getColumn(0).setPreferredWidth(20);
 
+			if (lotteryID != -1) {
 
-			ArrayList<User> players = facade.getPlayersLottery(lottery);
-			for (User pl:players) {
-				Vector<Object> row = new Vector<Object>();
-				row.add(pl.getUsername());
-				tableModelPlayers.addRow(row);
+				ArrayList<User> players = facade.getPlayersLottery(lotteryID);
+				for (User pl:players) {
+					Vector<Object> row = new Vector<Object>();
+					row.add(pl.getUsername());
+					tableModelPlayers.addRow(row);
+				}
 			}
 
 		}
 		return scrollPanePlayers;
 	}
 
-	public void redibujar(Lottery lot) {
-		lblAmoPeople.setText(String.valueOf(lot.getParticipantsNumber()));
-		lblAmoMoney.setText(String.valueOf(lot.getJackpot()));
-		lblLotID.setText(String.valueOf(lot.getLotteryID()));
-		tableModelPlayers.setRowCount(0);
-		btnGiveJackpot.setEnabled(false);
+	public void redibujar(int lotID) {
+		Lottery lot = facade.getLotteryByID(lotID);
+		if (lot != null) {
+			lblAmoPeople.setText(String.valueOf(lot.getParticipantsNumber()));
+			lblAmoMoney.setText(String.valueOf(lot.getJackpot()));
+			lblLotID.setText(String.valueOf(lot.getLotteryID()));
+			btnNewLottery.setEnabled(false);
+			btnGiveJackpot.setEnabled(true);
+		}
+		else if(lblAmoPeople.getText().isEmpty()) {
+			btnGiveJackpot.setEnabled(false);
+			btnGiveJackpot.setText("No players");
+			btnNewLottery.setEnabled(false);
+		}
+		else {
+			btnNewLottery.setEnabled(true);
+			btnGiveJackpot.setEnabled(false);
+		}
 	}
 }

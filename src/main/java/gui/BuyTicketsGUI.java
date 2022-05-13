@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 
 import domain.Lottery;
 import domain.User;
+import jdk.internal.misc.FileSystemOption;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -34,7 +35,7 @@ public class BuyTicketsGUI extends JFrame {
 	private static BLFacade facade = MainGUI.getBusinessLogic();
 	private static LoginGUI frame = new LoginGUI();
 	private User loggedUser;
-	private Lottery lottery;
+	private int lotteryID;
 	JLabel lblErrors;
 	JButton btnClose;
 	JLabel lblJackpot;
@@ -42,6 +43,7 @@ public class BuyTicketsGUI extends JFrame {
 	JLabel lblPlayers;
 	JButton btnBuyTickets;
 	JLabel lblAmoPeople;
+	JLabel lblLotID;
 
 
 	/**
@@ -64,7 +66,7 @@ public class BuyTicketsGUI extends JFrame {
 	 */
 	public BuyTicketsGUI() {
 		this.loggedUser = facade.getLogUser();
-		lottery = facade.getLastActiveLottery();
+		lotteryID = facade.getLastActiveLotteryID();
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -88,6 +90,7 @@ public class BuyTicketsGUI extends JFrame {
 		setTitle(ResourceBundle.getBundle("Etiquetas").getString("Login")); //$NON-NLS-1$ //$NON-NLS-2$
 		this.setBounds(100, 100, 450, 282);
 		setContentPane(getJContentPane());
+		redibujar(lotteryID);
 	}
 
 	private JPanel getJContentPane() {
@@ -102,6 +105,7 @@ public class BuyTicketsGUI extends JFrame {
 			contentPane.add(getlblPlayers());
 			contentPane.add(getbtnBuyTickets());
 			contentPane.add(getbtnClose());
+			contentPane.add(getlblLotteryID());
 
 
 		}
@@ -114,7 +118,7 @@ public class BuyTicketsGUI extends JFrame {
 		if(lblErrors == null) {
 			lblErrors = new JLabel("");
 			lblErrors.setForeground(Color.RED);
-			lblErrors.setBounds(106, 183, 238, 15);
+			lblErrors.setBounds(71, 121, 336, 25);
 		}
 		return lblErrors;
 	}
@@ -144,7 +148,6 @@ public class BuyTicketsGUI extends JFrame {
 	private JLabel getlblAmoMoney(){
 		if(lblAmoMoney == null) {
 			lblAmoMoney = new JLabel();
-			lblAmoMoney.setText(String.valueOf(lottery.getJackpot()));
 			lblAmoMoney.setBounds(267, 36, 70, 15);
 		}
 		return lblAmoMoney;
@@ -164,9 +167,8 @@ public class BuyTicketsGUI extends JFrame {
 			btnBuyTickets.setBounds(134, 136, 179, 47);
 			btnBuyTickets.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					facade.buyTicket(loggedUser, lottery, "Ticket purchased");
-					lblAmoPeople.setText(String.valueOf(lottery.getParticipantsNumber()+1));
-					lblAmoMoney.setText(String.valueOf(lottery.getJackpot()+ lottery.getTicketPrice()));
+					facade.buyTicket(loggedUser, lotteryID, "Ticket purchased");
+					redibujar(lotteryID);
 				}
 			});
 		}
@@ -176,13 +178,37 @@ public class BuyTicketsGUI extends JFrame {
 	private JLabel getlblAmoPeople() {
 		if(lblAmoPeople == null) {
 			lblAmoPeople = new JLabel();
-			lblAmoPeople.setText(String.valueOf(lottery.getParticipantsNumber()));
 			lblAmoPeople.setBounds(267, 83, 70, 15);
 		}
 		return lblAmoPeople;
 	}
+	private JLabel getlblLotteryID(){
+		if(lblLotID == null) {
+			lblLotID = new JLabel();
+			lblLotID.setBounds(25, 13, 96, 15);
+		}
+		return lblLotID;
+	}
 
+	public void redibujar(int lotID) {
+		Lottery lot = facade.getLotteryByID(lotID);
+		if (lot != null) {
+			lblAmoPeople.setText(String.valueOf(lot.getParticipantsNumber()));
+			lblAmoMoney.setText(String.valueOf(lot.getJackpot()));
+			lblLotID.setText(String.valueOf(lot.getLotteryID()));
 
+		}
+		else {
+			btnBuyTickets.setVisible(false);
+			lblAmoPeople.setVisible(false);
+			lblAmoMoney.setVisible(false);
+			lblLotID.setVisible(false);
+			lblJackpot.setVisible(false);
+			lblPlayers.setVisible(false);
+			lblErrors.setVisible(true);
+			lblErrors.setText("No lotteries available");
+		}
+	}
 
 	private void closeGUI() {
 		this.setVisible(false);

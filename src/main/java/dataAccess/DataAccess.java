@@ -695,14 +695,17 @@ public class DataAccess {
 	 * the last lottery that is not closed among all 
 	 * the participants who have bought a ticket
 	 */
-	public void giveJackpot(Lottery lot) {
-		System.out.println("The lottery is: " + lot.getLotteryID());
-		
-		User winner = lot.selectWinner();
-		createMovement("Lottery won", lot.getJackpot(), winner, null, null);
-		System.out.println("The user: " + winner.getUsername() + "has won: " + lot.getJackpot() + "€");
-		lot.setRaffle(true);
-		System.out.println("Lottery is raffled" + lot.isRaffle());
+	public void giveJackpot(int lotID) {
+		System.out.println("The lotteryID is: " + lotID);
+		db.getTransaction().begin();
+		Lottery l = getLotteryByID(lotID);
+		User winner = l.selectWinner();
+		System.out.println("The user " + winner.getUsername() + " has won " + l.getJackpot() + "€");
+		l.setRaffle(true);
+		db.persist(l);
+		db.getTransaction().commit();
+		createMovement("Lottery won", l.getJackpot(), winner, null, null);
+		System.out.println("Lottery is raffled: " + l.isRaffle());
 
 	}
 
@@ -711,7 +714,7 @@ public class DataAccess {
 	 * 
 	 * @return the new lottery
 	 */
-	public Lottery createLottery(int ticketPrice){
+	public int createLottery(int ticketPrice){
 		System.out.println(">> DataAccess: createLottery");
 		TypedQuery<Lottery> query = db.createQuery("SELECT FROM Lottery ORDER BY lotteryID DESC", Lottery.class);
 		Lottery lastLottery;
@@ -730,23 +733,23 @@ public class DataAccess {
 		db.persist(lot);
 		db.getTransaction().commit();
 		System.out.println("The new lottery has been created successfully!");
-		return lot;
+		return lot.getLotteryID();
 
 	}
 
 	/**
-	 * This method gets the last active lottery
+	 * This method gets the id of last active lottery
 	 */
-	public Lottery getLastActiveLottery() {
+	public int getLastActiveLotteryID() {
 		System.out.println(">> DataAccess: getLastActiveLottery");
 		TypedQuery<Lottery> query = db.createQuery("SELECT FROM Lottery WHERE isRaffle=false ORDER BY lotteryID DESC", Lottery.class);		
 		try {
 			Lottery lastLottery = query.getResultList().get(0);
 			System.out.println("The last lottery whitout raffle is " + lastLottery);
-			return lastLottery;
+			return lastLottery.getLotteryID();
 		}catch (Exception e) {
 			System.out.println("There are not active lotteries");
-			return null;
+			return -1;
 		}
 
 	}
@@ -754,7 +757,7 @@ public class DataAccess {
 	/**
 	 * This method buys a ticket for the active lottery
 	 */
-	public void buyTicket(User user, Lottery lastLottery, String movDesc) {
+	public void buyTicket(User user, int lastLotteryID, String movDesc) {
 		System.out.println(">> DataAccess: buyTicket");
 
 		TypedQuery<Ticket> query2 = db.createQuery("SELECT FROM Ticket ORDER BY ticketID DESC", Ticket.class);
@@ -769,8 +772,8 @@ public class DataAccess {
 
 		//create new Ticket
 		db.getTransaction().begin();
-		Lottery lot = db.find(Lottery.class, lastLottery.getLotteryID());
-		Ticket t = new Ticket(newTicketID,user, lastLottery.getTicketPrice());
+		Lottery lot = getLotteryByID(lastLotteryID);
+		Ticket t = new Ticket(newTicketID,user, lot.getTicketPrice());
 		lot.addTicket(t);
 		int prevJackpot = lot.getJackpot();
 		lot.setJackpot(prevJackpot + t.getPrice());
@@ -780,7 +783,7 @@ public class DataAccess {
 		db.getTransaction().commit();
 		System.out.println("Ticket added " + t);
 		createMovement(movDesc, -t.getPrice(), user, null, null);
-		
+
 		System.out.println("Tickets: " + lot.getTickets());
 
 	}
@@ -789,14 +792,26 @@ public class DataAccess {
 	 * This method returns the players of a lottery
 	 * @return a list of players
 	 */
-	public ArrayList<User> getPlayersLottery(Lottery lottery) {
+	public ArrayList<User> getPlayersLottery(int lotteryID) {
 		System.out.println(">> DataAccess: getPlayersLottery");
-		//User user = db.find(User.class, username);
+		Lottery lottery = getLotteryByID(lotteryID);
 		ArrayList<User> players = lottery.getParticipants();
 		System.out.println("The players are: " + players);
 
 		return players;
 
+	}
+
+	/**
+	 * This method a lottery with a given a id
+	 *  
+	 * @param the lottery id
+	 * @return the lottery
+	 */
+
+	public Lottery getLotteryByID(int lotteryID) {
+		Lottery lot = db.find(Lottery.class, lotteryID);
+		return lot;
 	}
 
 

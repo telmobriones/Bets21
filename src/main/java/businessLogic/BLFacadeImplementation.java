@@ -404,28 +404,28 @@ public class BLFacadeImplementation implements BLFacade {
 	 * the participants who have bought a ticket
 	 */
 	
-	public void giveJackpot(Lottery lot) {
+	public void giveJackpot(int lotID) {
 		dbManager.open(false);
-		dbManager.giveJackpot(lot);
+		dbManager.giveJackpot(lotID);
 		dbManager.close();
 	}
 	/**
 	 * This method buys a ticket for the active lottery
 	 */
 	@Override
-	public void buyTicket(User user, Lottery lottery, String movDesc) {
+	public void buyTicket(User user, int lotID, String movDesc) {
 		dbManager.open(false);
-		dbManager.buyTicket(user, lottery, movDesc);
+		dbManager.buyTicket(user, lotID, movDesc);
 		dbManager.close();	
 	}
 
 
 	/**
-	 * This method gets the last active lottery
+	 * This method gets the id of last active lottery
 	 */
-	public Lottery getLastActiveLottery() {
+	public int getLastActiveLotteryID() {
 		dbManager.open(false);
-		Lottery lot = dbManager.getLastActiveLottery();
+		int lot = dbManager.getLastActiveLotteryID();
 		dbManager.close();	
 		return lot;
 	}
@@ -434,9 +434,9 @@ public class BLFacadeImplementation implements BLFacade {
 	 * This method returns the players of a lottery
 	 * @return a list of players
 	 */
-	public ArrayList<User> getPlayersLottery(Lottery lottery) {
+	public ArrayList<User> getPlayersLottery(int lotteryID) {
 		dbManager.open(false);
-		ArrayList<User> players = dbManager.getPlayersLottery(lottery);
+		ArrayList<User> players = dbManager.getPlayersLottery(lotteryID);
 		dbManager.close();
 		return players;
 	}
@@ -445,11 +445,25 @@ public class BLFacadeImplementation implements BLFacade {
 	/**
 	 * This method creates a new Lottery
 	 */
-	public Lottery createLottery(int ticketPrice) {
+	public int createLottery(int ticketPrice) {
 		dbManager.open(false);
-		Lottery lot = dbManager.createLottery(ticketPrice);
+		int lotID = dbManager.createLottery(ticketPrice);
 		dbManager.close();
+		return lotID;
+	}
+	
+	/**
+	 * This method a lottery with a given a id
+	 *  
+	 * @param the lottery id
+	 * @return the lottery
+	 */
+
+	public Lottery getLotteryByID(int lotteryID) {
+		dbManager.open(false);
+		Lottery lot = dbManager.getLotteryByID(lotteryID);
 		return lot;
+		
 	}
 }
 
