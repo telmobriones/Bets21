@@ -695,15 +695,14 @@ public class DataAccess {
 	 * the last lottery that is not closed among all 
 	 * the participants who have bought a ticket
 	 */
-	public void giveJackpot(int ticketPrice) {
-		TypedQuery<Lottery> query = db.createQuery("SELECT FROM Lottery WHERE isRaffle=false ORDER BY lotteryID DESC", Lottery.class);
-		Lottery lastLottery;
-		try {
-			lastLottery = query.getResultList().get(0);
-			createLottery(ticketPrice);
-		}catch (Exception e){
-			createLottery(ticketPrice);		
-		}
+	public void giveJackpot(Lottery lot) {
+		System.out.println("The lottery is: " + lot.getLotteryID());
+		
+		User winner = lot.selectWinner();
+		createMovement("Lottery won", lot.getJackpot(), winner, null, null);
+		System.out.println("The user: " + winner.getUsername() + "has won: " + lot.getJackpot() + "€");
+		lot.setRaffle(true);
+		System.out.println("Lottery is raffled" + lot.isRaffle());
 
 	}
 
@@ -712,7 +711,7 @@ public class DataAccess {
 	 * 
 	 * @return the new lottery
 	 */
-	public void createLottery(int ticketPrice){
+	public Lottery createLottery(int ticketPrice){
 		System.out.println(">> DataAccess: createLottery");
 		TypedQuery<Lottery> query = db.createQuery("SELECT FROM Lottery ORDER BY lotteryID DESC", Lottery.class);
 		Lottery lastLottery;
@@ -727,10 +726,11 @@ public class DataAccess {
 		System.out.println("NewLotteryID: " + newLotteryID);
 		Lottery lot;
 		db.getTransaction().begin();
-		lot = new Lottery(newLotteryID, 0, false, ticketPrice);
+		lot = new Lottery(newLotteryID, 0, ticketPrice);
 		db.persist(lot);
 		db.getTransaction().commit();
 		System.out.println("The new lottery has been created successfully!");
+		return lot;
 
 	}
 
@@ -782,13 +782,7 @@ public class DataAccess {
 		createMovement(movDesc, -t.getPrice(), user, null, null);
 		
 		System.out.println("Tickets: " + lot.getTickets());
-//		User user = db.find(User.class, pUser.getUsername());
-//		Movement mov = user.newMovement(newMovID, movType, money, pEventDesc, pQuestionDesc);
-//		db.persist(user);
-//		db.getTransaction().commit();
-//		float newBalance = updateBalance(pUser, money);
-//		System.out.println(mov+" added to the DB!");
-//		return newBalance;
+
 	}
 
 	/**

@@ -23,11 +23,11 @@ public class Lottery {
 	private ArrayList<Ticket> tickets = new ArrayList<Ticket>();;
 
 
-	public Lottery(int lotteryID, int jackpot, boolean isRaffle, int ticketPrice) {
+	public Lottery(int lotteryID, int jackpot, int ticketPrice) {
 		super();
 		this.lotteryID = lotteryID;
 		this.jackpot = jackpot;
-		this.isRaffle = isRaffle;
+		this.isRaffle = false;
 		this.ticketPrice = ticketPrice;
 	}
 
@@ -105,5 +105,14 @@ public class Lottery {
 		else {
 			return null;
 		}
+	}
+	/**
+	 * This method chooses a winner for the lottery
+	 */
+	public User selectWinner() {
+		int winnerPosition = (int)(Math.random() * getParticipantsNumber());
+		User winner = getParticipants().get(winnerPosition);
+		return winner;
+		
 	}
 }

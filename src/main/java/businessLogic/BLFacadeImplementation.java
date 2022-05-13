@@ -301,7 +301,7 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();
 		return bet;
 	}
-	
+
 	@Override
 	public float createMovement(String movType, float betMoney, User pUser, String pEventDesc, String pQuestionDesc) {
 		dbManager.open(false);
@@ -309,8 +309,8 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();
 		return newBalance;
 	}
-	
-	
+
+
 	public Bet makeBet(int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics, String movType, String pEventDesc, String pQuestionDesc) {
 		dbManager.open(false);
 		Bet bet = dbManager.makeBet(betMoney,betUser,isMultipleBet, betPronostics, movType, pEventDesc, pQuestionDesc);
@@ -375,7 +375,7 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();
 		return messages;
 	}
-	
+
 	public ArrayList<Movement> getUserMovements(String username) {
 		dbManager.open(false);
 		ArrayList<Movement> movements = dbManager.getUserMovements(username);
@@ -403,10 +403,10 @@ public class BLFacadeImplementation implements BLFacade {
 	 * the last lottery that is not closed among all 
 	 * the participants who have bought a ticket
 	 */
-	@Override
-	public void giveJackpot(int ticketPrice) {
+	
+	public void giveJackpot(Lottery lot) {
 		dbManager.open(false);
-		dbManager.giveJackpot(ticketPrice);
+		dbManager.giveJackpot(lot);
 		dbManager.close();
 	}
 	/**
@@ -429,7 +429,7 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();	
 		return lot;
 	}
-	
+
 	/**
 	 * This method returns the players of a lottery
 	 * @return a list of players
@@ -439,6 +439,17 @@ public class BLFacadeImplementation implements BLFacade {
 		ArrayList<User> players = dbManager.getPlayersLottery(lottery);
 		dbManager.close();
 		return players;
+	}
+
+
+	/**
+	 * This method creates a new Lottery
+	 */
+	public Lottery createLottery(int ticketPrice) {
+		dbManager.open(false);
+		Lottery lot = dbManager.createLottery(ticketPrice);
+		dbManager.close();
+		return lot;
 	}
 }
 

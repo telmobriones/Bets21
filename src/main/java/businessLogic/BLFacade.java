@@ -239,9 +239,20 @@ public interface BLFacade {
 	 * the last lottery that is not closed among all 
 	 * the participants who have bought a ticket
 	 * 
+	 * @param the lottery
+	 * 
 	 * @param the new price for the next lottery
 	 */
-	public void giveJackpot(int ticketPrice);
+	public void giveJackpot(Lottery lottery);
+	
+	/**
+	 * This method creates and return a new Lottery
+	 * 
+	 * @param the price of the tickets
+	 * 
+	 * @return a the new lottery
+	 */
+	public Lottery createLottery(int ticketPrice);
 	
 	
 	/**
