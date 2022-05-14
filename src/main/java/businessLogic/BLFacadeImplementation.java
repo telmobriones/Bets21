@@ -268,12 +268,26 @@ public class BLFacadeImplementation implements BLFacade {
 	}
 
 	@Override
-	public Pronostic createPronostic(int pronOdd, String pronDescription, Question pronQuestion) {
+	public Pronostic createPronostic(float pronOdd, String pronDescription, Question pronQuestion) {
 		dbManager.open(false);
 		Pronostic pron = dbManager.createPronostic(pronOdd, pronDescription, pronQuestion);
 		dbManager.close();
 		return pron;
 	}
+	
+//	/**
+//	 * This method updates the question with a new pronostic
+//	 * 
+//	 * @param the question to be updated
+//	 * @param the new pronostic
+//	 * @return nothing
+//	 */
+//	@Override
+//	public void updateQuestion(Question question, Pronostic pronostic) {
+//		dbManager.open(false);
+//		dbManager.updateQuestion(question, pronostic);
+//		dbManager.close();
+//	}
 
 
 
@@ -319,34 +333,22 @@ public class BLFacadeImplementation implements BLFacade {
 	}
 
 
-	/**
-	 * This method updates the question with a new pronostic
-	 * 
-	 * @param the question to be updated
-	 * @param the new pronostic
-	 * @return nothing
-	 */
-	@Override
-	public void updateQuestion(Question question, Pronostic pronostic) {
-		dbManager.open(false);
-		dbManager.updateQuestion(question, pronostic);
-		dbManager.close();
-	}
 
-	/**
-	 * This method updates user's balance
-	 * 
-	 * @param user
-	 * @param amount of money to be added
-	 * @return new balance after update
-	 * 
-	 */
-	public float updateBalance(User pUser, float pMoney) {
-		dbManager.open(false);
-		float newBalance = dbManager.updateBalance(pUser,pMoney);
-		dbManager.close();
-		return newBalance;
-	}
+
+//	/**
+//	 * This method updates user's balance
+//	 * 
+//	 * @param user
+//	 * @param amount of money to be added
+//	 * @return new balance after update
+//	 * 
+//	 */
+//	public float updateBalance(User pUser, float pMoney) {
+//		dbManager.open(false);
+//		float newBalance = dbManager.updateBalance(pUser,pMoney);
+//		dbManager.close();
+//		return newBalance;
+//	}
 
 	public void updateUserBet(User betUser, Bet bet) {
 		dbManager.open(false);

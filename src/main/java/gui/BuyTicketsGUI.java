@@ -9,20 +9,14 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import domain.Lottery;
 import domain.User;
-import jdk.internal.misc.FileSystemOption;
 
 import javax.swing.JButton;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
-import java.awt.Font;
 import java.util.ResourceBundle;
-import javax.swing.SwingConstants;
-
 import businessLogic.BLFacade;
 
 public class BuyTicketsGUI extends JFrame {

@@ -261,8 +261,8 @@ public class CreatePronosticGUI extends JFrame {
 		textFieldOdds.addKeyListener(new KeyAdapter() {
 		    public void keyTyped(KeyEvent e) {
 		        char c = e.getKeyChar();
-		        if ( ((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE) && (c != KeyEvent.VK_PERIOD)) {
-		            e.consume();  // if it's not a number, ignore the event
+		        if ( ((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE) && (c != KeyEvent.VK_PERIOD)) { 
+		            e.consume();// if it's not a number, a period or a backspace, ignore the event
 		        }
 		     }
 		});
@@ -279,7 +279,7 @@ public class CreatePronosticGUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				String pronDescription = textFieldPronostic.getText();
-				int pronOdd = Integer.parseInt(textFieldOdds.getText());
+				float pronOdd = Float.parseFloat(textFieldOdds.getText());
 				boolean error = false;
 
 //				if (new Date().compareTo(pronEvent.getEventDate()) > 0) {
@@ -308,7 +308,6 @@ public class CreatePronosticGUI extends JFrame {
 				if (!error) {
 					Pronostic pronostico = facade.createPronostic(pronOdd, pronDescription, pronQuestion);
 					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("PronosticAdded"));
-					facade.updateQuestion(pronQuestion, pronostico);
 					textFieldPronostic.setText("");
 					textFieldOdds.setText("");
 				}

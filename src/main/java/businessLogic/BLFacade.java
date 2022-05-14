@@ -107,7 +107,7 @@ public interface BLFacade {
 	 * @return new balance after update
 	 * 
 	 */
-	public Pronostic createPronostic(int pronOdd, String pronDescription, Question pronQuestion);
+	public Pronostic createPronostic(float pronOdd, String pronDescription, Question pronQuestion);
 
 
 	public void setPronosticResult(Pronostic betPronostic, boolean pronResult);
@@ -167,16 +167,24 @@ public interface BLFacade {
 	public Vector<Question> getQuestions(Event event);
 
 
-	/**
-	 * This method updates the question with a new pronostic
-	 * 
-	 * @param the question to be updated
-	 * @param the new pronostic
-	 * @return nothing
-	 */
-	public void updateQuestion(Question question, Pronostic pronostic);
+//	/**
+//	 * This method updates the question with a new pronostic
+//	 * 
+//	 * @param the question to be updated
+//	 * @param the new pronostic
+//	 * @return nothing
+//	 */
+//	public void updateQuestion(Question question, Pronostic pronostic);
 
-	public float updateBalance(User pUser, float pMoney);
+//	/**
+//	 * This method updates user's balance
+//	 * 
+//	 * @param user
+//	 * @param amount of money to be added
+//	 * @return new balance after update
+//	 * 
+//	 */
+//	public float updateBalance(User pUser, float pMoney);
 
 	public void updateUserBet(User betUser, Bet bet);
 

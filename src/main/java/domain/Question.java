@@ -24,7 +24,7 @@ public class Question implements Serializable {
 	private String result;  
 	@XmlIDREF
 	private Event event;
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private ArrayList<Pronostic> qPronostics = new ArrayList<Pronostic>();
 
 	public Question(){
@@ -155,12 +155,19 @@ public class Question implements Serializable {
 	}
 	
 	
+	
+	public Pronostic newPronostic(int newPronID, float pOdd, String pDescription) {
+		Pronostic pron = new Pronostic(newPronID, pOdd, pDescription, this);
+		qPronostics.add(pron);
+		return pron;
+	}
+	
 	/**
 	 * Add a new pronostic to this question
 	 * 
 	 * @param the pronostic to be added
 	 */
-	public void newPronostic(Pronostic pronostic) {
+	public void addPronostic(Pronostic pronostic) {
 		qPronostics.add(pronostic);
 	}
 

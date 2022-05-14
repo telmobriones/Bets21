@@ -214,7 +214,7 @@ public class DataAccess {
 	 * @param the question of the pronostic
 	 * @return the created pronostic, or null, or an exception
 	 */
-	public Pronostic createPronostic(int pOdd, String pDescription, Question pQuestion) {
+	public Pronostic createPronostic(float pOdd, String pDescription, Question pQuestion) {
 
 		TypedQuery<Pronostic> query = db.createQuery("SELECT FROM Pronostic ORDER BY pronID DESC", Pronostic.class);
 		Pronostic lastPronostic = query.getResultList().get(0);
@@ -223,12 +223,29 @@ public class DataAccess {
 		System.out.println("NewEventNumber: " + newPronID);
 
 		db.getTransaction().begin();
-		Pronostic pronostic = new Pronostic(newPronID, pOdd, pDescription, pQuestion);
+		Question q =  db.find(Question.class, pQuestion.getQuestionNumber());
+		Pronostic pronostic = q.newPronostic(newPronID, pOdd, pDescription);
 		db.persist(pronostic);
 		db.getTransaction().commit();
+		
 		System.out.println(pronostic.getPronDescription()+" added to the DB!");
 		return pronostic;
 	}
+	
+//	/**
+//	 * This method updates the question with a new pronostic
+//	 * 
+//	 * @param the question to be updated
+//	 * @param the new pronostic to be added
+//	 * @return nothing
+//	 */
+//	public void updateQuestion(Question question, Pronostic pronostic) {
+//		db.getTransaction().begin();
+//		Question q = db.find(Question.class, question.getQuestionNumber());
+//		q.addPronostic(pronostic);
+//		db.getTransaction().commit();
+//		System.out.println(pronostic.getPronDescription() + " pronostic added to the question" + question.getQuestion());
+//	}
 
 	/**
 	 * This method adds a new bet to a certain pronostic
@@ -278,17 +295,40 @@ public class DataAccess {
 		System.out.println("LastMovement: " + lastMovement);
 		int newMovID = lastMovement.getMovID()+1;
 		System.out.println("NewMovNum: " + newMovID);
-
-		db.getTransaction().begin();
+		
 		User user = db.find(User.class, pUser.getUsername());
-		Movement mov = user.newMovement(newMovID, movType, money, pEventDesc, pQuestionDesc);
-		db.persist(user);
-		db.getTransaction().commit();
-		float newBalance = updateBalance(pUser, money);
-		System.out.println(mov+" added to the DB!");
-		return newBalance;
+		Movement mov;
+		
+		if(user != null) {
+			db.getTransaction().begin();
+			mov = user.newMovement(newMovID, movType, money, pEventDesc, pQuestionDesc);
+			float newBalance = user.updateBalance(money);
+			db.persist(user);
+			db.getTransaction().commit();
+			System.out.println(mov+" added to the DB!");
+			return newBalance;
+			
+		} else {
+			System.out.println("UNEXPECTED ERROR OCCURRED WHEN UPDATING BALANCE!");
+			return -10000000;
+		}
+
+		
 	}
 
+//	public float updateBalance(User pUser, float pMoney) {
+//		db.getTransaction().begin();
+//		User u = db.find(User.class, pUser.getUsername());
+//		if(u != null) {
+//			u.updateBalance(pMoney);
+//			db.persist(u);
+//		} else {
+//			System.out.println("UNEXPECTED ERROR OCCURRED WHEN UPDATING BALANCE!");
+//		}
+//		db.getTransaction().commit();
+//		return u.getBalance();
+//	}
+	
 	public Bet makeBet(int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics, String movType, String pEventDesc, String pQuestionDesc) {
 		Bet bet = addBetToPronostic(betMoney, betUser, isMultipleBet, betPronostics);
 		createMovement(movType, betMoney, betUser, pEventDesc, pQuestionDesc);
@@ -482,20 +522,7 @@ public class DataAccess {
 	}
 
 
-	/**
-	 * This method updates the question with a new pronostic
-	 * 
-	 * @param the question to be updated
-	 * @param the new pronostic to be added
-	 * @return nothing
-	 */
-	public void updateQuestion(Question question, Pronostic pronostic) {
-		db.getTransaction().begin();
-		Question q = db.find(Question.class, question.getQuestionNumber());
-		q.newPronostic(pronostic);
-		db.getTransaction().commit();
-		System.out.println(pronostic.getPronDescription() + " pronostic added to the question" + question.getQuestion());
-	}
+
 
 
 	public Question findQuestionByN(int qNumber) {
@@ -574,18 +601,7 @@ public class DataAccess {
 	 * @return new balance after update
 	 * 
 	 */
-	public float updateBalance(User pUser, float pMoney) {
-		db.getTransaction().begin();
-		User u = db.find(User.class, pUser.getUsername());
-		if(u != null) {
-			u.updateBalance(pMoney);
-			db.persist(u);
-		} else {
-			System.out.println("UNEXPECTED ERROR OCCURRED WHEN UPDATING BALANCE!");
-		}
-		db.getTransaction().commit();
-		return u.getBalance();
-	}
+	
 	public void open(boolean initializeMode) {
 
 		System.out.println("Opening DataAccess instance => isDatabaseLocal: " + c.isDatabaseLocal()

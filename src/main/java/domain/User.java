@@ -60,10 +60,11 @@ public class User {
 		this.bets.add(bet);
 	}
 
-	public void updateBalance(float money) {
+	public float updateBalance(float money) {
 		System.out.println("Money before update: " + this.balance);
 		this.balance += money;
 		System.out.println("Money after update: " + this.balance);
+		return this.balance;
 	}
 	
 	/**
