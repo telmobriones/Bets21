@@ -71,9 +71,9 @@ public class User {
 	 * Add a new movement to this user
 	 * 
 	 */
-	public Movement newMovement(int movID, String movementType, float money, String eventDesc, String questionDesc) {
+	public Movement newMovement(String movementType, float money, String eventDesc, String questionDesc) {
 		System.out.println("Creating movement...");
-		Movement mov = new Movement(movID, movementType, money, this, eventDesc, questionDesc);
+		Movement mov = new Movement(movementType, money, this, eventDesc, questionDesc);
 		movements.add(mov);
 		System.out.println("Movement added!");
 		return mov;

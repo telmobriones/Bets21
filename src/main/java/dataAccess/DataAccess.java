@@ -216,15 +216,21 @@ public class DataAccess {
 	 */
 	public Pronostic createPronostic(float pOdd, String pDescription, Question pQuestion) {
 
-		TypedQuery<Pronostic> query = db.createQuery("SELECT FROM Pronostic ORDER BY pronID DESC", Pronostic.class);
-		Pronostic lastPronostic = query.getResultList().get(0);
-		System.out.println("LastEvent: " + lastPronostic);
-		int newPronID = lastPronostic.getPronID()+1;
-		System.out.println("NewEventNumber: " + newPronID);
-
+//		TypedQuery<Pronostic> query = db.createQuery("SELECT FROM Pronostic ORDER BY pronID DESC", Pronostic.class);
+//		Pronostic lastPronostic = query.getResultList().get(0);
+//		System.out.println("LastEvent: " + lastPronostic);
+//		int newPronID = lastPronostic.getPronID()+1;
+//		System.out.println("NewEventNumber: " + newPronID);
+//
+//		db.getTransaction().begin();
+//		Question q =  db.find(Question.class, pQuestion.getQuestionNumber());
+//		Pronostic pronostic = q.newPronostic(newPronID, pOdd, pDescription);
+//		db.persist(pronostic);
+//		db.getTransaction().commit();
+		
 		db.getTransaction().begin();
 		Question q =  db.find(Question.class, pQuestion.getQuestionNumber());
-		Pronostic pronostic = q.newPronostic(newPronID, pOdd, pDescription);
+		Pronostic pronostic = q.newPronostic(pOdd, pDescription);
 		db.persist(pronostic);
 		db.getTransaction().commit();
 		
@@ -256,28 +262,28 @@ public class DataAccess {
 	 * @return the created bet, or null, or an exception
 	 */
 	public Bet addBetToPronostic(int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics) {
-		int newBetID;
-		TypedQuery<Bet> query = db.createQuery("SELECT FROM Bet ORDER BY betID DESC", Bet.class);
-		if(query.getResultList().size() != 0) {
-			Bet lastBet = query.getResultList().get(0);
-			System.out.println("LastBetID: " + lastBet.getBetID());
-			newBetID = lastBet.getBetID()+1;
-			System.out.println("NewBetNumber: " + newBetID);
-		} else {
-			newBetID = 0;
-		}
+//		int newBetID;
+//		TypedQuery<Bet> query = db.createQuery("SELECT FROM Bet ORDER BY betID DESC", Bet.class);
+//		if(query.getResultList().size() != 0) {
+//			Bet lastBet = query.getResultList().get(0);
+//			System.out.println("LastBetID: " + lastBet.getBetID());
+//			newBetID = lastBet.getBetID()+1;
+//			System.out.println("NewBetNumber: " + newBetID);
+//		} else {
+//			newBetID = 0;
+//		}
 
 		db.getTransaction().begin();
 		Bet bet;
 		if(isMultipleBet){
-			bet = new Bet(newBetID, betMoney, betUser, isMultipleBet,betPronostics);
+			bet = new Bet(betMoney, betUser, isMultipleBet,betPronostics);
 			for (Pronostic pron : betPronostics) {
 				Pronostic p = db.find(Pronostic.class, pron.getPronID());
 				p.addBetToPronostic(bet);
 			}
 		} else {
 			Pronostic p = db.find(Pronostic.class, betPronostics.get(0).getPronID());
-			bet = new Bet(newBetID, betMoney, betUser, isMultipleBet,betPronostics);
+			bet = new Bet(betMoney, betUser, isMultipleBet,betPronostics);
 			p.addBetToPronostic(bet);
 		}
 		User user = db.find(User.class, betUser.getUsername());
@@ -290,18 +296,34 @@ public class DataAccess {
 
 	public float createMovement(String movType, float money, User pUser, String pEventDesc, String pQuestionDesc) {
 
-		TypedQuery<Movement> query = db.createQuery("SELECT FROM Movement ORDER BY movID DESC", Movement.class);
-		Movement lastMovement = query.getResultList().get(0);
-		System.out.println("LastMovement: " + lastMovement);
-		int newMovID = lastMovement.getMovID()+1;
-		System.out.println("NewMovNum: " + newMovID);
+//		TypedQuery<Movement> query = db.createQuery("SELECT FROM Movement ORDER BY movID DESC", Movement.class);
+//		Movement lastMovement = query.getResultList().get(0);
+//		System.out.println("LastMovement: " + lastMovement);
+//		int newMovID = lastMovement.getMovID()+1;
+//		System.out.println("NewMovNum: " + newMovID);
+//		
+//		User user = db.find(User.class, pUser.getUsername());
+//		Movement mov;
+//		
+//		if(user != null) {
+//			db.getTransaction().begin();
+//			mov = user.newMovement(newMovID, movType, money, pEventDesc, pQuestionDesc);
+//			float newBalance = user.updateBalance(money);
+//			db.persist(user);
+//			db.getTransaction().commit();
+//			System.out.println(mov+" added to the DB!");
+//			return newBalance;
+//			
+//		} else {
+//			System.out.println("UNEXPECTED ERROR OCCURRED WHEN UPDATING BALANCE!");
+//			return -10000000;
+//		}
 		
 		User user = db.find(User.class, pUser.getUsername());
-		Movement mov;
 		
 		if(user != null) {
 			db.getTransaction().begin();
-			mov = user.newMovement(newMovID, movType, money, pEventDesc, pQuestionDesc);
+			Movement mov = user.newMovement(movType, money, pEventDesc, pQuestionDesc);
 			float newBalance = user.updateBalance(money);
 			db.persist(user);
 			db.getTransaction().commit();
@@ -448,24 +470,13 @@ public class DataAccess {
 	 * @return the new event or null if there is a problem
 	 */
 	public boolean createEvent(String pDescription, Date pDate){
-		System.out.println(">> DataAccess: createEvent=> eventDesc= " + pDescription + " Date= " + pDate);
-		TypedQuery<Event> query = db.createQuery("SELECT FROM Event ORDER BY eventNumber DESC", Event.class);
-		Event lastEvent = query.getResultList().get(0);
-		System.out.println("LastEvent: " + lastEvent);
-		int newEvNumber = lastEvent.getEventNumber()+1;
-		System.out.println("NewEventNumber: " + newEvNumber);
 
-		if(!isThereEventByNumber(newEvNumber)) {
 			db.getTransaction().begin();
-			Event ev = new Event(newEvNumber, pDescription, pDate);
+			Event ev = new Event(pDescription, pDate);
 			db.persist(ev);
 			db.getTransaction().commit();
 			System.out.println("New event created successfully!");
 			return true;
-		} else {
-			return false;
-		}
-
 
 	}
 

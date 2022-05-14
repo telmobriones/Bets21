@@ -307,9 +307,11 @@ public class CreatePronosticGUI extends JFrame {
 
 				if (!error) {
 					Pronostic pronostico = facade.createPronostic(pronOdd, pronDescription, pronQuestion);
-					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("PronosticAdded"));
-					textFieldPronostic.setText("");
-					textFieldOdds.setText("");
+					if(pronostico != null) {
+						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("PronosticAdded"));
+						textFieldPronostic.setText("");
+						textFieldOdds.setText("");
+					}
 				}
 
 			}

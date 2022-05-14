@@ -13,7 +13,7 @@ import javax.persistence.ManyToMany;
 public class Pronostic {
 	@Id
 	@GeneratedValue
-	private int pronID;
+	private Integer pronID;
 	private String pronDescription;
 	private float pronOdd;
 	private Question pronQuestion;
@@ -22,11 +22,11 @@ public class Pronostic {
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Bet> pronBets;
 	
-	public Pronostic(int pronID, float odd, String pronDescription, Question pronQuestion) {
+	public Pronostic(float odd, String pronDescription, Question pronQuestion) {
 		super();
-		this.pronID = pronID;
-		this.pronOdd = odd;
+
 		this.pronDescription = pronDescription;
+		this.pronOdd = odd;
 		this.pronQuestion = pronQuestion;
 		this.pronResult = false;
 		this.pronClosed = false;

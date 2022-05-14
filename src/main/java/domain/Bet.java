@@ -13,15 +13,15 @@ import javax.persistence.ManyToMany;
 public class Bet {
 	@Id
 	@GeneratedValue
-	private int betID;
+	private Integer betID;
 	private int betMoney;
 	private User betUser;
 	private boolean isMultipleBet;
 	@ManyToMany(mappedBy = "pronBets")
 	private List<Pronostic> betPronostics;
 	
-	public Bet(int betID, int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics) {
-		this.betID = betID;
+	public Bet(int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics) {
+		super();
 		this.betMoney = betMoney;
 		this.betUser = betUser;
 		this.isMultipleBet = isMultipleBet;

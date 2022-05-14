@@ -3,13 +3,15 @@ package domain;
 import java.util.ResourceBundle;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class Movement {
 	
 	@Id
-	private int movID;
+	@GeneratedValue
+	private Integer movID;
 	private String movementType;
 	private float money;
 	private User user;
@@ -18,9 +20,8 @@ public class Movement {
 	
 
 
-	public Movement(int movID, String movementType, float money, User user, String eventDesc, String questionDesc) {
+	public Movement(String movementType, float money, User user, String eventDesc, String questionDesc) {
 		super();
-		this.movID = movID;
 		this.movementType = movementType;
 		this.money = money;
 		this.user = user;

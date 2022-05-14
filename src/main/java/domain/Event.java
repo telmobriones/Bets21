@@ -48,6 +48,7 @@ public class Event implements Serializable {
 	}
 
 	public Event(String description, Date eventDate) {
+		super();
 		this.description = description;
 		this.eventDate = eventDate;
 	}

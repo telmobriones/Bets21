@@ -43,8 +43,7 @@ public class Question implements Serializable {
 		super();
 		this.question = query;
 		this.betMinimum=betMinimum;
-
-		//this.event = event;
+		this.event = event;
 	}
 
 	/**
@@ -156,8 +155,8 @@ public class Question implements Serializable {
 	
 	
 	
-	public Pronostic newPronostic(int newPronID, float pOdd, String pDescription) {
-		Pronostic pron = new Pronostic(newPronID, pOdd, pDescription, this);
+	public Pronostic newPronostic(float pOdd, String pDescription) {
+		Pronostic pron = new Pronostic(pOdd, pDescription, this);
 		qPronostics.add(pron);
 		return pron;
 	}
