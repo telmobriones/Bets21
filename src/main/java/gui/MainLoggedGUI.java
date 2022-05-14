@@ -27,7 +27,6 @@ import java.awt.event.ActionEvent;
 public class MainLoggedGUI extends JFrame {
 
 	private User loggedUser;
-	private static BLFacade facade = MainGUI.getBusinessLogic();
 
 	private static final long serialVersionUID = 1L;
 
@@ -59,11 +58,12 @@ public class MainLoggedGUI extends JFrame {
 
 	/**
 	 * This is the default constructor
+	 * @param loggedUser
 	 */
-	public MainLoggedGUI() {
+	public MainLoggedGUI(User loggedUser) {
 		super();
 
-		this.loggedUser = facade.getLogUser();
+		this.loggedUser = loggedUser;
 
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -126,7 +126,7 @@ public class MainLoggedGUI extends JFrame {
 			jButtonBet.setText(ResourceBundle.getBundle("Etiquetas").getString("Bet"));
 			jButtonBet.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					JFrame bet = new BetGUI();
+					JFrame bet = new BetGUI(loggedUser);
 					bet.setVisible(true);
 				}
 			});
@@ -168,7 +168,7 @@ public class MainLoggedGUI extends JFrame {
 			jButtonTopUpBalance.setText(ResourceBundle.getBundle("Etiquetas").getString("TopUpBalance"));
 			jButtonTopUpBalance.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					TopUpBalanceGUI a = new TopUpBalanceGUI();
+					TopUpBalanceGUI a = new TopUpBalanceGUI(loggedUser);
 					a.setVisible(true);
 				}
 			});
@@ -189,7 +189,7 @@ public class MainLoggedGUI extends JFrame {
 			jButtonSeeMovements.setText(ResourceBundle.getBundle("Etiquetas").getString("SeeMovements"));
 			jButtonSeeMovements.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					SeeMovementsGUI a = new SeeMovementsGUI();
+					SeeMovementsGUI a = new SeeMovementsGUI(loggedUser);
 					a.setVisible(true);
 				}
 			});
@@ -209,7 +209,7 @@ public class MainLoggedGUI extends JFrame {
 			jButtonMultipleBet.setText("MultipleBet");
 			jButtonMultipleBet.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					MultipleBetGUI a = new MultipleBetGUI();
+					MultipleBetGUI a = new MultipleBetGUI(loggedUser);
 					a.setVisible(true);
 				}
 			});
@@ -230,7 +230,7 @@ public class MainLoggedGUI extends JFrame {
 			jButtonSendMessages.setText("SendMessages");
 			jButtonSendMessages.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					SendMessageGUI a = new SendMessageGUI();
+					SendMessageGUI a = new SendMessageGUI(loggedUser);
 					a.setVisible(true);
 				}
 			});
@@ -250,7 +250,7 @@ public class MainLoggedGUI extends JFrame {
 			jButtonBuyTickets.setText("BuyTickets");
 			jButtonBuyTickets.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					BuyTicketsGUI a = new BuyTicketsGUI();
+					BuyTicketsGUI a = new BuyTicketsGUI(loggedUser);
 					a.setVisible(true);
 				}
 			});

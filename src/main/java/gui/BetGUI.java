@@ -53,11 +53,13 @@ public class BetGUI extends JFrame {
 	private DefaultTableModel tableModelQueries;
 	private DefaultTableModel tableModelPronostics;
 
-	private String[] columnNamesEvents = new String[] { ResourceBundle.getBundle("Etiquetas").getString("EventN"),
+	private String[] columnNamesEvents = new String[] { 
+			ResourceBundle.getBundle("Etiquetas").getString("EventN"),
 			ResourceBundle.getBundle("Etiquetas").getString("Event"),
 
 	};
-	private String[] columnNamesQueries = new String[] { ResourceBundle.getBundle("Etiquetas").getString("QueryN"),
+	private String[] columnNamesQueries = new String[] { 
+			ResourceBundle.getBundle("Etiquetas").getString("QueryN"),
 			ResourceBundle.getBundle("Etiquetas").getString("Query")
 
 	};
@@ -78,8 +80,9 @@ public class BetGUI extends JFrame {
 
 	private static BLFacade facade = MainGUI.getBusinessLogic();
 
-	public BetGUI() {
+	public BetGUI(User loggedUser) {
 		try {
+			this.loggedUser = loggedUser;
 			jbInit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -218,12 +221,14 @@ public class BetGUI extends JFrame {
 		tableEvents.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
 				int i = tableEvents.getSelectedRow();
 				domain.Event ev = (domain.Event) tableModelEvents.getValueAt(i, 2); // obtain ev object
 				pronEvent = ev;
 				Vector<Question> queries = ev.getQuestions();
 
 				tableModelQueries.setDataVector(null, columnNamesQueries);
+				tableModelQueries.setColumnCount(3); // another column added to allocate q objects
 
 				if (queries.isEmpty())
 					jLabelQueries.setText(
@@ -237,10 +242,12 @@ public class BetGUI extends JFrame {
 
 					row.add(q.getQuestionNumber());
 					row.add(q.getQuestion());
+					row.add(q);
 					tableModelQueries.addRow(row);
 				}
 				tableQueries.getColumnModel().getColumn(0).setPreferredWidth(25);
 				tableQueries.getColumnModel().getColumn(1).setPreferredWidth(268);
+				tableQueries.getColumnModel().removeColumn(tableQueries.getColumnModel().getColumn(2));
 			}
 		});
 
@@ -248,12 +255,14 @@ public class BetGUI extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int i = tableQueries.getSelectedRow();
-				int qNumber = (int) tableModelQueries.getValueAt(i, 0);
-				pronQuestion = facade.getQuestionByN(qNumber);
+				domain.Question quest = (domain.Question) tableModelQueries.getValueAt(i, 2);
+				System.out.println("Question: " + quest.getQuestion());
+				pronQuestion = quest;
 
 				ArrayList<Pronostic> pronostics = pronQuestion.getPronostics();
 
 				tableModelPronostics.setDataVector(null, columnNamesPronostics);
+				tableModelPronostics.setColumnCount(3); // another column added to allocate p objects
 
 				if (pronostics.isEmpty())
 					jLabelPronostics.setText(ResourceBundle.getBundle("Etiquetas").getString("NoPronostics") + ": "
@@ -267,10 +276,13 @@ public class BetGUI extends JFrame {
 
 					row.add(p.getPronID());
 					row.add(p.getPronDescription());
+					row.add(p);
 					tableModelPronostics.addRow(row);
 				}
 				tablePronostics.getColumnModel().getColumn(0).setPreferredWidth(25);
 				tablePronostics.getColumnModel().getColumn(1).setPreferredWidth(268);
+				tablePronostics.getColumnModel().removeColumn(tablePronostics.getColumnModel().getColumn(2));
+
 			}
 		});
 
@@ -278,8 +290,8 @@ public class BetGUI extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int i = tablePronostics.getSelectedRow();
-				int pronosticID = (int) tableModelPronostics.getValueAt(i, 0);
-				betPronostic = facade.getPronosticByID(pronosticID);
+				domain.Pronostic pron = (domain.Pronostic) tableModelPronostics.getValueAt(i, 2);
+				betPronostic = pron;
 				lblPronOdds.setText("" + betPronostic.getPronOdd());
 				System.out.println(betPronostic.getPronDescription());
 			}
@@ -325,7 +337,6 @@ public class BetGUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				boolean error = false;
-				loggedUser = facade.getLogUser();
 				betMoney = Integer.parseInt(textFieldBetMoney.getText());
 				minBetAmmount = pronQuestion.getBetMinimum();
 				

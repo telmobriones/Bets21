@@ -137,17 +137,17 @@ public class BLFacadeImplementation implements BLFacade {
 		return logUser != null;
 	}
 
-	/**
-	 * 
-	 * @return user if logged, null if there's no logged user
-	 * 
-	 */
-	public User getLogUser() {
-		dbManager.open(false);
-		this.logUser = dbManager.findUser(logUser.getUsername());
-		dbManager.close();
-		return this.logUser;
-	}
+//	/**
+//	 * 
+//	 * @return user if logged, null if there's no logged user
+//	 * 
+//	 */
+//	public User getLogUser() {
+//		dbManager.open(false);
+//		this.logUser = dbManager.findUser(logUser.getUsername());
+//		dbManager.close();
+//		return this.logUser;
+//	}
 
 	/**
 	 * This method tries to register a user with the introduced credentials

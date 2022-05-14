@@ -58,9 +58,10 @@ public class BuyTicketsGUI extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param loggedUser 
 	 */
-	public BuyTicketsGUI() {
-		this.loggedUser = facade.getLogUser();
+	public BuyTicketsGUI(User loggedUser) {
+		this.loggedUser = loggedUser;
 		lotteryID = facade.getLastActiveLotteryID();
 		addWindowListener(new WindowAdapter() {
 			@Override

@@ -54,10 +54,11 @@ public class SendMessageGUI extends JFrame {
 	private JLabel lblError;
 	/**
 	 * This is the default constructor
+	 * @param loggedUser 
 	 */
-	public SendMessageGUI() {
+	public SendMessageGUI(User loggedUser) {
 		super();
-		this.loggedUser = facade.getLogUser();
+		this.loggedUser = loggedUser;
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {

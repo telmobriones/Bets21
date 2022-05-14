@@ -52,10 +52,11 @@ public class SeeMovementsGUI extends JFrame {
 
 	/**
 	 * This is the default constructor
+	 * @param loggedUser 
 	 */
-	public SeeMovementsGUI() {
+	public SeeMovementsGUI(User loggedUser) {
 		super();
-		this.loggedUser = facade.getLogUser();
+		this.loggedUser = loggedUser;
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -106,7 +107,7 @@ public class SeeMovementsGUI extends JFrame {
 
 	private JLabel getlblLoggedUsername() {
 		if (lblLoggedUsername == null) {
-			lblLoggedUsername = new JLabel(facade.getLogUser().getUsername());
+			lblLoggedUsername = new JLabel(loggedUser.getUsername());
 			lblLoggedUsername.setBounds(282, 12, 70, 15);
 		}
 		return lblLoggedUsername;
@@ -122,7 +123,7 @@ public class SeeMovementsGUI extends JFrame {
 
 	private JLabel getlblCurrentBalanceAmount() {
 		if(lblCurrentBalanceAmount == null) {
-			lblCurrentBalanceAmount = new JLabel(facade.getLogUser().getBalance() + "€");
+			lblCurrentBalanceAmount = new JLabel(loggedUser.getBalance() + "€");
 			lblCurrentBalanceAmount.setBounds(572, 288, 45, 15);
 		}
 		return lblCurrentBalanceAmount;

@@ -97,8 +97,9 @@ public class MultipleBetGUI extends JFrame {
 	
 	private static BLFacade facade = MainGUI.getBusinessLogic();
 
-	public MultipleBetGUI() {
+	public MultipleBetGUI(User loggedUser) {
 		try {
+			this.loggedUser = loggedUser;
 			jbInit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -253,7 +254,8 @@ public class MultipleBetGUI extends JFrame {
 				Vector<Question> queries = ev.getQuestions();
 
 				tableModelQueries.setDataVector(null, columnNamesQueries);
-
+				tableModelQueries.setColumnCount(3); // another column added to allocate q objects
+				
 				if (queries.isEmpty())
 					jLabelQueries.setText(
 							ResourceBundle.getBundle("Etiquetas").getString("NoQueries") + ": " + ev.getDescription());
@@ -266,10 +268,12 @@ public class MultipleBetGUI extends JFrame {
 
 					row.add(q.getQuestionNumber());
 					row.add(q.getQuestion());
+					row.add(q);
 					tableModelQueries.addRow(row);
 				}
 				tableQueries.getColumnModel().getColumn(0).setPreferredWidth(25);
 				tableQueries.getColumnModel().getColumn(1).setPreferredWidth(268);
+				tableQueries.getColumnModel().removeColumn(tableQueries.getColumnModel().getColumn(2));
 			}
 		});
 
@@ -277,12 +281,14 @@ public class MultipleBetGUI extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int i = tableQueries.getSelectedRow();
-				int qNumber = (int) tableModelQueries.getValueAt(i, 0);
-				pronQuestion = facade.getQuestionByN(qNumber);
+				domain.Question quest = (domain.Question) tableModelQueries.getValueAt(i, 2);
+				System.out.println("Question: " + quest.getQuestion());
+				pronQuestion = quest;
 
 				ArrayList<Pronostic> pronostics = pronQuestion.getPronostics();
 
 				tableModelPronostics.setDataVector(null, columnNamesPronostics);
+				tableModelPronostics.setColumnCount(3); // another column added to allocate p objects
 
 				if (pronostics.isEmpty())
 					jLabelPronostics.setText(ResourceBundle.getBundle("Etiquetas").getString("NoPronostics") + ": "
@@ -296,10 +302,13 @@ public class MultipleBetGUI extends JFrame {
 
 					row.add(p.getPronID());
 					row.add(p.getPronDescription());
+					row.add(p);
 					tableModelPronostics.addRow(row);
 				}
 				tablePronostics.getColumnModel().getColumn(0).setPreferredWidth(25);
 				tablePronostics.getColumnModel().getColumn(1).setPreferredWidth(268);
+				tablePronostics.getColumnModel().removeColumn(tablePronostics.getColumnModel().getColumn(2));
+
 			}
 		});
 
@@ -307,8 +316,8 @@ public class MultipleBetGUI extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int i = tablePronostics.getSelectedRow();
-				int pronosticID = (int) tableModelPronostics.getValueAt(i, 0);
-				betPronostic = facade.getPronosticByID(pronosticID);
+				domain.Pronostic pron = (domain.Pronostic) tableModelPronostics.getValueAt(i, 2);
+				betPronostic = pron;
 				lblPronOdds.setText("" + betPronostic.getPronOdd());
 				System.out.println(betPronostic.getPronDescription());
 			}
@@ -384,7 +393,6 @@ public class MultipleBetGUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				boolean error = false;
-				loggedUser = facade.getLogUser();
 				
 				if (nMultBet < 2) {
 					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorBetMore"));

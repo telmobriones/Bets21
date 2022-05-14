@@ -68,12 +68,12 @@ public interface BLFacade {
 	public boolean checkCurrentLoginStatus();
 
 
-	/**
-	 * 
-	 * @return user if logged, null if there's no logged user
-	 * 
-	 */
-	public User getLogUser();
+//	/**
+//	 * 
+//	 * @return user if logged, null if there's no logged user
+//	 * 
+//	 */
+//	public User getLogUser();
 
 
 	/**
