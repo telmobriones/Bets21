@@ -30,7 +30,7 @@ public class BuyTicketsGUI extends JFrame {
 	private static LoginGUI frame = new LoginGUI();
 	private User loggedUser;
 	private int lotteryID;
-	private boolean canPlay;
+	private int errorCode;
 	JLabel lblErrors;
 	JButton btnClose;
 	JLabel lblJackpot;
@@ -163,10 +163,16 @@ public class BuyTicketsGUI extends JFrame {
 			btnBuyTickets.setBounds(134, 136, 179, 47);
 			btnBuyTickets.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					canPlay = facade.buyTicket(loggedUser.getUsername(), lotteryID, "Ticket purchased");
+					errorCode = facade.buyTicket(loggedUser.getUsername(), lotteryID, "Ticket purchased");
 					redibujar(lotteryID);
-					if (canPlay == false) {
+					if (errorCode == 1) {
 						lblErrors.setText("You have alredy played this lottery");
+					}
+					else if (errorCode == 2) {
+						lblErrors.setText("Sorry, you don't have enough money");
+					}
+					else {
+						lblErrors.setText("Ticket purchased successfully");
 					}
 				}
 			});
@@ -196,6 +202,7 @@ public class BuyTicketsGUI extends JFrame {
 			lblAmoPeople.setText(String.valueOf(lot.getParticipantsNumber()));
 			lblAmoMoney.setText(String.valueOf(lot.getJackpot()));
 			lblLotID.setText(String.valueOf(lot.getLotteryID()));
+			btnBuyTickets.setText(String.valueOf(lot.getTicketPrice()) + " €");
 
 		}
 		else {

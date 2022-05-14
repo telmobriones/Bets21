@@ -785,15 +785,23 @@ public class DataAccess {
 	}
 
 	/**
-	 * This method buys a ticket for the active lottery
+	 * This method buys a ticket for the user and a lottery
+	 * 
+	 * @param the username who buys the ticket
+	 * @param the id of the lottery
+	 * @param the description of the movement
+	 * 
+	 * @return an error code, 0 if there are no errors
 	 */
-	public boolean buyTicket(String username, int lastLotteryID, String movDesc) {
+	public int buyTicket(String username, int lastLotteryID, String movDesc) {
 		System.out.println(">> DataAccess: buyTicket");
 		Lottery lot = getLotteryByID(lastLotteryID);
 		User user = findUser(username);
 		ArrayList<User> players = lot.getParticipants();
 		boolean contains = players.contains(user);
-		if (contains == true ) return false;
+		boolean enoughMoney = user.getBalance() >= lot.getTicketPrice();
+		if (contains == true ) return 1;
+		else if (enoughMoney == false) return 2;
 		System.out.println("Can play? " + !contains);
 
 		System.out.println("The player " + user.getUsername() + " can play this lottery");
@@ -822,7 +830,7 @@ public class DataAccess {
 		createMovement(movDesc, -t.getPrice(), user, null, null);
 
 		System.out.println("Tickets: " + lot.getTickets());
-		return true;
+		return 0;
 	}
 
 	/**

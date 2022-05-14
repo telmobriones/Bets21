@@ -422,19 +422,20 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();
 		return winner;
 	}
+	
 	/**
 	 * This method buys a ticket for the user and a lottery
 	 * 
 	 * @param the use who buys the ticket
 	 * @param the id of the lottery
 	 * @param the description of the movement
-	 * @return if the user can play
+	 * @return an error code, 0 if there are no errors
 	 */
-	public boolean buyTicket(String username, int lotID, String movDesc) {
+	public int buyTicket(String username, int lotID, String movDesc) {
 		dbManager.open(false);
-		boolean canPlay = dbManager.buyTicket(username, lotID, movDesc);
+		int codeError = dbManager.buyTicket(username, lotID, movDesc);
 		dbManager.close();	
-		return canPlay;
+		return codeError;
 	}
 
 

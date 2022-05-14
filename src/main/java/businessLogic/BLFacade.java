@@ -272,9 +272,9 @@ public interface BLFacade {
 	 * @param the username who buys the ticket
 	 * @param the id of the lottery
 	 * @param the description of the movement
-	 * @return if the user can play
+	 * @return an error code, 0 if there are no errors
 	 */
-	public boolean buyTicket(String username, int lotID, String movDesc);
+	public int buyTicket(String username, int lotID, String movDesc);
 
 	/**
 	 * This method gets the id of last active lottery
