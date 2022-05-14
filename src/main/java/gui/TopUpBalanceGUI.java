@@ -44,7 +44,7 @@ public class TopUpBalanceGUI extends JFrame {
 	 */
 	public TopUpBalanceGUI(User loggedUser) {
 		super();
-		this.loggedUser = loggedUser;
+		this.loggedUser = facade.getUser(loggedUser.getUsername());
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -239,7 +239,6 @@ public class TopUpBalanceGUI extends JFrame {
 		this.lblUsername.setText(ResourceBundle.getBundle("Etiquetas").getString("User") + ":");
 		lblLoggedUsername.setText(loggedUser.getUsername());
 		lblCurrentBalance.setText(ResourceBundle.getBundle("Etiquetas").getString("CurrentBalance") + ":");
-		lblCurrentBalanceAmount.setText(loggedUser.getBalance() + "€");
 		lblMoney.setText(ResourceBundle.getBundle("Etiquetas").getString("AmountToBeAdded")+" (in €) :");
 		jButtonClose.setText(ResourceBundle.getBundle("Etiquetas").getString("Close"));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("TopUpBalance"));

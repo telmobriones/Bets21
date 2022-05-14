@@ -340,16 +340,16 @@ public class DataAccess {
 					p.addBetToPronostic(bet);
 				}
 			} else {
-				Pronostic p = db.find(Pronostic.class, betPronostics.get(0).getPronID());
 				bet = user.newBet(betMoney, isMultipleBet,betPronostics);
+				Pronostic p = db.find(Pronostic.class, betPronostics.get(0).getPronID());
 				p.addBetToPronostic(bet);
 			}
 			
 			// CreateMovement
-			Movement mov = betUser.newMovement(movType, -betMoney, pEventDesc, pQuestionDesc);
+			Movement mov = user.newMovement(movType, -betMoney, pEventDesc, pQuestionDesc);
 			System.out.println(mov+" added to the DB!");
+			user.updateBalance(-betMoney);
 			db.persist(user);
-			db.persist(bet);
 			db.getTransaction().commit();
 			return bet;
 		} else {

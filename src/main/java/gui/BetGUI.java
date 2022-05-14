@@ -82,7 +82,7 @@ public class BetGUI extends JFrame {
 
 	public BetGUI(User loggedUser) {
 		try {
-			this.loggedUser = loggedUser;
+			this.loggedUser = facade.getUser(loggedUser.getUsername());
 			jbInit();
 		} catch (Exception e) {
 			e.printStackTrace();

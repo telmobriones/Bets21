@@ -56,7 +56,7 @@ public class SeeMovementsGUI extends JFrame {
 	 */
 	public SeeMovementsGUI(User loggedUser) {
 		super();
-		this.loggedUser = loggedUser;
+		this.loggedUser = facade.getUser(loggedUser.getUsername());
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {

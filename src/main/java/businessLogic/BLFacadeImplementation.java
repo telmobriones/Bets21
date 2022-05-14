@@ -105,6 +105,13 @@ public class BLFacadeImplementation implements BLFacade {
 		Pronostic pron = dbManager.findPronosticByID(pronID);
 		return pron;
 	}
+	
+	public User getUser(String uName) {
+		dbManager.open(false);
+		User user = dbManager.findUser(uName);
+		return user;
+	}
+	
 	/**
 	 * This method checks if a user can LogIn with the introduced credentials
 	 * 

@@ -47,6 +47,8 @@ public interface BLFacade {
 	public Event getEventByN(int evNumber);
 
 	public Pronostic getPronosticByID(int pronID);
+	
+	public User getUser(String uName);
 
 
 	/**
