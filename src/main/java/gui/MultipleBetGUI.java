@@ -329,15 +329,14 @@ public class MultipleBetGUI extends JFrame {
 		this.getContentPane().add(scrollPaneMultipleBet, null);
 
 		////////////////////////////////////////////////////
-		JLabel lblBetMoney = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Money")); //$NON-NLS-1$ //$NON-NLS-2$
-		lblBetMoney.setBounds(589, 515, 90, 15);
+		JLabel lblBetMoney = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Money"));
 		getContentPane().add(lblBetMoney);
 
-		JLabel lblPronosticOdds = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("PronosticOdds")); //$NON-NLS-1$ //$NON-NLS-2$
+		JLabel lblPronosticOdds = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("PronosticOdds"));
 		lblPronosticOdds.setBounds(40, 663, 149, 14);
 		getContentPane().add(lblPronosticOdds);
 
-		lblPronOdds = new JLabel(); // $NON-NLS-1$ //$NON-NLS-2$
+		lblPronOdds = new JLabel();
 		lblPronOdds.setBounds(195, 663, 70, 15);
 		getContentPane().add(lblPronOdds);
 
@@ -360,16 +359,13 @@ public class MultipleBetGUI extends JFrame {
 		getContentPane().add(lblErrors);
 		
 		
-		JButton btnAdd2Bet = new JButton("Add to Bet"); //$NON-NLS-1$ //$NON-NLS-2$
+		JButton btnAdd2Bet = new JButton("Add to Bet");
 		btnAdd2Bet.setBounds(140, 689, 200, 30);
 		btnAdd2Bet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (betPronostic == null) {
 					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorSelectPronostic"));
 				} else {
-					// pronEvent
-					// pronQuestion
-					// betPronostic
 					Vector<Object> row = new Vector<Object>();
 					row.add(pronEvent.getDescription());
 					row.add(pronQuestion.getQuestion());
@@ -415,12 +411,7 @@ public class MultipleBetGUI extends JFrame {
 				}
 
 				if (!error) {
-//					Bet newBet = facade.addBetToPronostic(betMoney,loggedUser,true,multBetPronostics);
-//					
-//					facade.createMovement("Multiple Bet Made", money2add, loggedUser, null, null);
-//					facade.updateUserBet(loggedUser, newBet);
-					int money2add = -betMoney;
-					facade.makeBet(money2add, loggedUser, true, multBetPronostics, "MultipleBet Made", "---", "---");
+					facade.makeBet(betMoney, loggedUser, true, multBetPronostics, "MultipleBet Made", "---", "---");
 					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("BetAdded"));
 				}
 			}

@@ -56,6 +56,12 @@ public class User {
 		return balance;
 	}
 	
+	public Bet newBet(int betMoney, boolean isMultipleBet,ArrayList<Pronostic> betPronostics) {
+		Bet bet = new Bet(betMoney, this, isMultipleBet, betPronostics);
+		this.bets.add(bet);
+		return bet;
+	}
+	
 	public void addBet(Bet bet) {
 		this.bets.add(bet);
 	}

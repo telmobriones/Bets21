@@ -358,10 +358,9 @@ public class BetGUI extends JFrame {
 
 				if (!error) {
 					lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("BetAdded"));
-					int money2add = -betMoney;
 					ArrayList<Pronostic> pronList=new ArrayList<Pronostic>();
 					pronList.add(betPronostic);
-					facade.makeBet(money2add, loggedUser, false, pronList, "Bet Made", pronEvent.getDescription(), pronQuestion.getQuestion());
+					facade.makeBet(betMoney, loggedUser, false, pronList, "Bet Made", pronEvent.getDescription(), pronQuestion.getQuestion());
 				}
 			}
 		});

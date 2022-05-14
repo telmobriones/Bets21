@@ -295,29 +295,6 @@ public class DataAccess {
 	}
 
 	public float createMovement(String movType, float money, User pUser, String pEventDesc, String pQuestionDesc) {
-
-//		TypedQuery<Movement> query = db.createQuery("SELECT FROM Movement ORDER BY movID DESC", Movement.class);
-//		Movement lastMovement = query.getResultList().get(0);
-//		System.out.println("LastMovement: " + lastMovement);
-//		int newMovID = lastMovement.getMovID()+1;
-//		System.out.println("NewMovNum: " + newMovID);
-//		
-//		User user = db.find(User.class, pUser.getUsername());
-//		Movement mov;
-//		
-//		if(user != null) {
-//			db.getTransaction().begin();
-//			mov = user.newMovement(newMovID, movType, money, pEventDesc, pQuestionDesc);
-//			float newBalance = user.updateBalance(money);
-//			db.persist(user);
-//			db.getTransaction().commit();
-//			System.out.println(mov+" added to the DB!");
-//			return newBalance;
-//			
-//		} else {
-//			System.out.println("UNEXPECTED ERROR OCCURRED WHEN UPDATING BALANCE!");
-//			return -10000000;
-//		}
 		
 		User user = db.find(User.class, pUser.getUsername());
 		
@@ -352,9 +329,33 @@ public class DataAccess {
 //	}
 	
 	public Bet makeBet(int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics, String movType, String pEventDesc, String pQuestionDesc) {
-		Bet bet = addBetToPronostic(betMoney, betUser, isMultipleBet, betPronostics);
-		createMovement(movType, betMoney, betUser, pEventDesc, pQuestionDesc);
-		return bet;
+		db.getTransaction().begin();
+		Bet bet;
+		User user = db.find(User.class, betUser.getUsername());
+		if(user != null) {
+			if(isMultipleBet){
+				bet = user.newBet(betMoney, isMultipleBet,betPronostics);
+				for (Pronostic pron : betPronostics) {
+					Pronostic p = db.find(Pronostic.class, pron.getPronID());
+					p.addBetToPronostic(bet);
+				}
+			} else {
+				Pronostic p = db.find(Pronostic.class, betPronostics.get(0).getPronID());
+				bet = user.newBet(betMoney, isMultipleBet,betPronostics);
+				p.addBetToPronostic(bet);
+			}
+			
+			// CreateMovement
+			Movement mov = betUser.newMovement(movType, -betMoney, pEventDesc, pQuestionDesc);
+			System.out.println(mov+" added to the DB!");
+			db.persist(user);
+			db.persist(bet);
+			db.getTransaction().commit();
+			return bet;
+		} else {
+			System.out.println("UNEXPECTED ERROR OCCURRED!");
+			return null;
+		}
 	}
 
 
