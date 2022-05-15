@@ -21,7 +21,7 @@ public class Question implements Serializable {
 	private Integer questionNumber;
 	private String question; 
 	private float betMinimum;
-	private String result;  
+	private boolean isAnswered;  
 	@XmlIDREF
 	private Event event;
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
@@ -35,7 +35,8 @@ public class Question implements Serializable {
 		super();
 		this.questionNumber = queryNumber;
 		this.question = query;
-		this.betMinimum=betMinimum;
+		this.betMinimum = betMinimum;
+		this.isAnswered = false;
 		this.event = event;
 	}
 	
@@ -115,8 +116,8 @@ public class Question implements Serializable {
 	 * 
 	 * @return the the query result
 	 */
-	public String getResult() {
-		return result;
+	public boolean isAnswered() {
+		return isAnswered;
 	}
 
 
@@ -127,8 +128,8 @@ public class Question implements Serializable {
 	 * @param result of the query to be setted
 	 */
 	
-	public void setResult(String result) {
-		this.result = result;
+	public void setIsAnswered() {
+		this.isAnswered = true;
 	}
 
 
@@ -140,6 +141,10 @@ public class Question implements Serializable {
 	 */
 	public Event getEvent() {
 		return event;
+	}
+	
+	public String getEventDescription() {
+		return event.getDescription();
 	}
 
 

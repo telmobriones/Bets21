@@ -7,10 +7,7 @@ import com.toedter.calendar.JCalendar;
 
 import domain.Pronostic;
 import domain.Question;
-import domain.User;
-import domain.Bet;
 import domain.Event;
-import domain.Movement;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,8 +22,6 @@ public class AddResultGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private int pronosticResult;
-	private float pronOdd;
-	private float gains;
 
 	private final JLabel jLabelEventDate = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("EventDate"));
 	private final JLabel jLabelQueries = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Queries"));
@@ -66,7 +61,6 @@ public class AddResultGUI extends JFrame {
 			ResourceBundle.getBundle("Etiquetas").getString("Pronostic")
 
 	};
-	private JTextField textFieldOdds;
 	private final JLabel lblErrors = new JLabel("");
 
 	private Event pronEvent;
@@ -76,12 +70,15 @@ public class AddResultGUI extends JFrame {
 	private static BLFacade facade = MainGUI.getBusinessLogic();
 	private final JButton btnPronosticResult = new JButton();
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private final JButton btnUpdateResults = new JButton("UpdateResults"); //$NON-NLS-1$ //$NON-NLS-2$
-	private final JLabel jLabelPronostic = new JLabel("Pronostic"); //$NON-NLS-1$ //$NON-NLS-2$
-	private final JLabel jLabelPronosticID = new JLabel("AddResultGUI.lblNewLabel.text"); //$NON-NLS-1$ //$NON-NLS-2$
+	
+	private final JLabel jLabelEvent = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Event"));
+	private final JLabel jLabelEventDescr = new JLabel("");
+	private final JLabel jLabelQuestion = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Query"));
+	private final JLabel jLabelQuestionDescr = new JLabel("");
+	private final JLabel jLabelPronostic = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Pronostic"));
+	private final JLabel jLabelPronosticDescr = new JLabel("");
 
 	private final JRadioButton rdbtnCorrectPronostic = new JRadioButton();
-	private final JRadioButton rdbtnFailedPronostic = new JRadioButton();
 
 	public AddResultGUI() {
 		try {
@@ -94,7 +91,7 @@ public class AddResultGUI extends JFrame {
 	private void jbInit() throws Exception {
 
 		this.getContentPane().setLayout(null);
-		this.setSize(new Dimension(750, 710));
+		this.setSize(new Dimension(775, 710));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("CreatePronostic"));
 
 		jLabelEventDate.setBounds(new Rectangle(40, 15, 140, 25));
@@ -109,7 +106,6 @@ public class AddResultGUI extends JFrame {
 
 		jCalendar1.setBounds(new Rectangle(40, 50, 225, 150));
 
-		BLFacade facade = MainGUI.getBusinessLogic();
 		datesWithEventsCurrentMonth = facade.getEventsMonth(jCalendar1.getDate());
 		CreateQuestionGUI.paintDaysWithEvents(jCalendar1, datesWithEventsCurrentMonth);
 
@@ -216,9 +212,13 @@ public class AddResultGUI extends JFrame {
 				int i = tableEvents.getSelectedRow();
 				domain.Event ev = (domain.Event) tableModelEvents.getValueAt(i, 2); // obtain ev object
 				pronEvent = ev;
+				jLabelEventDescr.setText(pronEvent.getDescription());
+				jLabelQuestionDescr.setText("");
+				jLabelPronosticDescr.setText("");
 				Vector<Question> queries = ev.getQuestions();
 
 				tableModelQueries.setDataVector(null, columnNamesQueries);
+				tableModelQueries.setColumnCount(3); // another column added to allocate q objects
 
 				if (queries.isEmpty())
 					jLabelQueries.setText(
@@ -232,10 +232,12 @@ public class AddResultGUI extends JFrame {
 
 					row.add(q.getQuestionNumber());
 					row.add(q.getQuestion());
+					row.add(q);
 					tableModelQueries.addRow(row);
 				}
 				tableQueries.getColumnModel().getColumn(0).setPreferredWidth(25);
 				tableQueries.getColumnModel().getColumn(1).setPreferredWidth(268);
+				tableQueries.getColumnModel().removeColumn(tableQueries.getColumnModel().getColumn(2));
 			}
 		});
 
@@ -243,12 +245,16 @@ public class AddResultGUI extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int i = tableQueries.getSelectedRow();
-				int qNumber = (int) tableModelQueries.getValueAt(i, 0);
-				pronQuestion = facade.getQuestionByN(qNumber);
+				domain.Question quest = (domain.Question) tableModelQueries.getValueAt(i, 2);
+				System.out.println("Question: " + quest.getQuestion());
+				pronQuestion = quest;
+				jLabelQuestionDescr.setText(pronQuestion.getQuestion());
+				jLabelPronosticDescr.setText("");
 
 				ArrayList<Pronostic> pronostics = pronQuestion.getPronostics();
 
 				tableModelPronostics.setDataVector(null, columnNamesPronostics);
+				tableModelPronostics.setColumnCount(3); // another column added to allocate p objects
 
 				if (pronostics.isEmpty())
 					jLabelPronostics.setText(ResourceBundle.getBundle("Etiquetas").getString("NoPronostics") + ": "
@@ -262,10 +268,12 @@ public class AddResultGUI extends JFrame {
 
 					row.add(p.getPronID());
 					row.add(p.getPronDescription());
+					row.add(p);
 					tableModelPronostics.addRow(row);
 				}
 				tablePronostics.getColumnModel().getColumn(0).setPreferredWidth(25);
 				tablePronostics.getColumnModel().getColumn(1).setPreferredWidth(268);
+				tablePronostics.getColumnModel().removeColumn(tablePronostics.getColumnModel().getColumn(2));
 			}
 		});
 
@@ -273,9 +281,9 @@ public class AddResultGUI extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int i = tablePronostics.getSelectedRow();
-				int pronosticID = (int) tableModelPronostics.getValueAt(i, 0);
-				betPronostic = facade.getPronosticByID(pronosticID);
-				jLabelPronosticID.setText("" + betPronostic.getPronID());
+				domain.Pronostic pron = (domain.Pronostic) tableModelPronostics.getValueAt(i, 2);
+				betPronostic = pron;
+				jLabelPronosticDescr.setText(betPronostic.getPronDescription());
 				System.out.println(betPronostic.getPronDescription());
 			}
 		});
@@ -287,15 +295,28 @@ public class AddResultGUI extends JFrame {
 		lblErrors.setBounds(490, 514, 225, 15);
 		lblErrors.setForeground(Color.RED);
 		getContentPane().add(lblErrors);
-
-		jLabelPronostic.setBounds(505, 275, 98, 15);
+		
+		jLabelEvent.setHorizontalAlignment(SwingConstants.TRAILING);
+		jLabelEvent.setBounds(450, 300, 98, 15);
+		jLabelQuestion.setHorizontalAlignment(SwingConstants.TRAILING);
+		jLabelQuestion.setBounds(450, 350, 98, 15);
+		jLabelPronostic.setHorizontalAlignment(SwingConstants.TRAILING);
+		jLabelPronostic.setBounds(450, 400, 98, 15);
+		jLabelEventDescr.setFont(new Font("Dialog", Font.PLAIN, 12));
+		jLabelEventDescr.setBounds(570, 300, 180, 15);
+		jLabelQuestionDescr.setFont(new Font("Dialog", Font.PLAIN, 12));
+		jLabelQuestionDescr.setBounds(570, 350, 180, 15);
+		jLabelPronosticDescr.setFont(new Font("Dialog", Font.PLAIN, 12));
+		jLabelPronosticDescr.setBounds(570, 400, 180, 15);
+		getContentPane().add(jLabelEvent);
+		getContentPane().add(jLabelEventDescr);
+		getContentPane().add(jLabelQuestion);
+		getContentPane().add(jLabelQuestionDescr);
 		getContentPane().add(jLabelPronostic);
-
-		jLabelPronosticID.setBounds(645, 275, 70, 15);
-		getContentPane().add(jLabelPronosticID);
+		getContentPane().add(jLabelPronosticDescr);
 
 		btnPronosticResult.setText(ResourceBundle.getBundle("Etiquetas").getString("AddResultGUI.btnPronosticResult.text")); //$NON-NLS-1$ //$NON-NLS-2$
-		btnPronosticResult.setBounds(505, 375, 210, 30);
+		btnPronosticResult.setBounds(505, 521, 210, 52);
 		btnPronosticResult.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -303,32 +324,31 @@ public class AddResultGUI extends JFrame {
 
 				if (new Date().compareTo(pronEvent.getEventDate()) <= 0) {
 					lblErrors.setText("Event hasn't happened yet!");
-					error = true;
+					error = false;
 				} else if (betPronostic == null) {
 					lblErrors.setText("No pronostic selected!");
 					error = true;
 				} else if (pronosticResult == 2) {
 					lblErrors.setText("No result selected!");
 					error = true;
+				} else if(pronQuestion.isAnswered()) {
+					lblErrors.setText("Question is already answered!");
 				}
 				if (!error) {
-					betPronostic.setPronClosed(true);
 					if (pronosticResult == 1) {
-						facade.setPronosticResult(betPronostic, true);
-					} else if (pronosticResult == 0) {
-						facade.setPronosticResult(betPronostic, false);
+						facade.questionSolution(pronQuestion, betPronostic);
 					} else {
-						betPronostic.setPronClosed(false);
-						System.out.println("UNEXPECTED ERROR!");
+						lblErrors.setText("Check the button first");
 					}
 				}
+				rdbtnCorrectPronostic.setSelected(false);
 			}
 		});
 		getContentPane().add(btnPronosticResult);
 
 		rdbtnCorrectPronostic.setText("CorrectPronostic");
 		buttonGroup.add(rdbtnCorrectPronostic);
-		rdbtnCorrectPronostic.setBounds(505, 317, 149, 23);
+		rdbtnCorrectPronostic.setBounds(529, 460, 149, 23);
 		rdbtnCorrectPronostic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				pronosticResult = 1; // Correct pronostic!
@@ -336,65 +356,6 @@ public class AddResultGUI extends JFrame {
 		});
 		getContentPane().add(rdbtnCorrectPronostic);
 
-		rdbtnFailedPronostic.setText("FailedPronostic");
-		buttonGroup.add(rdbtnFailedPronostic);
-		rdbtnFailedPronostic.setBounds(505, 344, 149, 23);
-		rdbtnFailedPronostic.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				pronosticResult = 0; // Failed pronostic :(
-			}
-		});
-		getContentPane().add(rdbtnFailedPronostic);
-
-		btnUpdateResults.setBounds(510, 541, 205, 49);
-		btnUpdateResults.setEnabled(true);
-		btnUpdateResults.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Vector<Question> questions = new Vector<Question>();
-				ArrayList<Pronostic> pronostics = new ArrayList<Pronostic>();
-				ArrayList<Bet> bets = new ArrayList<Bet>();
-				questions = pronEvent.getQuestions();
-				if (!questions.isEmpty())
-				{
-					for (Question question : questions)
-					{
-						pronostics = question.getPronostics();
-						if (!pronostics.isEmpty())
-						{
-							for (Pronostic pronostic : pronostics)
-							{
-								// If the betted pronostic is right
-								if (pronostic.isPronResult())
-								{
-									System.out.println(pronostic.getPronDescription());
-									pronOdd = pronostic.getPronOdd();
-									bets = pronostic.getBets4Pronostic();
-									
-									if (!bets.isEmpty())
-									{
-										for (Bet bet : bets)
-										{
-											if(!bet.isBetMultiple()) {
-												System.out.println("Updating bet...");
-												gains = bet.getBetMoney() * pronOdd;
-												float newBalance = facade.createMovement("Bet Won", gains,
-														bet.getBetUser(), pronEvent.getDescription(), question.getQuestion());
-											} else {
-												// MULTIPLE BET CODE!!!
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				} else {
-					lblErrors.setText("Close all pronostics first");
-				}
-				lblErrors.setText("Money returned!");
-			}
-		});
-		getContentPane().add(btnUpdateResults);
 
 		jButtonClose.setBounds(new Rectangle(556, 602, 112, 30));
 		jButtonClose.addActionListener(new ActionListener() {

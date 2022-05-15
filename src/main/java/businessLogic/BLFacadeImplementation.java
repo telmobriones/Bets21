@@ -300,9 +300,9 @@ public class BLFacadeImplementation implements BLFacade {
 
 
 	@Override
-	public void setPronosticResult(Pronostic betPronostic, boolean pronResult) {
+	public void questionSolution(Question pronosticQuestion, Pronostic correctPronostic) {
 		dbManager.open(false);
-		dbManager.setPronosticResult(betPronostic, pronResult);
+		dbManager.questionSolution(pronosticQuestion, correctPronostic);
 		dbManager.close();
 
 	}

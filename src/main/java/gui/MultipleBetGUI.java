@@ -407,6 +407,8 @@ public class MultipleBetGUI extends JFrame {
 //					}else if (new Date().compareTo(pronEvent.getEventDate()) > 0) {
 //						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorPastEvent"));
 //						error = true;
+					} else if(pronQuestion.isAnswered()) {
+						lblErrors.setText("Question has already been answered");
 					}
 				}
 

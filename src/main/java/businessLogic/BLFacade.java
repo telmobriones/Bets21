@@ -112,7 +112,7 @@ public interface BLFacade {
 	public Pronostic createPronostic(float pronOdd, String pronDescription, Question pronQuestion);
 
 
-	public void setPronosticResult(Pronostic betPronostic, boolean pronResult);
+	public void questionSolution(Question pronosticQuestion, Pronostic correctPronostic);
 
 	/**
 	 * This method adds a new bet to a certain pronostic

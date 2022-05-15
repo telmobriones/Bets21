@@ -383,12 +383,94 @@ public class DataAccess {
 	 * @param the result (true or false)
 	 * @return nothing
 	 */
-	public void setPronosticResult(Pronostic betPronostic, boolean pronResult) {
+	public void questionSolution(Question pronosticQuestion, Pronostic correctPronostic) {
+		Pronostic correctPron = db.find(Pronostic.class, correctPronostic.getPronID());
+		Question q = db.find(Question.class, pronosticQuestion);
+		ArrayList<Pronostic> pronostics = q.getPronostics();
+		String evDescr = q.getEventDescription();
+		String qDescr = q.getQuestion();
+		
 		db.getTransaction().begin();
-		Pronostic pronostic = db.find(Pronostic.class, betPronostic.getPronID());
-		pronostic.setPronResult(pronResult);
-		db.persist(pronostic);
+		
+		for (Pronostic p : pronostics) {
+			if (p != correctPron) { // Pronostic is wrong
+				
+				p.setPronResult(false);
+				p.setPronClosed();
+				ArrayList<Bet> bets = p.getBets4Pronostic();
+				
+				for (Bet b : bets) { // All these bets are lost, no matter if they are simple or multiple
+					
+					User u = db.find(User.class, b.getBetUsername());
+					
+					// Tells the user the bet is lost
+					u.newMovement("Bet Lost", 0, evDescr, qDescr);
+					
+					// Sets the bet as lost
+					Bet lostBet = db.find(Bet.class, b.getBetID());
+					lostBet.betLost();
+					
+					db.persist(u);
+					
+				}
+				
+			} else { // Pronostic is right
+				
+				p.setPronResult(true);
+				p.setPronClosed();
+				
+				ArrayList<Bet> bets = p.getBets4Pronostic();
+				
+				// All the bets with the right pronostic
+				for (Bet b : bets) {
+					if (!b.isBetMultiple()) { // The bet is simple and correct, so we inmediatelly return the money
+						
+						User u = db.find(User.class, b.getBetUsername());
+						float earnings = b.getSimpleBetEarnings();
+						
+						// We give the earnings to the user
+						u.newMovement("Simple Bet Won", earnings, evDescr, qDescr);
+						u.updateBalance(earnings);
+						
+						// We set the bet as won
+						Bet wonBet = db.find(Bet.class, b.getBetID());
+						wonBet.betWon();
+						
+						db.persist(u);
+						
+					} else { // The bet is multiple, so we have to check if it is completelly solved
+						User u = db.find(User.class, b.getBetUsername());
+						ArrayList<Pronostic> prons = b.getMultipleBetPronostic();
+						Boolean allSolved = true;
+						
+						for (Pronostic pron : prons) {
+							if(!pron.isPronClosed()) {
+								allSolved = false;
+								break;
+							}
+						}
+						if (allSolved) { // Means all are solved and correct
+							float earnings = b.getMultipleBetEarnings();
+							u.newMovement("Multiple Bet Won", earnings, evDescr, qDescr);
+							u.updateBalance(earnings);
+							
+							Bet wonBet = db.find(Bet.class, b.getBetID());
+							wonBet.betWon();
+							
+							db.persist(u);
+						} else {
+							// Nothing?
+						}
+					}
+				}
+			}
+			
+		}
+		
+		q.setIsAnswered();
+		db.persist(q);
 		db.getTransaction().commit();
+		
 	}
 
 	public void updateUserBet(User betUser, Bet bet) {

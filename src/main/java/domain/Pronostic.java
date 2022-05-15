@@ -64,7 +64,7 @@ public class Pronostic {
 	public void addBetToPronostic(Bet bet) {
 		this.pronBets.add(bet);
 	}
-	public boolean isPronResult() {
+	public boolean getPronResult() {
 		return pronResult;
 	}
 
@@ -76,8 +76,8 @@ public class Pronostic {
 		return pronClosed;
 	}
 
-	public void setPronClosed(boolean pronClosed) {
-		this.pronClosed = pronClosed;
+	public void setPronClosed() {
+		this.pronClosed = true;
 	}
 	public ArrayList<Bet> getBets4Pronostic(){
 		return (ArrayList<Bet>) this.pronBets;
