@@ -377,10 +377,10 @@ public class DataAccess {
 
 
 	/**
-	 * set the pronostic result in the DB
+	 * Solves all the bets related to a question
 	 *
-	 * @param the pronostic
-	 * @param the result (true or false)
+	 * @param the Question
+	 * @param the correct Pronostic
 	 * @return nothing
 	 */
 	public void questionSolution(Question pronosticQuestion, Pronostic correctPronostic) {
