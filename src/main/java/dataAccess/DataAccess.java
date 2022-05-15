@@ -839,9 +839,11 @@ public class DataAccess {
 		System.out.println("NewLotteryID: " + newLotteryID);
 		Lottery lot;
 		db.getTransaction().begin();
-		lot = new Lottery(newLotteryID, 0, ticketPrice);
+		lot = new Lottery( 0, ticketPrice);
 		db.persist(lot);
 		db.getTransaction().commit();
+		//System.out.println("NewLotteryID: " + newLotteryID);
+
 		System.out.println("The new lottery has been created successfully!");
 		return lot.getLotteryID();
 
@@ -852,11 +854,11 @@ public class DataAccess {
 	 */
 	public int getLastActiveLotteryID() {
 		System.out.println(">> DataAccess: getLastActiveLottery");
-		TypedQuery<Lottery> query = db.createQuery("SELECT FROM Lottery WHERE isRaffle=false ORDER BY lotteryID DESC", Lottery.class);		
+		TypedQuery<Integer> query = db.createQuery("SELECT lotteryID FROM Lottery WHERE isRaffle=false ORDER BY lotteryID DESC", Integer.class);		
 		try {
-			Lottery lastLottery = query.getResultList().get(0);
-			System.out.println("The last lottery whitout raffle is " + lastLottery);
-			return lastLottery.getLotteryID();
+			int lastLotteryID = query.getResultList().get(0);
+			System.out.println("The last lottery whitout raffle is " + lastLotteryID);
+			return lastLotteryID;
 		}catch (Exception e) {
 			System.out.println("There are not active lotteries");
 			return -1;

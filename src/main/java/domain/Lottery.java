@@ -1,9 +1,12 @@
 package domain;
 
 import java.util.ArrayList;
+
+import javax.annotation.Generated;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -11,8 +14,8 @@ import javax.persistence.OneToMany;
 public class Lottery {
 
 	@Id
+	@GeneratedValue
 	private int lotteryID;
-
 	private int jackpot;
 	private boolean isRaffle;
 	private int ticketPrice;
@@ -21,9 +24,8 @@ public class Lottery {
 	private ArrayList<Ticket> tickets = new ArrayList<Ticket>();;
 
 
-	public Lottery(int lotteryID, int jackpot, int ticketPrice) {
+	public Lottery(int jackpot, int ticketPrice) {
 		super();
-		this.lotteryID = lotteryID;
 		this.jackpot = jackpot;
 		this.isRaffle = false;
 		this.ticketPrice = ticketPrice;

@@ -197,8 +197,8 @@ public class GiveJackpotGUI extends JFrame {
 			btnNewLottery.setBounds(218, 300, 179, 47);
 			btnNewLottery.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					String num = textField.getText();
-					newLotteryID = facade.createLottery(Integer.valueOf(num));
+					String price = textField.getText();
+					newLotteryID = facade.createLottery(Integer.valueOf(price));
 					tableModelPlayers.setRowCount(0);
 					lblLotID.setText("");
 					lblAmoMoney.setText("");
