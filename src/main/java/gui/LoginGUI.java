@@ -23,6 +23,7 @@ import businessLogic.BLFacade;
 
 public class LoginGUI extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPasswordField jPassword;
 	private JTextField jUsername;

@@ -1,25 +1,16 @@
 package gui;
 
-/**
- * @author Software Engineering teachers
- */
-
-
 import javax.swing.*;
 
-import domain.Event;
 import domain.User;
 import businessLogic.BLFacade;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.Vector;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -71,7 +62,6 @@ public class MainLoggedGUI extends JFrame {
 				try {
 					//if (ConfigXML.getInstance().isBusinessLogicLocal()) facade.close();
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					System.out.println("Error: "+e1.toString()+" , probably problems with Business Logic or Database");
 				}
 				System.exit(1);

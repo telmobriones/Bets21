@@ -9,7 +9,6 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,11 +23,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
-import javax.swing.SwingConstants;
-
 import businessLogic.BLFacade;
-import javax.swing.JScrollBar;
-import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -36,9 +31,6 @@ import java.awt.Rectangle;
 
 public class GiveJackpotGUI extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private static BLFacade facade = MainGUI.getBusinessLogic();

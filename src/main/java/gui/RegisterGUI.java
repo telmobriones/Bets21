@@ -23,6 +23,7 @@ import javax.swing.SwingConstants;
 
 public class RegisterGUI extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPasswordField jPassword1;
 	private JPasswordField jPassword2;

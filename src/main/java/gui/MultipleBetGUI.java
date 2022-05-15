@@ -8,10 +8,7 @@ import com.toedter.calendar.JCalendar;
 import domain.Pronostic;
 import domain.Question;
 import domain.User;
-import domain.Bet;
 import domain.Event;
-import domain.Movement;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -26,7 +23,6 @@ public class MultipleBetGUI extends JFrame {
 	
 	private User loggedUser;
 	private int betMoney;
-	private float minBetAmmount;
 	
 	private Event pronEvent;
 	private Question pronQuestion;
@@ -89,7 +85,6 @@ public class MultipleBetGUI extends JFrame {
 	};
 
 	private JTextField textFieldBetMoney;
-	private JTextField textFieldOdds;
 	private JLabel lblPronOdds;
 	
 	private final JLabel lblErrors = new JLabel("");

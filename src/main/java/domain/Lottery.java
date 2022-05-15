@@ -1,8 +1,6 @@
 package domain;
 
 import java.util.ArrayList;
-import java.util.Vector;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

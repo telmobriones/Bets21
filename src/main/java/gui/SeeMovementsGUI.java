@@ -2,8 +2,6 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -17,11 +15,9 @@ import javax.swing.table.DefaultTableModel;
 
 import businessLogic.BLFacade;
 import domain.Movement;
-import domain.Pronostic;
 import domain.User;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -63,7 +59,6 @@ public class SeeMovementsGUI extends JFrame {
 				try {
 					//if (ConfigXML.getInstance().isBusinessLogicLocal()) facade.close();
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					System.out.println("Error: "+e1.toString()+" , probably problems with Business Logic or Database");
 				}
 				System.exit(1);
