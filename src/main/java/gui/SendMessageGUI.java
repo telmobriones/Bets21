@@ -155,7 +155,7 @@ public class SendMessageGUI extends JFrame {
 						else{
 							lblDestinataryUser.setVisible(true);
 							lblDestinataryUser.setText(destUser);
-							updateChat();
+							getUpdatedChat();
 						}
 					}
 				}
@@ -178,11 +178,10 @@ public class SendMessageGUI extends JFrame {
 					String messageText = textFieldSendMessage.getText();
 					if (!messageText.isEmpty()) {
 						facade.createMessage(remitent, destinataryName, formatDate, messageText);
-						updateChat();
+						getUpdatedChat();
 					} else {
 						printError("You must write something");
 					}
-
 				}
 			});
 			jBtnSendMessage.setVisible(false);
@@ -239,7 +238,7 @@ public class SendMessageGUI extends JFrame {
 		this.setVisible(false);
 	}
 
-	private void updateChat() {
+	private void getUpdatedChat() {
 		try {
 			scrollPaneMessages.setVisible(true);
 			textFieldSendMessage.setVisible(true);

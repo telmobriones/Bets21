@@ -16,16 +16,21 @@ public class User {
 	private String password;
 	private boolean isAdmin;
 	private float balance; // Kontuko saldoa
+	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private ArrayList<Bet> bets = new ArrayList<Bet>();
+	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private ArrayList<Movement> movements = new ArrayList<Movement>(); // Erabiltzailearen diru mugimenduen lista
+	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private ArrayList<Message> sentMessages = new ArrayList<Message>();
+	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private ArrayList<Message> recievedMessages = new ArrayList<Message>();
 	
 	private Vector<Ticket> tickets = new Vector<Ticket>();
+	
 	
 	public User (String pUsername, String pPassword, boolean pIsAdmin) {
 		super();
