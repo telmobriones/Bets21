@@ -739,27 +739,17 @@ public class DataAccess {
 	 */
 	public Message  createMessage(User pRemitent, String pDestinataryUsername, String pDate, String pMessage) {
 
+		db.getTransaction().begin();
 		User destinatary = findUser(pDestinataryUsername);
 		System.out.println(">> DataAccess: createMessage=> remitent= " + pRemitent + "desinatary= " + destinatary
 				+ "message= " + pMessage + " Date= " + pDate);
-		TypedQuery<Message> query = db.createQuery("SELECT FROM Message ORDER BY messageID DESC", Message.class);
-		Message lastMessage;
-		int newMessageID;
-		try {
-			lastMessage= query.getResultList().get(0);
-			newMessageID = lastMessage.getMesID()+1;
-		} catch (Exception e) {
-			newMessageID = 1;
-		}
-
-		System.out.println("NewMessageID: " + newMessageID);
-		Message mes;
-		db.getTransaction().begin();
-		mes = new Message(newMessageID, pRemitent, destinatary, pDate, pMessage);
-		db.persist(mes);
+		User remitent = db.find(User.class, pRemitent.getUsername());
+		Message mes = remitent.sendMessage(destinatary, pDate, pMessage);
+		destinatary.addRecivedMessage(mes);
+		db.persist(remitent);
+		db.persist(destinatary);
 		db.getTransaction().commit();
 		System.out.println("The new message has been saved successfully!");
-
 		return mes;
 
 	}

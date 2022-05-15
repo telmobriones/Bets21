@@ -175,10 +175,12 @@ public class SendMessageGUI extends JFrame {
 					Date date = new Date();
 					SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy - HH:mm");
 					String formatDate = formatter.format(date);
-					String message = textFieldSendMessage.getText();
-					if (!message.isEmpty()) {
-						facade.createMessage(remitent, destinataryName, formatDate, message);
+					String messageText = textFieldSendMessage.getText();
+					if (!messageText.isEmpty()) {
+						facade.createMessage(remitent, destinataryName, formatDate, messageText);
 						updateChat();
+					} else {
+						printError("You must write something");
 					}
 
 				}

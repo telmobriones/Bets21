@@ -20,6 +20,10 @@ public class User {
 	private ArrayList<Bet> bets = new ArrayList<Bet>();
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private ArrayList<Movement> movements = new ArrayList<Movement>(); // Erabiltzailearen diru mugimenduen lista
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private ArrayList<Message> sentMessages = new ArrayList<Message>();
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private ArrayList<Message> recievedMessages = new ArrayList<Message>();
 	
 	private Vector<Ticket> tickets = new Vector<Ticket>();
 	
@@ -89,6 +93,25 @@ public class User {
 		return this.movements;
 	}
 
+	public Message sendMessage(User destinatary, String mesDate, String message) {
+		System.out.println("Sending message...");
+		Message mes = new Message(this, destinatary, mesDate, message);
+		this.sentMessages.add(mes);
+		System.out.println("Message sent!");
+		return mes;
+	}
+	
+	public void addRecivedMessage(Message message) {
+		this.recievedMessages.add(message);
+	}
+	
+	public ArrayList<Message> getRecievedMessages() {
+		return this.recievedMessages;
+	}
+	
+	public ArrayList<Message> getSentMessages(){
+		return this.sentMessages;
+	}
 
 	/**
 	 * Add a new ticket to this user

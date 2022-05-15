@@ -4,21 +4,22 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class Message {
 
 	@Id
-	private int messageID;
+	@GeneratedValue
+	private Integer messageID;
 	private User remitent;
 	private User destinatary;
 	private String mesDate;
 	private String message;
 
-	public Message(int mesID, User remitent, User destinatary, String mesDate, String message) {
+	public Message(User remitent, User destinatary, String mesDate, String message) {
 		super();
-		this.messageID = mesID;
 		this.remitent = remitent;
 		this.destinatary = destinatary;
 		this.mesDate = mesDate;
