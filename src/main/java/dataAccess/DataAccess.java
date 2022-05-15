@@ -401,15 +401,14 @@ public class DataAccess {
 				
 				for (Bet b : bets) { // All these bets are lost, no matter if they are simple or multiple
 					
-					User u = db.find(User.class, b.getBetUsername());
-					
-					// Tells the user the bet is lost
-					u.newMovement("Bet Lost", 0, evDescr, qDescr);
-					
 					// Sets the bet as lost
 					Bet lostBet = db.find(Bet.class, b.getBetID());
 					lostBet.betLost();
-					
+						
+					// Tells the user the bet is lost
+					User u = db.find(User.class, lostBet.getBetUsername());
+
+					u.newMovement("Bet Lost", 0, evDescr, qDescr);
 					db.persist(u);
 					
 				}
@@ -425,22 +424,26 @@ public class DataAccess {
 				for (Bet b : bets) {
 					if (!b.isBetMultiple()) { // The bet is simple and correct, so we inmediatelly return the money
 						
-						User u = db.find(User.class, b.getBetUsername());
-						float earnings = b.getSimpleBetEarnings();
+						// We set the bet as won
+						Bet wonBet = db.find(Bet.class, b.getBetID());
+						wonBet.betWon();
+						
+						User u = db.find(User.class, wonBet.getBetUsername());
+						float earnings = wonBet.getSimpleBetEarnings();
 						
 						// We give the earnings to the user
 						u.newMovement("Simple Bet Won", earnings, evDescr, qDescr);
 						u.updateBalance(earnings);
 						
-						// We set the bet as won
-						Bet wonBet = db.find(Bet.class, b.getBetID());
-						wonBet.betWon();
+						
 						
 						db.persist(u);
 						
 					} else { // The bet is multiple, so we have to check if it is completelly solved
-						User u = db.find(User.class, b.getBetUsername());
-						ArrayList<Pronostic> prons = b.getMultipleBetPronostic();
+						
+						Bet wonBet = db.find(Bet.class, b.getBetID());
+						User u = db.find(User.class, wonBet.getBetUsername());
+						ArrayList<Pronostic> prons = wonBet.getMultipleBetPronostic();
 						Boolean allSolved = true;
 						
 						for (Pronostic pron : prons) {
@@ -450,21 +453,21 @@ public class DataAccess {
 							}
 						}
 						if (allSolved) { // Means all are solved and correct
-							float earnings = b.getMultipleBetEarnings();
+							
+							wonBet.betWon(); // We set de bet as won
+							
+							float earnings = wonBet.getMultipleBetEarnings();
 							u.newMovement("Multiple Bet Won", earnings, evDescr, qDescr);
 							u.updateBalance(earnings);
 							
-							Bet wonBet = db.find(Bet.class, b.getBetID());
-							wonBet.betWon();
-							
 							db.persist(u);
+							
 						} else {
-							// Nothing?
+							// Nothing
 						}
 					}
 				}
 			}
-			
 		}
 		
 		q.setIsAnswered();

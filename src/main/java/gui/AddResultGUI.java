@@ -316,7 +316,7 @@ public class AddResultGUI extends JFrame {
 		getContentPane().add(jLabelPronosticDescr);
 
 		btnPronosticResult
-				.setText(ResourceBundle.getBundle("Etiquetas").getString("AddResultGUI.btnPronosticResult.text")); //$NON-NLS-1$ //$NON-NLS-2$
+				.setText(ResourceBundle.getBundle("Etiquetas").getString("AddResultGUI.btnPronosticResult.text"));
 		btnPronosticResult.setBounds(505, 521, 210, 52);
 		btnPronosticResult.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -334,6 +334,7 @@ public class AddResultGUI extends JFrame {
 					error = true;
 				} else if (pronQuestion.isAnswered()) {
 					lblErrors.setText("Question is already answered!");
+					error = true;
 				}
 				if (!error) {
 					facade.questionSolution(pronQuestion, betPronostic);
