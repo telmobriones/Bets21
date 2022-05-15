@@ -148,7 +148,7 @@ public class TopUpBalanceGUI extends JFrame {
 	private JLabel getlblUsername() {
 		if (lblUsername == null) {
 			lblUsername = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("User") + ":");
-			lblUsername.setBounds(48, 12, 86, 15);
+			lblUsername.setBounds(48, 12, 120, 15);
 		}
 		return lblUsername;
 	}
@@ -156,7 +156,7 @@ public class TopUpBalanceGUI extends JFrame {
 	private JLabel getlblLoggedUsername() {
 		if (lblLoggedUsername == null) {
 			lblLoggedUsername = new JLabel(loggedUser.getUsername());
-			lblLoggedUsername.setBounds(156, 12, 70, 15);
+			lblLoggedUsername.setBounds(275, 12, 70, 15);
 		}
 		return lblLoggedUsername;
 	}
@@ -172,7 +172,7 @@ public class TopUpBalanceGUI extends JFrame {
 	private JLabel getlblCurrentBalanceAmount() {
 		if(lblCurrentBalanceAmount == null) {
 			lblCurrentBalanceAmount = new JLabel(loggedUser.getBalance() + "€");
-			lblCurrentBalanceAmount.setBounds(257, 62, 70, 15);
+			lblCurrentBalanceAmount.setBounds(275, 62, 70, 15);
 		}
 		return lblCurrentBalanceAmount;
 	}
@@ -188,7 +188,7 @@ public class TopUpBalanceGUI extends JFrame {
 	private JTextField gettxtFieldAmount() {
 		if(txtFieldAmount == null) {
 			txtFieldAmount = new JTextField();
-			txtFieldAmount.setBounds(290, 109, 114, 25);
+			txtFieldAmount.setBounds(275, 109, 114, 25);
 			txtFieldAmount.setColumns(10);
 			txtFieldAmount.addKeyListener(new KeyAdapter() {
 			    public void keyTyped(KeyEvent e) {

@@ -196,7 +196,7 @@ public class MainLoggedGUI extends JFrame {
 		if (jButtonMultipleBet == null) {
 			jButtonMultipleBet = new JButton();
 			jButtonMultipleBet.setBounds(247, 51, 248, 61);
-			jButtonMultipleBet.setText("MultipleBet");
+			jButtonMultipleBet.setText(ResourceBundle.getBundle("Etiquetas").getString("MultipleBet"));
 			jButtonMultipleBet.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					MultipleBetGUI a = new MultipleBetGUI(loggedUser);
@@ -217,7 +217,7 @@ public class MainLoggedGUI extends JFrame {
 		if (jButtonSendMessages == null) {
 			jButtonSendMessages = new JButton();
 			jButtonSendMessages.setBounds(247, 113, 248, 61);
-			jButtonSendMessages.setText("SendMessages");
+			jButtonSendMessages.setText(ResourceBundle.getBundle("Etiquetas").getString("Messaging"));
 			jButtonSendMessages.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					SendMessageGUI a = new SendMessageGUI(loggedUser);
@@ -237,7 +237,7 @@ public class MainLoggedGUI extends JFrame {
 		if (jButtonBuyTickets == null) {
 			jButtonBuyTickets = new JButton();
 			jButtonBuyTickets.setBounds(247, 175, 248, 61);
-			jButtonBuyTickets.setText("BuyTickets");
+			jButtonBuyTickets.setText(ResourceBundle.getBundle("Etiquetas").getString("BuyTickets"));
 			jButtonBuyTickets.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					BuyTicketsGUI a = new BuyTicketsGUI(loggedUser);
@@ -318,6 +318,12 @@ public class MainLoggedGUI extends JFrame {
 		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
 		jButtonTopUpBalance.setText(ResourceBundle.getBundle("Etiquetas").getString("TopUpBalance"));
 		jButtonSeeMovements.setText(ResourceBundle.getBundle("Etiquetas").getString("SeeMovements"));
+		jButtonSendMessages.setText(ResourceBundle.getBundle("Etiquetas").getString("Messaging"));
+		jButtonBuyTickets.setText(ResourceBundle.getBundle("Etiquetas").getString("BuyTickets"));
+		jButtonMultipleBet.setText(ResourceBundle.getBundle("Etiquetas").getString("MultipleBet"));
+
+
+
 		jButtonBet.setText(ResourceBundle.getBundle("Etiquetas").getString("Bet"));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("LoggedTitle") + ": " + loggedUser.getUsername());
 	}

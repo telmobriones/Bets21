@@ -26,6 +26,7 @@ import javax.swing.JTable;
 
 import java.awt.Color;
 import java.awt.Rectangle;
+import javax.swing.SwingConstants;
 
 public class SendMessageGUI extends JFrame {
 
@@ -36,21 +37,24 @@ public class SendMessageGUI extends JFrame {
 	JButton jButtonClose = null;
 	private JScrollPane scrollPaneMessages;
 
-	private JTable tableMessages= new JTable();
+	private JTable tableMessages = new JTable();
 	private DefaultTableModel tableModelMessages;
-	private String[] columnNamesMessages = new String[] {
-			"Date", "User", "Message"
-	};
+	private String[] columnNamesMessages = new String[] { ResourceBundle.getBundle("Etiquetas").getString("Date"),
+			ResourceBundle.getBundle("Etiquetas").getString("User"),
+			ResourceBundle.getBundle("Etiquetas").getString("Message") };
 	private JTextField textFieldSendMessage;
 	private JTextField textFieldDestinatary;
 	private JButton jBtnSearchDestinatary;
 	private JButton jBtnSendMessage;
-	private JLabel lblUser;
+	private JButton jBtnInbox;
+	private JLabel lblContact;
 	private JLabel lblDestinataryUser;
 	private JLabel lblError;
+
 	/**
 	 * This is the default constructor
-	 * @param loggedUser 
+	 * 
+	 * @param loggedUser
 	 */
 	public SendMessageGUI(User loggedUser) {
 		super();
@@ -59,15 +63,16 @@ public class SendMessageGUI extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				try {
-					//if (ConfigXML.getInstance().isBusinessLogicLocal()) facade.close();
+					// if (ConfigXML.getInstance().isBusinessLogicLocal()) facade.close();
 				} catch (Exception e1) {
-					System.out.println("Error: "+e1.toString()+" , probably problems with Business Logic or Database");
+					System.out.println(
+							"Error: " + e1.toString() + " , probably problems with Business Logic or Database");
 				}
 				System.exit(1);
 			}
 		});
 		initialize();
-		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	/**
@@ -75,7 +80,7 @@ public class SendMessageGUI extends JFrame {
 	 */
 	private void initialize() {
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("SeeMovements"));
-		this.setBounds(100, 100, 629, 376);
+		this.setBounds(100, 100, 690, 400);
 		setContentPane(getJContentPane());
 		getRecievedChats();
 	}
@@ -89,10 +94,11 @@ public class SendMessageGUI extends JFrame {
 			contentPane.add(getscrollPaneMessages());
 			contentPane.add(getButtonSearchDestinatary());
 			contentPane.add(getTextFieldDestinatary());
-			contentPane.add(getTextFieldSendMessage());		
+			contentPane.add(getTextFieldSendMessage());
 			contentPane.add(getButtonSendMessage());
+			contentPane.add(getButtonInbox());
 			contentPane.add(getLblDestinatary());
-			contentPane.add(getLblUser());
+			contentPane.add(getlblContact());
 			contentPane.add(getLblError());
 
 		}
@@ -100,9 +106,9 @@ public class SendMessageGUI extends JFrame {
 	}
 
 	private JButton getjButtonClose() {
-		if(jButtonClose == null) {
-			jButtonClose = new JButton("Close");
-			jButtonClose.setBounds(500, 300, 117, 25);
+		if (jButtonClose == null) {
+			jButtonClose = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Close"));
+			jButtonClose.setBounds(591, 329, 85, 25);
 			jButtonClose.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					closeSendMessage();
@@ -112,43 +118,54 @@ public class SendMessageGUI extends JFrame {
 		return jButtonClose;
 	}
 
-
 	private JScrollPane getscrollPaneMessages() {
 		if (scrollPaneMessages == null) {
 			scrollPaneMessages = new JScrollPane();
 			scrollPaneMessages.setBounds(new Rectangle(40, 274, 406, 160));
-			scrollPaneMessages.setBounds(12, 39, 605, 249);
+			scrollPaneMessages.setBounds(12, 68, 664, 249);
 
 			scrollPaneMessages.setViewportView(tableMessages);
-			tableModelMessages= new DefaultTableModel(null, columnNamesMessages);
+			tableModelMessages = new DefaultTableModel(null, columnNamesMessages);
 			tableMessages.setModel(tableModelMessages);
 			tableMessages.getColumnModel().getColumn(0).setPreferredWidth(200);
 			tableMessages.getColumnModel().getColumn(1).setPreferredWidth(150);
 			tableMessages.getColumnModel().getColumn(2).setPreferredWidth(400);
 			scrollPaneMessages.setVisible(false);
 
-
-
 		}
 		return scrollPaneMessages;
 	}
+	
+	private JButton getButtonInbox() {
+		if (jBtnInbox == null) {
+			jBtnInbox = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Inbox"));
+			jBtnInbox.setBounds(12, 9, 180, 25);
+			jBtnInbox.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					lblError.setText(ResourceBundle.getBundle("Etiquetas").getString("ChooseUser"));
+					textFieldDestinatary.setText("");
+					getRecievedChats();
+				}
+			});
+		}
+		return jBtnInbox;
+	}
+
 	private JButton getButtonSearchDestinatary() {
-		if(jBtnSearchDestinatary == null) {
-			jBtnSearchDestinatary = new JButton("Search Destinatary");
-			jBtnSearchDestinatary.setBounds(508, 12, 98, 25);
+		if (jBtnSearchDestinatary == null) {
+			jBtnSearchDestinatary = new JButton(ResourceBundle.getBundle("Etiquetas").getString("SearchDestinatary"));
+			jBtnSearchDestinatary.setBounds(470, 41, 205, 25);
 			jBtnSearchDestinatary.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					String destUser = textFieldDestinatary.getText();
 
-					if(destUser.isEmpty()){
+					if (destUser.isEmpty()) {
 						lblDestinataryUser.setVisible(false);
-						printError("Choose a user to send a message to");
-					}
-					else {
-						if(!facade.existUser(destUser)) {
-							printError("The user does not exist");
-						}
-						else{
+						printError(ResourceBundle.getBundle("Etiquetas").getString("ChooseUser") + "!!!!");
+					} else {
+						if (!facade.existUser(destUser)) {
+							printError(ResourceBundle.getBundle("Etiquetas").getString("UserNotFound"));
+						} else {
 							lblDestinataryUser.setVisible(true);
 							lblDestinataryUser.setText(destUser);
 							getUpdatedChat();
@@ -161,9 +178,9 @@ public class SendMessageGUI extends JFrame {
 	}
 
 	private JButton getButtonSendMessage() {
-		if(jBtnSendMessage == null) {
-			jBtnSendMessage = new JButton("Send Message");
-			jBtnSendMessage.setBounds(353, 300, 135, 25);
+		if (jBtnSendMessage == null) {
+			jBtnSendMessage = new JButton(ResourceBundle.getBundle("Etiquetas").getString("SendMessage"));
+			jBtnSendMessage.setBounds(404, 329, 175, 25);
 			jBtnSendMessage.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					User remitent = loggedUser;
@@ -172,15 +189,16 @@ public class SendMessageGUI extends JFrame {
 					SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy - HH:mm");
 					String formatDate = formatter.format(date);
 					String messageText = textFieldSendMessage.getText();
-					if(destinataryName != "") {
+					if (destinataryName != "") {
 						if (!messageText.isEmpty()) {
 							facade.createMessage(remitent, destinataryName, formatDate, messageText);
+							textFieldSendMessage.setText("");
 							getUpdatedChat();
 						} else {
-							printError("You write something");
+							printError(ResourceBundle.getBundle("Etiquetas").getString("MessageEmpty"));
 						}
 					} else {
-						printError("You must enter the destinatary name");
+						printError(ResourceBundle.getBundle("Etiquetas").getString("ChooseUser"));
 					}
 				}
 			});
@@ -190,49 +208,51 @@ public class SendMessageGUI extends JFrame {
 	}
 
 	private JTextField getTextFieldDestinatary() {
-		if(textFieldDestinatary == null) {
+		if (textFieldDestinatary == null) {
 			textFieldDestinatary = new JTextField();
-			textFieldDestinatary.setBounds(319, 10, 177, 29);
+			textFieldDestinatary.setBounds(319, 41, 140, 25);
 			textFieldDestinatary.setColumns(10);
 		}
 		return textFieldDestinatary;
 	}
 
 	private JTextField getTextFieldSendMessage() {
-		if(textFieldSendMessage == null) {
+		if (textFieldSendMessage == null) {
 			textFieldSendMessage = new JTextField();
-			textFieldSendMessage.setBounds(38, 300, 314, 25);
+			textFieldSendMessage.setBounds(22, 329, 370, 25);
 			textFieldSendMessage.setColumns(10);
 			textFieldSendMessage.setVisible(false);
 		}
 		return textFieldSendMessage;
 	}
+
 	private JLabel getLblDestinatary() {
-		if(lblDestinataryUser == null) {
+		if (lblDestinataryUser == null) {
 			lblDestinataryUser = new JLabel();
-			lblDestinataryUser.setBounds(83, 17, 70, 15);
+			lblDestinataryUser.setBounds(140, 46, 180, 15);
 		}
 		return lblDestinataryUser;
 	}
 
-	private JLabel getLblUser() {
-		if(lblUser == null) {
-			lblUser = new JLabel("User:");
-			lblUser.setBounds(23, 17, 48, 15);
+	private JLabel getlblContact() {
+		if (lblContact == null) {
+			lblContact = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Destinatary")+":");
+			lblContact.setHorizontalAlignment(SwingConstants.TRAILING);
+			lblContact.setBounds(20, 46, 100, 15);
 		}
-		return lblUser;
+		return lblContact;
 	}
 
 	private JLabel getLblError() {
-		if(lblError == null) {
-			lblError = new JLabel("Choose a user to send a message to");
-			lblError.setBounds(38,100,550,106);
+		if (lblError == null) {
+			lblError = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ChooseUser"));
+			lblError.setHorizontalAlignment(SwingConstants.TRAILING);
+			lblError.setBounds(210, 9, 440, 25);
 			lblError.setForeground(Color.RED);
 			lblError.setVisible(true);
 		}
 		return lblError;
 	}
-
 
 	private void closeSendMessage() {
 		this.setVisible(false);
@@ -247,8 +267,9 @@ public class SendMessageGUI extends JFrame {
 			String remUsername = loggedUser.getUsername();
 			String destUsername = lblDestinataryUser.getText();
 			ArrayList<Message> messages = facade.getMessagesForThisChat(remUsername, destUsername);
-			if(messages != null) {
-				for (domain.Message mes:messages) {
+			lblError.setText("");
+			if (messages != null) {
+				for (domain.Message mes : messages) {
 					Vector<Object> row = new Vector<Object>();
 					row.add(mes.getMesDate());
 					row.add(mes.getRemitent().getUsername());
@@ -256,23 +277,24 @@ public class SendMessageGUI extends JFrame {
 					tableModelMessages.addRow(row);
 				}
 			} else {
-				
+				printError(ResourceBundle.getBundle("Etiquetas").getString("NoMessages"));
 			}
 		} catch (Exception e) {
 			System.out.println("You have not chosen receiver or there has been an error ");
 		}
 	}
-	
+
 	private void getRecievedChats() {
 		try {
 			String remUsername = loggedUser.getUsername();
 			ArrayList<Message> messages = facade.getMessagesForThisUser(remUsername);
-			if(messages != null) {
+			if (!messages.isEmpty()) {
 				scrollPaneMessages.setVisible(true);
 				textFieldSendMessage.setVisible(true);
 				jBtnSendMessage.setVisible(true);
 				tableModelMessages.setRowCount(0);
-				for (domain.Message mes:messages) {
+				lblDestinataryUser.setText("");
+				for (domain.Message mes : messages) {
 					Vector<Object> row = new Vector<Object>();
 					row.add(mes.getMesDate());
 					row.add(mes.getRemitent().getUsername());
@@ -280,13 +302,13 @@ public class SendMessageGUI extends JFrame {
 					tableModelMessages.addRow(row);
 				}
 			} else {
-				printError("No messages recieved");
+				printError(ResourceBundle.getBundle("Etiquetas").getString("NoMessages"));
 			}
 		} catch (Exception e) {
 			System.out.println("There has been an ERROR");
 		}
 	}
-	
+
 	private void printError(String pError) {
 		scrollPaneMessages.setVisible(false);
 		textFieldSendMessage.setVisible(false);
