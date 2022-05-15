@@ -324,7 +324,9 @@ public class MultipleBetGUI extends JFrame {
 		this.getContentPane().add(scrollPaneMultipleBet, null);
 
 		////////////////////////////////////////////////////
-		JLabel lblBetMoney = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Money"));
+		JLabel lblBetMoney = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("BetMoney") + ":");
+		lblBetMoney.setLocation(547, 513);
+		lblBetMoney.setSize(146, 20);
 		getContentPane().add(lblBetMoney);
 
 		JLabel lblPronosticOdds = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("PronosticOdds"));
@@ -336,7 +338,7 @@ public class MultipleBetGUI extends JFrame {
 		getContentPane().add(lblPronOdds);
 
 		textFieldBetMoney = new JTextField();
-		textFieldBetMoney.setBounds(711, 513, 134, 19);
+		textFieldBetMoney.setBounds(711, 513, 134, 20);
 		textFieldBetMoney.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
 				char c = e.getKeyChar();
@@ -354,7 +356,7 @@ public class MultipleBetGUI extends JFrame {
 		getContentPane().add(lblErrors);
 		
 		
-		JButton btnAdd2Bet = new JButton("Add to Bet");
+		JButton btnAdd2Bet = new JButton(ResourceBundle.getBundle("Etiquetas").getString("AddToBet"));
 		btnAdd2Bet.setBounds(140, 689, 200, 30);
 		btnAdd2Bet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
