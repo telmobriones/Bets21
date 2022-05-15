@@ -228,7 +228,9 @@ public interface BLFacade {
 	 * @return collection of messages
 	 */
 
-	public Vector<Message>getMessagesForThisChat(String pRemitent, String pDestinataryUsername);
+	public ArrayList<Message>getMessagesForThisChat(String pRemitent, String pDestinataryUsername);
+	
+	public ArrayList<Message> getMessagesForThisUser(String username);
 
 
 	public ArrayList<Movement> getUserMovements(String username);

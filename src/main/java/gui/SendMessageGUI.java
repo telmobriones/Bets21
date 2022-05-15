@@ -8,6 +8,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.Vector;
@@ -82,6 +83,7 @@ public class SendMessageGUI extends JFrame {
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("SeeMovements"));
 		this.setBounds(100, 100, 629, 376);
 		setContentPane(getJContentPane());
+		getRecievedChats();
 	}
 
 	private JPanel getJContentPane() {
@@ -176,11 +178,15 @@ public class SendMessageGUI extends JFrame {
 					SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy - HH:mm");
 					String formatDate = formatter.format(date);
 					String messageText = textFieldSendMessage.getText();
-					if (!messageText.isEmpty()) {
-						facade.createMessage(remitent, destinataryName, formatDate, messageText);
-						getUpdatedChat();
+					if(destinataryName != "") {
+						if (!messageText.isEmpty()) {
+							facade.createMessage(remitent, destinataryName, formatDate, messageText);
+							getUpdatedChat();
+						} else {
+							printError("You write something");
+						}
 					} else {
-						printError("You must write something");
+						printError("You must enter the destinatary name");
 					}
 				}
 			});
@@ -246,18 +252,47 @@ public class SendMessageGUI extends JFrame {
 			tableModelMessages.setRowCount(0);
 			String remUsername = loggedUser.getUsername();
 			String destUsername = lblDestinataryUser.getText();
-			Vector<Message> messages = facade.getMessagesForThisChat(remUsername, destUsername);
-			for (domain.Message mes:messages) {
-				Vector<Object> row = new Vector<Object>();
-				row.add(mes.getMesDate());
-				row.add(mes.getRemitent().getUsername());
-				row.add(mes.getMessage());
-				tableModelMessages.addRow(row);
+			ArrayList<Message> messages = facade.getMessagesForThisChat(remUsername, destUsername);
+			if(messages != null) {
+				for (domain.Message mes:messages) {
+					Vector<Object> row = new Vector<Object>();
+					row.add(mes.getMesDate());
+					row.add(mes.getRemitent().getUsername());
+					row.add(mes.getMessage());
+					tableModelMessages.addRow(row);
+				}
+			} else {
+				
 			}
 		} catch (Exception e) {
 			System.out.println("You have not chosen receiver or there has been an error ");
 		}
 	}
+	
+	private void getRecievedChats() {
+		try {
+			String remUsername = loggedUser.getUsername();
+			ArrayList<Message> messages = facade.getMessagesForThisUser(remUsername);
+			if(messages != null) {
+				scrollPaneMessages.setVisible(true);
+				textFieldSendMessage.setVisible(true);
+				jBtnSendMessage.setVisible(true);
+				tableModelMessages.setRowCount(0);
+				for (domain.Message mes:messages) {
+					Vector<Object> row = new Vector<Object>();
+					row.add(mes.getMesDate());
+					row.add(mes.getRemitent().getUsername());
+					row.add(mes.getMessage());
+					tableModelMessages.addRow(row);
+				}
+			} else {
+				printError("No messages recieved");
+			}
+		} catch (Exception e) {
+			System.out.println("There has been an ERROR");
+		}
+	}
+	
 	private void printError(String pError) {
 		scrollPaneMessages.setVisible(false);
 		textFieldSendMessage.setVisible(false);

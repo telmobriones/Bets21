@@ -760,11 +760,11 @@ public class DataAccess {
 	 * @param the destinatary of the messages
 	 * @return collection of messages
 	 */
-	public Vector<Message> getMessagesForThisChat(String pRemitentUsername, String pDestinataryUsername){
+	public ArrayList<Message> getMessagesForThisChat(String pRemitentUsername, String pDestinataryUsername){
 		System.out.println(">> DataAccess: getMessagesForThisChat");
 		User remitent = findUser(pRemitentUsername);
 		User destinatary = findUser(pDestinataryUsername);
-		Vector<Message> res = new Vector<Message>();
+		ArrayList<Message> res = new ArrayList<Message>();
 		TypedQuery<Message> query = db.createQuery("SELECT FROM Message WHERE (remitent=?1 AND destinatary=?2) OR (remitent=?2 AND destinatary=?1) ORDER BY messageID ASC", Message.class);
 		query.setParameter(1, remitent);
 		query.setParameter(2, destinatary);
@@ -774,6 +774,11 @@ public class DataAccess {
 			res.add(mes);
 		}
 		return res;
+	}
+	
+	public ArrayList<Message> getMessagesForThisUser(String username) {
+		User u = db.find(User.class, username);
+		return u.getRecievedMessages();
 	}
 
 	/**

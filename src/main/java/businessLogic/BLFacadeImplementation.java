@@ -378,9 +378,16 @@ public class BLFacadeImplementation implements BLFacade {
 	 * @return collection of messages
 	 */
 	@Override
-	public Vector<Message> getMessagesForThisChat(String pRemitentUsername, String pDestinataryUsername) {
+	public ArrayList<Message> getMessagesForThisChat(String pRemitentUsername, String pDestinataryUsername) {
 		dbManager.open(false);
-		Vector<Message> messages = dbManager.getMessagesForThisChat(pRemitentUsername, pDestinataryUsername);
+		ArrayList<Message> messages = dbManager.getMessagesForThisChat(pRemitentUsername, pDestinataryUsername);
+		dbManager.close();
+		return messages;
+	}
+	
+	public ArrayList<Message> getMessagesForThisUser(String username) {
+		dbManager.open(false);
+		ArrayList<Message> messages = dbManager.getMessagesForThisUser(username);
 		dbManager.close();
 		return messages;
 	}
