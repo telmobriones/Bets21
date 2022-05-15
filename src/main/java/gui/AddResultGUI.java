@@ -70,7 +70,7 @@ public class AddResultGUI extends JFrame {
 	private static BLFacade facade = MainGUI.getBusinessLogic();
 	private final JButton btnPronosticResult = new JButton();
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	
+
 	private final JLabel jLabelEvent = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Event"));
 	private final JLabel jLabelEventDescr = new JLabel("");
 	private final JLabel jLabelQuestion = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Query"));
@@ -295,7 +295,7 @@ public class AddResultGUI extends JFrame {
 		lblErrors.setBounds(490, 514, 225, 15);
 		lblErrors.setForeground(Color.RED);
 		getContentPane().add(lblErrors);
-		
+
 		jLabelEvent.setHorizontalAlignment(SwingConstants.TRAILING);
 		jLabelEvent.setBounds(450, 300, 98, 15);
 		jLabelQuestion.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -315,7 +315,8 @@ public class AddResultGUI extends JFrame {
 		getContentPane().add(jLabelPronostic);
 		getContentPane().add(jLabelPronosticDescr);
 
-		btnPronosticResult.setText(ResourceBundle.getBundle("Etiquetas").getString("AddResultGUI.btnPronosticResult.text")); //$NON-NLS-1$ //$NON-NLS-2$
+		btnPronosticResult
+				.setText(ResourceBundle.getBundle("Etiquetas").getString("AddResultGUI.btnPronosticResult.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		btnPronosticResult.setBounds(505, 521, 210, 52);
 		btnPronosticResult.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -328,18 +329,14 @@ public class AddResultGUI extends JFrame {
 				} else if (betPronostic == null) {
 					lblErrors.setText("No pronostic selected!");
 					error = true;
-				} else if (pronosticResult == 2) {
-					lblErrors.setText("No result selected!");
+				} else if (pronosticResult != 1) {
+					lblErrors.setText("Check the button first");
 					error = true;
-				} else if(pronQuestion.isAnswered()) {
+				} else if (pronQuestion.isAnswered()) {
 					lblErrors.setText("Question is already answered!");
 				}
 				if (!error) {
-					if (pronosticResult == 1) {
-						facade.questionSolution(pronQuestion, betPronostic);
-					} else {
-						lblErrors.setText("Check the button first");
-					}
+					facade.questionSolution(pronQuestion, betPronostic);
 				}
 				rdbtnCorrectPronostic.setSelected(false);
 			}
@@ -356,12 +353,10 @@ public class AddResultGUI extends JFrame {
 		});
 		getContentPane().add(rdbtnCorrectPronostic);
 
-
 		jButtonClose.setBounds(new Rectangle(556, 602, 112, 30));
 		jButtonClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				closeAddResultGUI();
-				;
 			}
 		});
 		getContentPane().add(jButtonClose, null);
