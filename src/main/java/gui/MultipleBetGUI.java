@@ -28,6 +28,7 @@ public class MultipleBetGUI extends JFrame {
 	private Question pronQuestion;
 	private Pronostic betPronostic;
 	
+	private float betOdd = 1;
 	private int nMultBet = 0;
 	private float minMultBetAmmount = 0; // We will set the minimum bet to the value of the highest minBetAmmount among all the answered questions
 	private ArrayList<Pronostic> multBetPronostics = new ArrayList<Pronostic>(); // We will pass this to the Bet.class constructor
@@ -332,6 +333,14 @@ public class MultipleBetGUI extends JFrame {
 		JLabel lblPronosticOdds = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("PronosticOdds"));
 		lblPronosticOdds.setBounds(40, 663, 149, 14);
 		getContentPane().add(lblPronosticOdds);
+		
+		JLabel lblMultipleBetOdds = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("TotalOdds"));
+		lblMultipleBetOdds.setBounds(547,461,146,20);
+		getContentPane().add(lblMultipleBetOdds);
+		
+		JLabel lblBetOdds = new JLabel();
+		lblBetOdds.setBounds(711,461,134,20);
+		getContentPane().add(lblBetOdds);
 
 		lblPronOdds = new JLabel();
 		lblPronOdds.setBounds(195, 663, 70, 15);
@@ -375,6 +384,8 @@ public class MultipleBetGUI extends JFrame {
 					if(pronQuestion.getBetMinimum() > minMultBetAmmount) {
 						minMultBetAmmount = pronQuestion.getBetMinimum();
 					}
+					betOdd *= betPronostic.getPronOdd();
+					lblBetOdds.setText("" + betOdd);
 				}
 			}
 		});
