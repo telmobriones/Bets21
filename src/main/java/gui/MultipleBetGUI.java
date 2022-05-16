@@ -110,7 +110,7 @@ public class MultipleBetGUI extends JFrame {
 		jLabelEventDate.setBounds(new Rectangle(40, 15, 140, 25));
 		jLabelQueries.setBounds(40, 247, 406, 14);
 		jLabelEvents.setBounds(295, 19, 259, 16);
-		jLabelPronostics.setBounds(40, 463, 259, 16);
+		jLabelPronostics.setBounds(40, 463, 406, 16);
 		jLabelMultipleBet.setBounds(507, 247, 406, 16);
 		
 
