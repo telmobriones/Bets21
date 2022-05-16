@@ -21,7 +21,6 @@ import javax.swing.table.DefaultTableModel;
 public class AddResultGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 
-	private int pronosticResult;
 
 	private final JLabel jLabelEventDate = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("EventDate"));
 	private final JLabel jLabelQueries = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Queries"));
@@ -78,7 +77,7 @@ public class AddResultGUI extends JFrame {
 	private final JLabel jLabelPronostic = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Pronostic"));
 	private final JLabel jLabelPronosticDescr = new JLabel("");
 
-	private final JRadioButton rdbtnCorrectPronostic = new JRadioButton();
+	private final JCheckBox chkBoxCorrectPronostic = new JCheckBox();
 
 	public AddResultGUI() {
 		try {
@@ -291,8 +290,9 @@ public class AddResultGUI extends JFrame {
 		this.getContentPane().add(scrollPaneEvents, null);
 		this.getContentPane().add(scrollPaneQueries, null);
 		this.getContentPane().add(scrollPanePronostics, null);
+		lblErrors.setHorizontalAlignment(SwingConstants.CENTER);
 
-		lblErrors.setBounds(490, 514, 225, 15);
+		lblErrors.setBounds(500, 490, 225, 15);
 		lblErrors.setForeground(Color.RED);
 		getContentPane().add(lblErrors);
 
@@ -329,8 +329,8 @@ public class AddResultGUI extends JFrame {
 				} else if (betPronostic == null) {
 					lblErrors.setText("No pronostic selected!");
 					error = true;
-				} else if (pronosticResult != 1) {
-					lblErrors.setText("Check the button first");
+				} else if (!chkBoxCorrectPronostic.isSelected()) {
+					lblErrors.setText("Check the box first");
 					error = true;
 				} else if (pronQuestion.isAnswered()) {
 					lblErrors.setText("Question is already answered!");
@@ -338,21 +338,17 @@ public class AddResultGUI extends JFrame {
 				}
 				if (!error) {
 					facade.questionSolution(pronQuestion, betPronostic);
+					lblErrors.setText("");
+					buttonGroup.clearSelection();
 				}
-				rdbtnCorrectPronostic.setSelected(false);
 			}
 		});
 		getContentPane().add(btnPronosticResult);
 
-		rdbtnCorrectPronostic.setText("CorrectPronostic");
-		buttonGroup.add(rdbtnCorrectPronostic);
-		rdbtnCorrectPronostic.setBounds(529, 460, 149, 23);
-		rdbtnCorrectPronostic.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				pronosticResult = 1; // Correct pronostic!
-			}
-		});
-		getContentPane().add(rdbtnCorrectPronostic);
+		chkBoxCorrectPronostic.setText("CorrectPronostic");
+		buttonGroup.add(chkBoxCorrectPronostic);
+		chkBoxCorrectPronostic.setBounds(529, 460, 149, 23);
+		getContentPane().add(chkBoxCorrectPronostic);
 
 		jButtonClose.setBounds(new Rectangle(556, 602, 112, 30));
 		jButtonClose.addActionListener(new ActionListener() {
