@@ -64,7 +64,6 @@ public class BuyTicketsGUI extends JFrame {
 	public BuyTicketsGUI(User loggedUser) {
 		this.loggedUser = facade.getUser(loggedUser.getUsername());
 		lottery = facade.getLastActiveLottery();
-		lotteryID = lottery.getLotteryID();
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -88,7 +87,7 @@ public class BuyTicketsGUI extends JFrame {
 		setTitle(ResourceBundle.getBundle("Etiquetas").getString("Login")); //$NON-NLS-1$ //$NON-NLS-2$
 		this.setBounds(100, 100, 450, 282);
 		setContentPane(getJContentPane());
-		redibujar(lotteryID);
+		redibujar();
 	}
 
 	private JPanel getJContentPane() {
@@ -197,9 +196,10 @@ public class BuyTicketsGUI extends JFrame {
 		return lblLotID;
 	}
 
-	public void redibujar(int lotID) {
-		System.out.println("The lottery ID is: " + lotID);
+	public void redibujar() {
 		if (lottery != null) {
+			lotteryID = lottery.getLotteryID();
+			System.out.println("The lottery ID is: " + lotteryID);
 			lblAmoPeople.setText(String.valueOf(lottery.getParticipantsNumber()));
 			lblAmoMoney.setText(String.valueOf(lottery.getJackpot()));
 			lblLotID.setText(String.valueOf(lottery.getLotteryID()));
