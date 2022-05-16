@@ -124,7 +124,7 @@ public class GiveJackpotGUI extends JFrame {
 			contentPane.add(gettxtField());
 			contentPane.add(getLblEuro());
 			contentPane.add(getLblNextLottery());
-			contentPane.add(getScrollPaneMovements());
+			contentPane.add(getScrollPanePlayers());
 			contentPane.add(getlblLotteryID());
 			contentPane.add(getbtnGiveJackpot());
 			contentPane.add(getLblWinner());
@@ -281,7 +281,7 @@ public class GiveJackpotGUI extends JFrame {
 		return lblNextLottery;
 	}
 
-	private JScrollPane getScrollPaneMovements() {
+	private JScrollPane getScrollPanePlayers() {
 		if (scrollPanePlayers == null) {
 			scrollPanePlayers = new JScrollPane();
 			scrollPanePlayers.setBounds(new Rectangle(40, 274, 406, 160));
@@ -293,7 +293,7 @@ public class GiveJackpotGUI extends JFrame {
 			tablePlayers.getColumnModel().getColumn(0).setPreferredWidth(20);
 
 			if (lottery != null) {
-				ArrayList<User> players = facade.getPlayersLottery(lottery.getLotteryID());
+				ArrayList<User> players = lottery.getParticipants();
 				if(players != null) {
 					for (User pl : players) {
 						Vector<Object> row = new Vector<Object>();

@@ -802,13 +802,12 @@ public class DataAccess {
 	 */
 	public String giveJackpot(int lotID) {
 		System.out.println("The lotteryID is: " + lotID);
-		db.getTransaction().begin();
+
 		Lottery l = getLotteryByID(lotID);
 		User winner = l.selectWinner();
 		System.out.println("The user " + winner.getUsername() + " has won " + l.getJackpot() + "€");
 		l.setRaffle(true);
-		db.persist(l);
-		db.getTransaction().commit();
+
 		createMovement("Lottery won", l.getJackpot(), winner, null, null);
 		System.out.println("Lottery is raffled: " + l.isRaffle());
 		return winner.getUsername();
@@ -873,8 +872,8 @@ public class DataAccess {
 	public int buyTicket(String username, int lastLotteryID, String movDesc) {
 		System.out.println(">> DataAccess: buyTicket");
 		
-		Lottery lot = getLotteryByID(lastLotteryID);
-		User user = findUser(username);
+		Lottery lot = db.find(Lottery.class, lastLotteryID);
+		User user = db.find(User.class, username);
 		ArrayList<User> players = lot.getParticipants();
 		
 		boolean contains = players.contains(user);
