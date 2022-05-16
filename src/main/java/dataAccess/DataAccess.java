@@ -41,7 +41,7 @@ public class DataAccess {
 	public DataAccess(boolean initializeMode) {
 
 		System.out.println("Creating DataAccess instance => isDatabaseLocal: " + c.isDatabaseLocal()
-		+ " getDatabBaseOpenMode: " + c.getDataBaseOpenMode());
+				+ " getDatabBaseOpenMode: " + c.getDataBaseOpenMode());
 
 		open(initializeMode);
 
@@ -205,7 +205,6 @@ public class DataAccess {
 		}
 	}
 
-
 	/**
 	 * This method adds a new pronostic to the DB
 	 *
@@ -227,17 +226,17 @@ public class DataAccess {
 //		Pronostic pronostic = q.newPronostic(newPronID, pOdd, pDescription);
 //		db.persist(pronostic);
 //		db.getTransaction().commit();
-		
+
 		db.getTransaction().begin();
-		Question q =  db.find(Question.class, pQuestion.getQuestionNumber());
+		Question q = db.find(Question.class, pQuestion.getQuestionNumber());
 		Pronostic pronostic = q.newPronostic(pOdd, pDescription);
 		db.persist(pronostic);
 		db.getTransaction().commit();
-		
-		System.out.println(pronostic.getPronDescription()+" added to the DB!");
+
+		System.out.println(pronostic.getPronDescription() + " added to the DB!");
 		return pronostic;
 	}
-	
+
 //	/**
 //	 * This method updates the question with a new pronostic
 //	 * 
@@ -261,7 +260,8 @@ public class DataAccess {
 	 * @param the pronostic that the bet is related to
 	 * @return the created bet, or null, or an exception
 	 */
-	public Bet addBetToPronostic(int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics) {
+	public Bet addBetToPronostic(int betMoney, User betUser, boolean isMultipleBet,
+			ArrayList<Pronostic> betPronostics) {
 //		int newBetID;
 //		TypedQuery<Bet> query = db.createQuery("SELECT FROM Bet ORDER BY betID DESC", Bet.class);
 //		if(query.getResultList().size() != 0) {
@@ -275,15 +275,15 @@ public class DataAccess {
 
 		db.getTransaction().begin();
 		Bet bet;
-		if(isMultipleBet){
-			bet = new Bet(betMoney, betUser, isMultipleBet,betPronostics);
+		if (isMultipleBet) {
+			bet = new Bet(betMoney, betUser, isMultipleBet, betPronostics);
 			for (Pronostic pron : betPronostics) {
 				Pronostic p = db.find(Pronostic.class, pron.getPronID());
 				p.addBetToPronostic(bet);
 			}
 		} else {
 			Pronostic p = db.find(Pronostic.class, betPronostics.get(0).getPronID());
-			bet = new Bet(betMoney, betUser, isMultipleBet,betPronostics);
+			bet = new Bet(betMoney, betUser, isMultipleBet, betPronostics);
 			p.addBetToPronostic(bet);
 		}
 		User user = db.find(User.class, betUser.getUsername());
@@ -295,24 +295,23 @@ public class DataAccess {
 	}
 
 	public float createMovement(String movType, float money, User pUser, String pEventDesc, String pQuestionDesc) {
-		
+
 		User user = db.find(User.class, pUser.getUsername());
-		
-		if(user != null) {
+
+		if (user != null) {
 			db.getTransaction().begin();
 			Movement mov = user.newMovement(movType, money, pEventDesc, pQuestionDesc);
 			float newBalance = user.updateBalance(money);
 			db.persist(user);
 			db.getTransaction().commit();
-			System.out.println(mov+" added to the DB!");
+			System.out.println(mov + " added to the DB!");
 			return newBalance;
-			
+
 		} else {
 			System.out.println("UNEXPECTED ERROR OCCURRED WHEN UPDATING BALANCE!");
 			return -10000000;
 		}
 
-		
 	}
 
 //	public float updateBalance(User pUser, float pMoney) {
@@ -327,27 +326,28 @@ public class DataAccess {
 //		db.getTransaction().commit();
 //		return u.getBalance();
 //	}
-	
-	public Bet makeBet(int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics, String movType, String pEventDesc, String pQuestionDesc) {
+
+	public Bet makeBet(int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics,
+			String movType, String pEventDesc, String pQuestionDesc) {
 		db.getTransaction().begin();
 		Bet bet;
 		User user = db.find(User.class, betUser.getUsername());
-		if(user != null) {
-			if(isMultipleBet){
-				bet = user.newBet(betMoney, isMultipleBet,betPronostics);
+		if (user != null) {
+			if (isMultipleBet) {
+				bet = user.newBet(betMoney, isMultipleBet, betPronostics);
 				for (Pronostic pron : betPronostics) {
 					Pronostic p = db.find(Pronostic.class, pron.getPronID());
 					p.addBetToPronostic(bet);
 				}
 			} else {
-				bet = user.newBet(betMoney, isMultipleBet,betPronostics);
+				bet = user.newBet(betMoney, isMultipleBet, betPronostics);
 				Pronostic p = db.find(Pronostic.class, betPronostics.get(0).getPronID());
 				p.addBetToPronostic(bet);
 			}
-			
+
 			// CreateMovement
 			Movement mov = user.newMovement(movType, -betMoney, pEventDesc, pQuestionDesc);
-			System.out.println(mov+" added to the DB!");
+			System.out.println(mov + " added to the DB!");
 			user.updateBalance(-betMoney);
 			db.persist(user);
 			db.getTransaction().commit();
@@ -358,7 +358,6 @@ public class DataAccess {
 		}
 	}
 
-
 	/**
 	 * This method finds a pronostic by its description
 	 *
@@ -367,14 +366,14 @@ public class DataAccess {
 	 */
 	public Pronostic findPronosticByDescription(String pDescription) {
 		try {
-			TypedQuery<Pronostic> query = db.createQuery("SELECT pron FROM Pronostic pron WHERE pron.pronDescription = ?1 ", Pronostic.class);
+			TypedQuery<Pronostic> query = db
+					.createQuery("SELECT pron FROM Pronostic pron WHERE pron.pronDescription = ?1 ", Pronostic.class);
 			query.setParameter(1, pDescription);
 			return query.getResultList().get(0);
 		} catch (Exception e) {
 			return null;
 		}
 	}
-
 
 	/**
 	 * Solves all the bets related to a question
@@ -389,79 +388,77 @@ public class DataAccess {
 		ArrayList<Pronostic> pronostics = q.getPronostics();
 		String evDescr = q.getEventDescription();
 		String qDescr = q.getQuestion();
-		
+
 		db.getTransaction().begin();
-		
+
 		for (Pronostic p : pronostics) {
 			if (p != correctPron) { // Pronostic is wrong
-				
+
 				p.setPronResult(false);
 				p.setPronClosed();
 				ArrayList<Bet> bets = p.getBets4Pronostic();
-				
+
 				for (Bet b : bets) { // All these bets are lost, no matter if they are simple or multiple
-					
+
 					// Sets the bet as lost
 					Bet lostBet = db.find(Bet.class, b.getBetID());
 					lostBet.betLost();
-						
+
 					// Tells the user the bet is lost
 					User u = db.find(User.class, lostBet.getBetUsername());
 
 					u.newMovement("Bet Lost", 0, evDescr, qDescr);
 					db.persist(u);
-					
+
 				}
-				
+
 			} else { // Pronostic is right
-				
+
 				p.setPronResult(true);
 				p.setPronClosed();
-				
+
 				ArrayList<Bet> bets = p.getBets4Pronostic();
-				
+
 				// All the bets with the right pronostic
 				for (Bet b : bets) {
 					if (!b.isBetMultiple()) { // The bet is simple and correct, so we inmediatelly return the money
-						
+
 						// We set the bet as won
 						Bet wonBet = db.find(Bet.class, b.getBetID());
 						wonBet.betWon();
-						
+
 						User u = db.find(User.class, wonBet.getBetUsername());
 						float earnings = wonBet.getSimpleBetEarnings();
-						
+
 						// We give the earnings to the user
 						u.newMovement("Simple Bet Won", earnings, evDescr, qDescr);
 						u.updateBalance(earnings);
-						
-						
-						
+
 						db.persist(u);
-						
+
 					} else { // The bet is multiple, so we have to check if it is completelly solved
-						
+
 						Bet wonBet = db.find(Bet.class, b.getBetID());
 						User u = db.find(User.class, wonBet.getBetUsername());
 						ArrayList<Pronostic> prons = wonBet.getMultipleBetPronostic();
 						Boolean allSolved = true;
-						
+
 						for (Pronostic pron : prons) {
-							if(!pron.isPronClosed()) {
+							if (!pron.isPronClosed()) {
 								allSolved = false;
 								break;
 							}
 						}
 						if (allSolved) { // Means all are solved and correct
-							
+
 							wonBet.betWon(); // We set de bet as won
-							
+
 							float earnings = wonBet.getMultipleBetEarnings();
 							u.newMovement("Multiple Bet Won", earnings, evDescr, qDescr);
 							u.updateBalance(earnings);
-							
+
 							db.persist(u);
-							
+
 						} else {
 							// Nothing
 						}
@@ -469,11 +466,11 @@ public class DataAccess {
 				}
 			}
 		}
-		
+
 		q.setIsAnswered();
 		db.persist(q);
 		db.getTransaction().commit();
-		
+
 	}
 
 	public void updateUserBet(User betUser, Bet bet) {
@@ -482,8 +479,9 @@ public class DataAccess {
 		user.addBet(bet);
 		db.persist(user);
 		db.getTransaction().commit();
-		System.out.println(betUser.getUsername()+" has been updated with the new bet!");
+		System.out.println(betUser.getUsername() + " has been updated with the new bet!");
 	}
+
 	/**
 	 * This method tries to find a username
 	 *
@@ -495,7 +493,6 @@ public class DataAccess {
 		return u;
 	}
 
-
 	/**
 	 * This method updates user's balance
 	 * 
@@ -504,18 +501,18 @@ public class DataAccess {
 	 * @return new balance after update
 	 * 
 	 */
-	//	public int updateBalance(User pUser, int pMoney) {
-	//		db.getTransaction().begin();
-	//		User u = db.find(User.class, pUser.getUsername());
-	//		if(u != null) {
-	//			u.updateBalance(pMoney);
-	//			db.persist(u);
-	//		} else {
-	//			System.out.println("UNEXPECTED ERROR OCCURRED WHEN UPDATING BALANCE!");
-	//		}
-	//		db.getTransaction().commit();
-	//		return u.getBalance();
-	//	}
+	// public int updateBalance(User pUser, int pMoney) {
+	// db.getTransaction().begin();
+	// User u = db.find(User.class, pUser.getUsername());
+	// if(u != null) {
+	// u.updateBalance(pMoney);
+	// db.persist(u);
+	// } else {
+	// System.out.println("UNEXPECTED ERROR OCCURRED WHEN UPDATING BALANCE!");
+	// }
+	// db.getTransaction().commit();
+	// return u.getBalance();
+	// }
 
 	/**
 	 * This method creates a question for an event, with a question text and the
@@ -551,30 +548,31 @@ public class DataAccess {
 	/**
 	 * This method creates a new event
 	 * 
-	 * @param pDescription      New event description
-	 * @param pDate   			Date of the new event
+	 * @param pDescription New event description
+	 * @param pDate        Date of the new event
 	 * @return the new event or null if there is a problem
 	 */
-	public boolean createEvent(String pDescription, Date pDate){
+	public boolean createEvent(String pDescription, Date pDate) {
 
-			db.getTransaction().begin();
-			Event ev = new Event(pDescription, pDate);
-			db.persist(ev);
-			db.getTransaction().commit();
-			System.out.println("New event created successfully!");
-			return true;
+		db.getTransaction().begin();
+		Event ev = new Event(pDescription, pDate);
+		db.persist(ev);
+		db.getTransaction().commit();
+		System.out.println("New event created successfully!");
+		return true;
 
 	}
 
 	/**
-	 * This method retrieves from the database if there is the event with a given ID number
+	 * This method retrieves from the database if there is the event with a given ID
+	 * number
 	 * 
 	 * @param ID number
 	 * @return If there is the event
 	 */
 	public boolean isThereEventByNumber(int pN) {
 		TypedQuery<Event> query = db.createQuery("SELECT ev FROM Event ev WHERE eventNumber=?1", Event.class);
-		query.setParameter(1,pN);
+		query.setParameter(1, pN);
 		List<Event> ev = query.getResultList();
 		return (ev == null);
 
@@ -618,10 +616,6 @@ public class DataAccess {
 		return res;
 	}
 
-
-
-
-
 	public Question findQuestionByN(int qNumber) {
 		Question q = db.find(Question.class, qNumber);
 		return q;
@@ -636,7 +630,6 @@ public class DataAccess {
 		Pronostic pron = db.find(Pronostic.class, pronID);
 		return pron;
 	}
-
 
 	/**
 	 * This method retrieves from the database the dates a month for which there are
@@ -664,7 +657,6 @@ public class DataAccess {
 		return res;
 	}
 
-
 	public ArrayList<Movement> getUserMovements(String username) {
 		System.out.println(">> DataAccess: getUserMovements");
 		User user = db.find(User.class, username);
@@ -672,23 +664,21 @@ public class DataAccess {
 		return movements;
 	}
 
-
-
-
-	//	public int updateBalance(User pUser) {
-	////		TypedQuery<Movement> query = db.createQuery("SELECT FROM Movement ORDER BY movID DESC", Movement.class);
-	////		Movement lastMovement = query.getResultList().get(0);
-	////		System.out.println("LastMovement: " + lastMovement);
-	////		int newMovID = lastMovement.getMovID()+1;
-	////		System.out.println("NewMovNum: " + newMovID);
-	////		
-	////		db.getTransaction().begin();
-	////		Movement movement = new Movement(newMovID,money, movType);
-	////		db.persist(movement);
-	////		db.getTransaction().commit();
-	////		System.out.println(movement+" added to the DB!");
-	////		return movement;
-	//	}
+	// public int updateBalance(User pUser) {
+	//// TypedQuery<Movement> query = db.createQuery("SELECT FROM Movement ORDER BY
+	// movID DESC", Movement.class);
+	//// Movement lastMovement = query.getResultList().get(0);
+	//// System.out.println("LastMovement: " + lastMovement);
+	//// int newMovID = lastMovement.getMovID()+1;
+	//// System.out.println("NewMovNum: " + newMovID);
+	////
+	//// db.getTransaction().begin();
+	//// Movement movement = new Movement(newMovID,money, movType);
+	//// db.persist(movement);
+	//// db.getTransaction().commit();
+	//// System.out.println(movement+" added to the DB!");
+	//// return movement;
+	// }
 
 	/**
 	 * This method updates user's balance
@@ -698,11 +688,11 @@ public class DataAccess {
 	 * @return new balance after update
 	 * 
 	 */
-	
+
 	public void open(boolean initializeMode) {
 
 		System.out.println("Opening DataAccess instance => isDatabaseLocal: " + c.isDatabaseLocal()
-		+ " getDatabBaseOpenMode: " + c.getDataBaseOpenMode());
+				+ " getDatabBaseOpenMode: " + c.getDataBaseOpenMode());
 
 		String fileName = c.getDbFilename();
 		if (initializeMode) {
@@ -731,6 +721,7 @@ public class DataAccess {
 		return ev.DoesQuestionExists(question);
 
 	}
+
 	/**
 	 * This method add a message
 	 * 
@@ -740,7 +731,7 @@ public class DataAccess {
 	 * @return a new message
 	 * 
 	 */
-	public Message  createMessage(User pRemitent, String pDestinataryUsername, String pDate, String pMessage) {
+	public Message createMessage(User pRemitent, String pDestinataryUsername, String pDate, String pMessage) {
 
 		db.getTransaction().begin();
 		User destinatary = findUser(pDestinataryUsername);
@@ -756,6 +747,7 @@ public class DataAccess {
 		return mes;
 
 	}
+
 	/**
 	 * This method retrieves from the database all the messages related to that chat
 	 * 
@@ -763,12 +755,14 @@ public class DataAccess {
 	 * @param the destinatary of the messages
 	 * @return collection of messages
 	 */
-	public ArrayList<Message> getMessagesForThisChat(String pRemitentUsername, String pDestinataryUsername){
+	public ArrayList<Message> getMessagesForThisChat(String pRemitentUsername, String pDestinataryUsername) {
 		System.out.println(">> DataAccess: getMessagesForThisChat");
 		User remitent = findUser(pRemitentUsername);
 		User destinatary = findUser(pDestinataryUsername);
 		ArrayList<Message> res = new ArrayList<Message>();
-		TypedQuery<Message> query = db.createQuery("SELECT FROM Message WHERE (remitent=?1 AND destinatary=?2) OR (remitent=?2 AND destinatary=?1) ORDER BY messageID ASC", Message.class);
+		TypedQuery<Message> query = db.createQuery(
+				"SELECT FROM Message WHERE (remitent=?1 AND destinatary=?2) OR (remitent=?2 AND destinatary=?1) ORDER BY messageID ASC",
+				Message.class);
 		query.setParameter(1, remitent);
 		query.setParameter(2, destinatary);
 		List<Message> messages = query.getResultList();
@@ -778,7 +772,7 @@ public class DataAccess {
 		}
 		return res;
 	}
-	
+
 	public ArrayList<Message> getMessagesForThisUser(String username) {
 		User u = db.find(User.class, username);
 		return u.getRecievedMessages();
@@ -794,15 +788,17 @@ public class DataAccess {
 	public boolean existUser(String pUsername) {
 		User user = findUser(pUsername);
 		System.out.println("Check if exists: " + user);
-		if (user == null) return false;
-		else return true;
+		if (user == null)
+			return false;
+		else
+			return true;
 	}
 
 	/**
-	 * This method distributes the prize of 
-	 * the last lottery that is not closed among all 
-	 * the participants who have bought a ticket
-	 * @return 
+	 * This method distributes the prize of the last lottery that is not closed
+	 * among all the participants who have bought a ticket
+	 * 
+	 * @return
 	 */
 	public String giveJackpot(int lotID) {
 		System.out.println("The lotteryID is: " + lotID);
@@ -822,48 +818,47 @@ public class DataAccess {
 	/**
 	 * This method creates a new lottery
 	 * 
-	 * @return the new lottery
+	 * @return nothing
 	 */
-	public int createLottery(int ticketPrice){
+	public void createLottery(int ticketPrice) {
 		System.out.println(">> DataAccess: createLottery");
-		TypedQuery<Lottery> query = db.createQuery("SELECT FROM Lottery ORDER BY lotteryID DESC", Lottery.class);
-		Lottery lastLottery;
-		int newLotteryID;
-		try {
-			lastLottery= query.getResultList().get(0);
-			newLotteryID = lastLottery.getLotteryID()+1;
-		} catch (Exception e) {
-			newLotteryID = 1;
-		}
-
-		System.out.println("NewLotteryID: " + newLotteryID);
-		Lottery lot;
 		db.getTransaction().begin();
-		lot = new Lottery( 0, ticketPrice);
+		Lottery lot = new Lottery(0, ticketPrice);
 		db.persist(lot);
 		db.getTransaction().commit();
-		//System.out.println("NewLotteryID: " + newLotteryID);
-
 		System.out.println("The new lottery has been created successfully!");
-		return lot.getLotteryID();
-
 	}
 
 	/**
 	 * This method gets the id of last active lottery
+	 * 
+	 * @return lottery
 	 */
-	public int getLastActiveLotteryID() {
+	public Lottery getLastActiveLottery() {
 		System.out.println(">> DataAccess: getLastActiveLottery");
-		TypedQuery<Integer> query = db.createQuery("SELECT lotteryID FROM Lottery WHERE isRaffle=false ORDER BY lotteryID DESC", Integer.class);		
+		TypedQuery<Lottery> query = db.createQuery(
+				"SELECT lot FROM Lottery lot WHERE isRaffle=false ORDER BY lotteryID DESC", Lottery.class);
 		try {
-			int lastLotteryID = query.getResultList().get(0);
-			System.out.println("The last lottery whitout raffle is " + lastLotteryID);
-			return lastLotteryID;
-		}catch (Exception e) {
+			Lottery lastLottery = query.getResultList().get(0);
+			System.out.println("The last lottery whitout raffle is " + lastLottery.getLotteryID());
+			return lastLottery;
+		} catch (Exception e) {
 			System.out.println("There are not active lotteries");
-			return -1;
+			return null;
 		}
 
+	}
+	
+	/**
+	 * This method a lottery with a given a id
+	 * 
+	 * @param the lottery id
+	 * @return the lottery
+	 */
+
+	public Lottery getLotteryByID(int lotteryID) {
+		Lottery lot = db.find(Lottery.class, lotteryID);
+		return lot;
 	}
 
 	/**
@@ -877,39 +872,31 @@ public class DataAccess {
 	 */
 	public int buyTicket(String username, int lastLotteryID, String movDesc) {
 		System.out.println(">> DataAccess: buyTicket");
+		
 		Lottery lot = getLotteryByID(lastLotteryID);
 		User user = findUser(username);
 		ArrayList<User> players = lot.getParticipants();
+		
 		boolean contains = players.contains(user);
 		boolean enoughMoney = user.getBalance() >= lot.getTicketPrice();
-		if (contains == true ) return 1;
-		else if (enoughMoney == false) return 2;
-		System.out.println("Can play? " + !contains);
-
-		System.out.println("The player " + user.getUsername() + " can play this lottery");
-		TypedQuery<Ticket> query2 = db.createQuery("SELECT FROM Ticket ORDER BY ticketID DESC", Ticket.class);
-		int newTicketID;
-		try {
-			Ticket lastTicket = query2.getResultList().get(0);
-			newTicketID = lastTicket.getTicketID()+1;
-		} catch (Exception e) {
-			newTicketID = 1;
-		}
-		System.out.println("New ID for ticket "+ newTicketID);
-
-		//create new Ticket
-		db.getTransaction().begin();
 		
-		Ticket t = new Ticket(newTicketID,user, lot.getTicketPrice());
-		lot.addTicket(t);
-		int prevJackpot = lot.getJackpot();
-		lot.setJackpot(prevJackpot + t.getPrice());
-		System.out.println("Ticket added to the lottery");
+		if (contains == true)
+			return 1;
+		else if (enoughMoney == false)
+			return 2;
+		
+		System.out.println("The player " + user.getUsername() + " can play this lottery");
+
+		
+		// create new Ticket
+		db.getTransaction().begin();
+		Ticket t = lot.createTicket(user, lot.getTicketPrice());
 		db.persist(lot);
-		user.addTicket(t);
 		db.getTransaction().commit();
-		System.out.println("Ticket added " + t);
+		user.addTicket(t);
 		createMovement(movDesc, -t.getPrice(), user, null, null);
+		System.out.println("Ticket added " + t);
+		
 
 		System.out.println("Tickets: " + lot.getTickets());
 		return 0;
@@ -917,6 +904,7 @@ public class DataAccess {
 
 	/**
 	 * This method returns the players of a lottery
+	 * 
 	 * @return a list of players
 	 */
 	public ArrayList<User> getPlayersLottery(int lotteryID) {
@@ -929,27 +917,9 @@ public class DataAccess {
 
 	}
 
-	/**
-	 * This method a lottery with a given a id
-	 *  
-	 * @param the lottery id
-	 * @return the lottery
-	 */
-
-	public Lottery getLotteryByID(int lotteryID) {
-		Lottery lot = db.find(Lottery.class, lotteryID);
-		return lot;
-	}
-
-
 	public void close() {
 		db.close();
 		System.out.println("DataBase closed");
 	}
-
-
-
-
-
 
 }

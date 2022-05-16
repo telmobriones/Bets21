@@ -263,9 +263,9 @@ public interface BLFacade {
 	 * 
 	 * @param the price of the tickets
 	 * 
-	 * @return a the new lottery
+	 * @return nothing
 	 */
-	public int createLottery(int ticketPrice);
+	public void createLottery(int ticketPrice);
 
 
 	/**
@@ -279,9 +279,11 @@ public interface BLFacade {
 	public int buyTicket(String username, int lotID, String movDesc);
 
 	/**
-	 * This method gets the id of last active lottery
+	 * This method gets the last active lottery
+	 * 
+	 * @return lottery
 	 */
-	public int getLastActiveLotteryID();
+	public Lottery getLastActiveLottery();
 
 	/**
 	 * This method returns the players of a lottery

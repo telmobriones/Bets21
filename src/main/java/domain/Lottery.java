@@ -15,14 +15,13 @@ public class Lottery {
 
 	@Id
 	@GeneratedValue
-	private int lotteryID;
+	private Integer lotteryID;
 	private int jackpot;
 	private boolean isRaffle;
 	private int ticketPrice;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private ArrayList<Ticket> tickets = new ArrayList<Ticket>();;
-
 
 	public Lottery(int jackpot, int ticketPrice) {
 		super();
@@ -71,48 +70,55 @@ public class Lottery {
 		this.ticketPrice = ticketPrice;
 	}
 
+	public void updateJackpot() {
+		this.jackpot += this.ticketPrice;
+	}
 	/**
 	 * This method creates a new ticket for the lottery
 	 * 
-	 * @param the id of the ticket
 	 * @param the user who buys the ticket
 	 * @param the price of the ticket
 	 * @return Ticket
 	 */
+	public Ticket createTicket(User user, int price) {
+		Ticket t = new Ticket(user, this, price);
+		tickets.add(t);
+		updateJackpot();
+		return t;
+	}
+
 	public void addTicket(Ticket t) {
 		tickets.add(t);
 	}
 
 	public int getParticipantsNumber() {
-		if(tickets != null) {
+		if (tickets != null) {
 			return tickets.size();
-		}
-		else {
+		} else {
 			return 0;
 		}
 
 	}
 
 	public ArrayList<User> getParticipants() {
-		if(tickets != null) {
-			ArrayList<User> players = new ArrayList<User>();
-			for (Ticket t:tickets) {
+		ArrayList<User> players = new ArrayList<User>();
+		if (!tickets.isEmpty()) {
+			for (Ticket t : tickets) {
 				players.add(t.getUser());
 				System.out.println(t.getUser().getUsername() + "\n");
 			}
-			return players;
 		}
-		else {
-			return null;
-		}
+		return players;
+		
 	}
+
 	/**
 	 * This method chooses a winner for the lottery
 	 */
 	public User selectWinner() {
-		int winnerPosition = (int)(Math.random() * getParticipantsNumber());
+		int winnerPosition = (int) (Math.random() * getParticipantsNumber());
 		User winner = getParticipants().get(winnerPosition);
 		return winner;
-		
+
 	}
 }

@@ -29,6 +29,7 @@ public class User {
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private ArrayList<Message> recievedMessages = new ArrayList<Message>();
 	
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Vector<Ticket> tickets = new Vector<Ticket>();
 	
 	

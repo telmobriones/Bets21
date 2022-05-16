@@ -29,6 +29,7 @@ public class BuyTicketsGUI extends JFrame {
 	private static BLFacade facade = MainGUI.getBusinessLogic();
 	private static LoginGUI frame = new LoginGUI();
 	private User loggedUser;
+	private Lottery lottery;
 	private int lotteryID;
 	private int errorCode;
 	JLabel lblErrors;
@@ -62,7 +63,8 @@ public class BuyTicketsGUI extends JFrame {
 	 */
 	public BuyTicketsGUI(User loggedUser) {
 		this.loggedUser = facade.getUser(loggedUser.getUsername());
-		lotteryID = facade.getLastActiveLotteryID();
+		lottery = facade.getLastActiveLottery();
+		lotteryID = lottery.getLotteryID();
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -164,7 +166,7 @@ public class BuyTicketsGUI extends JFrame {
 			btnBuyTickets.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					errorCode = facade.buyTicket(loggedUser.getUsername(), lotteryID, "Ticket purchased");
-					redibujar(lotteryID);
+					btnBuyTickets.setEnabled(false);
 					if (errorCode == 1) {
 						lblErrors.setText("You have alredy played this lottery");
 					}
@@ -197,13 +199,11 @@ public class BuyTicketsGUI extends JFrame {
 
 	public void redibujar(int lotID) {
 		System.out.println("The lottery ID is: " + lotID);
-		Lottery lot = facade.getLotteryByID(lotID);
-		if (lot != null) {
-			lblAmoPeople.setText(String.valueOf(lot.getParticipantsNumber()));
-			lblAmoMoney.setText(String.valueOf(lot.getJackpot()));
-			lblLotID.setText(String.valueOf(lot.getLotteryID()));
-			btnBuyTickets.setText(String.valueOf(lot.getTicketPrice()) + " €");
-
+		if (lottery != null) {
+			lblAmoPeople.setText(String.valueOf(lottery.getParticipantsNumber()));
+			lblAmoMoney.setText(String.valueOf(lottery.getJackpot()));
+			lblLotID.setText(String.valueOf(lottery.getLotteryID()));
+			btnBuyTickets.setText(String.valueOf(lottery.getTicketPrice()) + " €");
 		}
 		else {
 			btnBuyTickets.setVisible(false);

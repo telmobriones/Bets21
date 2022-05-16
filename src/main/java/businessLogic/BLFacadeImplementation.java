@@ -445,11 +445,13 @@ public class BLFacadeImplementation implements BLFacade {
 
 
 	/**
-	 * This method gets the id of last active lottery
+	 * This method gets the last active lottery
+	 * 
+	 * @return lottery
 	 */
-	public int getLastActiveLotteryID() {
+	public Lottery getLastActiveLottery() {
 		dbManager.open(false);
-		int lot = dbManager.getLastActiveLotteryID();
+		Lottery lot = dbManager.getLastActiveLottery();
 		dbManager.close();	
 		return lot;
 	}
@@ -469,11 +471,10 @@ public class BLFacadeImplementation implements BLFacade {
 	/**
 	 * This method creates a new Lottery
 	 */
-	public int createLottery(int ticketPrice) {
+	public void createLottery(int ticketPrice) {
 		dbManager.open(false);
-		int lotID = dbManager.createLottery(ticketPrice);
+		dbManager.createLottery(ticketPrice);
 		dbManager.close();
-		return lotID;
 	}
 	
 	/**
