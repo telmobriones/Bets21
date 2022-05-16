@@ -4900,13 +4900,30 @@
 											"height": 13,
 											"text": "-isMultipeBet",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGAzz2Zm0IBCeM=",
+											"_parent": {
+												"$ref": "AAAAAAGAtBx3k4y2ep0="
+											},
+											"model": {
+												"$ref": "AAAAAAGAzjTGbDOXUJQ="
+											},
+											"font": "Arial;13;0",
+											"left": 765,
+											"top": 602,
+											"width": 159.31982421875,
+											"height": 13,
+											"text": "-betStatus",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 760,
 									"top": 552,
 									"width": 169.31982421875,
-									"height": 53
+									"height": 68
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -4929,7 +4946,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 765,
-											"top": 610,
+											"top": 625,
 											"width": 159.31982421875,
 											"height": 13,
 											"text": "+betLost()",
@@ -4946,7 +4963,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 765,
-											"top": 625,
+											"top": 640,
 											"width": 159.31982421875,
 											"height": 13,
 											"text": "+getBetUsername()",
@@ -4963,7 +4980,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 765,
-											"top": 640,
+											"top": 655,
 											"width": 159.31982421875,
 											"height": 13,
 											"text": "+betWon()",
@@ -4980,7 +4997,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 765,
-											"top": 655,
+											"top": 670,
 											"width": 159.31982421875,
 											"height": 13,
 											"text": "+getSimpleBetEarnings()",
@@ -4997,7 +5014,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 765,
-											"top": 670,
+											"top": 685,
 											"width": 159.31982421875,
 											"height": 13,
 											"text": "+getMultipleBetPronostics()",
@@ -5014,7 +5031,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 765,
-											"top": 685,
+											"top": 700,
 											"width": 159.31982421875,
 											"height": 13,
 											"text": "+getMultipleBetEarnings()",
@@ -5023,7 +5040,7 @@
 									],
 									"font": "Arial;13;0",
 									"left": 760,
-									"top": 605,
+									"top": 620,
 									"width": 169.31982421875,
 									"height": 98
 								},
@@ -5065,7 +5082,7 @@
 							"left": 760,
 							"top": 512,
 							"width": 169.31982421875,
-							"height": 191,
+							"height": 206,
 							"showNamespace": true,
 							"nameCompartment": {
 								"$ref": "AAAAAAGAtBx3k4yxbjY="
@@ -5382,7 +5399,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 656,
-									"top": 619,
+									"top": 622,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -5403,7 +5420,7 @@
 									"visible": null,
 									"font": "Arial;13;0",
 									"left": 656,
-									"top": 634,
+									"top": 637,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -5424,7 +5441,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 655,
-									"top": 590,
+									"top": 593,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -5444,7 +5461,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 719,
-									"top": 618,
+									"top": 623,
 									"width": 28.90087890625,
 									"height": 13,
 									"alpha": 0.5235987755982988,
@@ -5466,8 +5483,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 731,
-									"top": 631,
+									"left": 730,
+									"top": 636,
 									"height": 13,
 									"alpha": 0.7853981633974483,
 									"distance": 40,
@@ -5487,7 +5504,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 728,
-									"top": 591,
+									"top": 595,
 									"width": 19.5126953125,
 									"height": 13,
 									"alpha": -0.5235987755982988,
@@ -5509,7 +5526,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 555,
-									"top": 622,
+									"top": 623,
 									"width": 49.84814453125,
 									"height": 13,
 									"alpha": -0.5235987755982988,
@@ -5531,7 +5548,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 581,
-									"top": 635,
+									"top": 637,
 									"height": 13,
 									"alpha": -0.7853981633974483,
 									"distance": 40,
@@ -5550,7 +5567,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 571,
-									"top": 594,
+									"top": 596,
 									"width": 7.22998046875,
 									"height": 13,
 									"alpha": 0.5235987755982988,
@@ -5601,7 +5618,7 @@
 								"$ref": "AAAAAAGAtBx3k4ywcLA="
 							},
 							"lineStyle": 1,
-							"points": "759:609;553:614",
+							"points": "759:614;553:615",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAGAtBx3lYzHqYw="
@@ -21868,7 +21885,7 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": 1040.72998046875,
+													"left": 1039.99365234375,
 													"top": 301,
 													"width": 1,
 													"height": 13
@@ -21882,7 +21899,7 @@
 													"font": "Arial;13;1",
 													"left": 1021,
 													"top": 301,
-													"width": 14.72998046875,
+													"width": 13.99365234375,
 													"height": 13,
 													"text": "alt"
 												},
@@ -21915,7 +21932,7 @@
 																	"font": "Arial;13;0",
 																	"left": 1036,
 																	"top": 334,
-																	"width": 57.09716796875,
+																	"width": 56.544921875,
 																	"height": 13,
 																	"text": "[u == null]"
 																}
@@ -21948,7 +21965,7 @@
 																	"font": "Arial;13;0",
 																	"left": 1036,
 																	"top": 408,
-																	"width": 53.1171875,
+																	"width": 53.54248046875,
 																	"height": 13,
 																	"text": "[u != null]"
 																}
@@ -28813,7 +28830,7 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": 1136.72998046875,
+													"left": 1135.99365234375,
 													"top": 741,
 													"width": 1,
 													"height": 13
@@ -28827,7 +28844,7 @@
 													"font": "Arial;13;1",
 													"left": 1117,
 													"top": 741,
-													"width": 14.72998046875,
+													"width": 13.99365234375,
 													"height": 13,
 													"text": "alt"
 												},
@@ -28860,7 +28877,7 @@
 																	"font": "Arial;13;0",
 																	"left": 1132,
 																	"top": 774,
-																	"width": 53.1171875,
+																	"width": 53.54248046875,
 																	"height": 13,
 																	"text": "[u != null]"
 																}
@@ -28893,7 +28910,7 @@
 																	"font": "Arial;13;0",
 																	"left": 1132,
 																	"top": 1080,
-																	"width": 57.09716796875,
+																	"width": 56.544921875,
 																	"height": 13,
 																	"text": "[u == null]"
 																}
@@ -42418,9 +42435,9 @@
 														"$ref": "AAAAAAGAzStdkw0XRBY="
 													},
 													"font": "Arial;13;0",
-													"left": 1075.578125,
+													"left": 1074.11181640625,
 													"top": 357,
-													"width": 59.75390625,
+													"width": 57.5830078125,
 													"height": 13,
 													"text": "t_i : Ticket"
 												},
@@ -42433,7 +42450,7 @@
 													"font": "Arial;13;1",
 													"left": 1045,
 													"top": 357,
-													"width": 25.578125,
+													"width": 24.11181640625,
 													"height": 13,
 													"text": "loop"
 												},
@@ -42742,7 +42759,7 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": 640.72998046875,
+													"left": 639.99365234375,
 													"top": 597,
 													"width": 1,
 													"height": 13
@@ -42756,7 +42773,7 @@
 													"font": "Arial;13;1",
 													"left": 621,
 													"top": 597,
-													"width": 14.72998046875,
+													"width": 13.99365234375,
 													"height": 13,
 													"text": "alt"
 												},
@@ -42789,7 +42806,7 @@
 																	"font": "Arial;13;0",
 																	"left": 636,
 																	"top": 630,
-																	"width": 216.05517578125,
+																	"width": 198.40234375,
 																	"height": 13,
 																	"text": "[<player1, ..., playerN> contains user]"
 																}
@@ -42822,7 +42839,7 @@
 																	"font": "Arial;13;0",
 																	"left": 636,
 																	"top": 736,
-																	"width": 95.75439453125,
+																	"width": 88.16259765625,
 																	"height": 13,
 																	"text": "[balance < price]"
 																}
@@ -47170,7 +47187,7 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": 32.72998046875,
+													"left": 31.99365234375,
 													"top": 229,
 													"width": 1,
 													"height": 13
@@ -47184,7 +47201,7 @@
 													"font": "Arial;13;1",
 													"left": 13,
 													"top": 229,
-													"width": 14.72998046875,
+													"width": 13.99365234375,
 													"height": 13,
 													"text": "alt"
 												},
@@ -47217,7 +47234,7 @@
 																	"font": "Arial;13;0",
 																	"left": 28,
 																	"top": 262,
-																	"width": 81.2880859375,
+																	"width": 80.97705078125,
 																	"height": 13,
 																	"text": "[lottery != null]"
 																}
@@ -51792,7 +51809,7 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": 1136.72998046875,
+													"left": 1135.99365234375,
 													"top": 925,
 													"width": 1,
 													"height": 13
@@ -51806,7 +51823,7 @@
 													"font": "Arial;13;1",
 													"left": 1117,
 													"top": 925,
-													"width": 14.72998046875,
+													"width": 13.99365234375,
 													"height": 13,
 													"text": "alt"
 												},
@@ -51839,7 +51856,7 @@
 																	"font": "Arial;13;0",
 																	"left": 1132,
 																	"top": 958,
-																	"width": 53.1171875,
+																	"width": 53.54248046875,
 																	"height": 13,
 																	"text": "[u != null]"
 																}
@@ -51872,7 +51889,7 @@
 																	"font": "Arial;13;0",
 																	"left": 1132,
 																	"top": 1264,
-																	"width": 57.09716796875,
+																	"width": 56.544921875,
 																	"height": 13,
 																	"text": "[u == null]"
 																}
@@ -53508,9 +53525,9 @@
 														"$ref": "AAAAAAGAzdbnzi+L3+I="
 													},
 													"font": "Arial;13;0",
-													"left": 59.578125,
+													"left": 58.11181640625,
 													"top": 197,
-													"width": 287.89501953125,
+													"width": 258.72119140625,
 													"height": 13,
 													"text": "Pronostikoak aukeratzen jarraitzen duen bitartean"
 												},
@@ -53523,7 +53540,7 @@
 													"font": "Arial;13;1",
 													"left": 29,
 													"top": 197,
-													"width": 25.578125,
+													"width": 24.11181640625,
 													"height": 13,
 													"text": "loop"
 												},
@@ -55167,7 +55184,7 @@
 									"font": "Arial;13;0",
 									"left": 53,
 									"top": 404.5,
-									"width": 139.30810546875,
+									"width": 139,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAFhA18XufUR8Hw="
@@ -56272,7 +56289,7 @@
 									"font": "Arial;13;0",
 									"left": 453,
 									"top": 12.5,
-									"width": 99.5908203125,
+									"width": 98,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGArtQEHAMyogg="
@@ -57017,7 +57034,7 @@
 									"font": "Arial;13;0",
 									"left": 643,
 									"top": 76.5,
-									"width": 128.46630859375,
+									"width": 127,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGArtWFcAdASgY="
@@ -57216,7 +57233,7 @@
 									"font": "Arial;13;0",
 									"left": 668,
 									"top": 132.5,
-									"width": 96.68994140625,
+									"width": 96,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGArtWvYQfmPFo="
@@ -57615,7 +57632,7 @@
 									"font": "Arial;13;0",
 									"left": 512.5,
 									"top": 316.5,
-									"width": 78.630859375,
+									"width": 78,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGArtXfBwky+8o="
@@ -57814,7 +57831,7 @@
 									"font": "Arial;13;0",
 									"left": 595,
 									"top": 351,
-									"width": 130.630859375,
+									"width": 130,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGArtYQrgnYcro="
@@ -58193,7 +58210,7 @@
 									"font": "Arial;13;0",
 									"left": 769.5,
 									"top": 628.5,
-									"width": 83.68994140625,
+									"width": 83,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGArtjHnBav5Js="
@@ -58392,7 +58409,7 @@
 									"font": "Arial;13;0",
 									"left": 620,
 									"top": 404.5,
-									"width": 133.5126953125,
+									"width": 132,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGArtl+xBdV+Ik="
@@ -58591,7 +58608,7 @@
 									"font": "Arial;13;0",
 									"left": 618,
 									"top": 452.5,
-									"width": 125.55908203125,
+									"width": 125,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGArtpgXhgTK9g="
@@ -61540,7 +61557,7 @@
 									"font": "Arial;13;0",
 									"left": 482.5,
 									"top": 540.5,
-									"width": 88.025390625,
+									"width": 87,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGAyBC29BFlhgs="
@@ -62162,7 +62179,7 @@
 									"font": "Arial;13;0",
 									"left": 606,
 									"top": 244.5,
-									"width": 104.62451171875,
+									"width": 103,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGAyBGVGBi7JvI="
@@ -62634,7 +62651,7 @@
 									"font": "Arial;13;0",
 									"left": 650.5,
 									"top": 188.5,
-									"width": 89.45361328125,
+									"width": 89,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGAydJrBaM9sFE="
@@ -69370,7 +69387,8 @@
 								"$ref": "AAAAAAGArvVSInARsyo="
 							},
 							"name": "betStatus",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						}
 					],
 					"operations": [

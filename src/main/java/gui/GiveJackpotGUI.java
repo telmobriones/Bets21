@@ -28,6 +28,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import java.awt.Rectangle;
+import javax.swing.SwingConstants;
 
 public class GiveJackpotGUI extends JFrame {
 
@@ -147,7 +148,7 @@ public class GiveJackpotGUI extends JFrame {
 	private JButton getbtnClose() {
 		if (btnClose == null) {
 			btnClose = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Close"));
-			btnClose.setBounds(529, 333, 142, 25);
+			btnClose.setBounds(118, 330, 100, 25);
 			btnClose.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					closeGUI();
@@ -194,7 +195,7 @@ public class GiveJackpotGUI extends JFrame {
 		if (btnNewLottery == null) {
 			btnNewLottery = new JButton();
 			btnNewLottery.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateLottery"));
-			btnNewLottery.setBounds(218, 300, 179, 47);
+			btnNewLottery.setBounds(365, 270, 180, 50);
 			btnNewLottery.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					String price = textField.getText();
@@ -228,7 +229,7 @@ public class GiveJackpotGUI extends JFrame {
 			});
 
 			btnGiveJackpot.setText(ResourceBundle.getBundle("Etiquetas").getString("GiveJackpot"));
-			btnGiveJackpot.setBounds(96, 248, 159, 40);
+			btnGiveJackpot.setBounds(75, 255, 180, 50);
 
 		}
 		return btnGiveJackpot;
@@ -253,9 +254,10 @@ public class GiveJackpotGUI extends JFrame {
 	private JTextField gettxtField() {
 		if (textField == null) {
 			textField = new JTextField();
+			textField.setHorizontalAlignment(SwingConstants.CENTER);
 			textField.setText("20");
 			textField.setFont(new Font("Dialog", Font.PLAIN, 18));
-			textField.setBounds(409, 300, 62, 47);
+			textField.setBounds(564, 269, 62, 50);
 		}
 		return textField;
 	}
@@ -264,7 +266,7 @@ public class GiveJackpotGUI extends JFrame {
 		if (lblEuro == null) {
 			lblEuro = new JLabel("€");
 			lblEuro.setFont(new Font("Dialog", Font.BOLD, 22));
-			lblEuro.setBounds(470, 309, 32, 25);
+			lblEuro.setBounds(631, 280, 32, 25);
 		}
 		return lblEuro;
 	}
@@ -276,7 +278,8 @@ public class GiveJackpotGUI extends JFrame {
 	private JLabel getLblNextLottery() {
 		if (lblNextLottery == null) {
 			lblNextLottery = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("NextLotteryPrice"));
-			lblNextLottery.setBounds(376, 273, 283, 15);
+			lblNextLottery.setHorizontalAlignment(SwingConstants.TRAILING);
+			lblNextLottery.setBounds(435, 324, 228, 15);
 		}
 		return lblNextLottery;
 	}
@@ -310,9 +313,10 @@ public class GiveJackpotGUI extends JFrame {
 	private JLabel getLblWinner() {
 		if (lblWinner == null) {
 			lblWinner = new JLabel();
+			lblWinner.setHorizontalAlignment(SwingConstants.CENTER);
 			lblWinner.setForeground(Color.MAGENTA);
 			lblWinner.setFont(new Font("Dialog", Font.BOLD, 37));
-			lblWinner.setBounds(107, 142, 259, 63);
+			lblWinner.setBounds(50, 135, 259, 63);
 		}
 		return lblWinner;
 
@@ -321,9 +325,10 @@ public class GiveJackpotGUI extends JFrame {
 	private JLabel getLblCountDown() {
 		if (lblCountDown == null) {
 			lblCountDown = new JLabel();
+			lblCountDown.setHorizontalAlignment(SwingConstants.CENTER);
 			lblCountDown.setForeground(Color.RED);
 			lblCountDown.setFont(new Font("Dialog", Font.BOLD, 120));
-			lblCountDown.setBounds(131, 122, 124, 103);
+			lblCountDown.setBounds(100, 122, 124, 103);
 			lblCountDown.setVisible(false);
 		}
 		return lblCountDown;
