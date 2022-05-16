@@ -84,7 +84,7 @@ public class BuyTicketsGUI extends JFrame {
 	 * Create the frame.
 	 */
 	private void initialize() {
-		setTitle(ResourceBundle.getBundle("Etiquetas").getString("Login")); //$NON-NLS-1$ //$NON-NLS-2$
+		setTitle(ResourceBundle.getBundle("Etiquetas").getString("BuyTickets"));
 		this.setBounds(100, 100, 450, 282);
 		setContentPane(getJContentPane());
 		redibujar();
@@ -136,7 +136,7 @@ public class BuyTicketsGUI extends JFrame {
 	private JLabel getlblJackpot() {
 		if(lblJackpot == null) {
 
-			lblJackpot = new JLabel("Jackpot");
+			lblJackpot = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Jackpot"));
 			lblJackpot.setBounds(107, 31, 148, 25);
 		}
 		return lblJackpot;
@@ -152,8 +152,8 @@ public class BuyTicketsGUI extends JFrame {
 
 	private JLabel getlblPlayers() {
 		if(lblPlayers == null) {
-			lblPlayers = new JLabel("Players: ");
-			lblPlayers.setBounds(106, 83, 70, 15);
+			lblPlayers = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Players"));
+			lblPlayers.setBounds(106, 83, 149, 15);
 		}
 		return lblPlayers;
 	}
@@ -167,13 +167,13 @@ public class BuyTicketsGUI extends JFrame {
 					errorCode = facade.buyTicket(loggedUser.getUsername(), lotteryID, "Ticket purchased");
 					btnBuyTickets.setEnabled(false);
 					if (errorCode == 1) {
-						lblErrors.setText("You have alredy played this lottery");
+						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorLotteryPlayed"));
 					}
 					else if (errorCode == 2) {
-						lblErrors.setText("Sorry, you don't have enough money");
+						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorNoBalance"));
 					}
 					else {
-						lblErrors.setText("Ticket purchased successfully");
+						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("TicketCorrect"));
 					}
 				}
 			});
@@ -213,7 +213,7 @@ public class BuyTicketsGUI extends JFrame {
 			lblJackpot.setVisible(false);
 			lblPlayers.setVisible(false);
 			lblErrors.setVisible(true);
-			lblErrors.setText("No lotteries available");
+			lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("NoLotteries"));
 		}
 	}
 

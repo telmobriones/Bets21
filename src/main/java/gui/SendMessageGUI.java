@@ -79,7 +79,7 @@ public class SendMessageGUI extends JFrame {
 	 * Create the frame.
 	 */
 	private void initialize() {
-		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("SeeMovements"));
+		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("SeeMessages"));
 		this.setBounds(100, 100, 690, 400);
 		setContentPane(getJContentPane());
 		getRecievedChats();

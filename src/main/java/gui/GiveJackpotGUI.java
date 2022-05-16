@@ -53,7 +53,7 @@ public class GiveJackpotGUI extends JFrame {
 	private JLabel lblID;
 
 	private JTable tablePlayers = new JTable();
-	private String[] columNamesPlayers = new String[] { "Username" };
+	private String[] columNamesPlayers = new String[] { ResourceBundle.getBundle("Etiquetas").getString("User") };
 	private DefaultTableModel tableModelPlayers;
 	private JLabel lblWinner;
 	private JLabel lblCountDown;
@@ -99,7 +99,7 @@ public class GiveJackpotGUI extends JFrame {
 	 * Create the frame.
 	 */
 	private void initialize() {
-		setTitle(ResourceBundle.getBundle("Etiquetas").getString("Login")); //$NON-NLS-1$ //$NON-NLS-2$
+		setTitle(ResourceBundle.getBundle("Etiquetas").getString("GiveJackpot"));
 		this.setBounds(100, 100, 695, 406);
 		setContentPane(getJContentPane());
 		if (lottery != null) {
@@ -160,7 +160,7 @@ public class GiveJackpotGUI extends JFrame {
 	private JLabel getlblJackpot() {
 		if (lblJackpot == null) {
 
-			lblJackpot = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("GiveJackpotGUI.lblJackpot.text")); //$NON-NLS-1$ //$NON-NLS-2$
+			lblJackpot = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Jackpot")); //$NON-NLS-1$ //$NON-NLS-2$
 			lblJackpot.setBounds(100, 60, 100, 15);
 		}
 		return lblJackpot;
@@ -184,7 +184,7 @@ public class GiveJackpotGUI extends JFrame {
 
 	private JLabel getlblPlayers() {
 		if (lblPlayers == null) {
-			lblPlayers = new JLabel("Players: ");
+			lblPlayers = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Players"));
 			lblPlayers.setBounds(100, 90, 100, 15);
 		}
 		return lblPlayers;
@@ -193,7 +193,7 @@ public class GiveJackpotGUI extends JFrame {
 	private JButton getbtnNewLottery() {
 		if (btnNewLottery == null) {
 			btnNewLottery = new JButton();
-			btnNewLottery.setText("Create new lottery");
+			btnNewLottery.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateLottery"));
 			btnNewLottery.setBounds(218, 300, 179, 47);
 			btnNewLottery.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -227,7 +227,7 @@ public class GiveJackpotGUI extends JFrame {
 				}
 			});
 
-			btnGiveJackpot.setText("Give Jackpot");
+			btnGiveJackpot.setText(ResourceBundle.getBundle("Etiquetas").getString("GiveJackpot"));
 			btnGiveJackpot.setBounds(96, 248, 159, 40);
 
 		}
@@ -237,8 +237,8 @@ public class GiveJackpotGUI extends JFrame {
 	private JLabel getlblID() {
 		if (lblID == null) {
 			lblID = new JLabel();
-			lblID.setText(ResourceBundle.getBundle("Etiquetas").getString("GiveJackpotGUI.lblID.text")); //$NON-NLS-1$ //$NON-NLS-2$
-			lblID.setBounds(100, 33, 70, 15);
+			lblID.setText(ResourceBundle.getBundle("Etiquetas").getString("Lottery")); 
+			lblID.setBounds(100, 33, 118, 15);
 		}
 		return lblID;
 	}
@@ -275,8 +275,8 @@ public class GiveJackpotGUI extends JFrame {
 
 	private JLabel getLblNextLottery() {
 		if (lblNextLottery == null) {
-			lblNextLottery = new JLabel("Next lottery price");
-			lblNextLottery.setBounds(376, 273, 153, 15);
+			lblNextLottery = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("NextLotteryPrice"));
+			lblNextLottery.setBounds(376, 273, 283, 15);
 		}
 		return lblNextLottery;
 	}
@@ -333,9 +333,9 @@ public class GiveJackpotGUI extends JFrame {
 		if (lottery != null) {
 			if (lottery.getParticipantsNumber() == 0) {
 				btnGiveJackpot.setEnabled(false);
-				btnGiveJackpot.setText("No players");
+				btnGiveJackpot.setText(ResourceBundle.getBundle("Etiquetas").getString("NoPlayers"));
 				btnNewLottery.setEnabled(false);
-				btnNewLottery.setText("Raffling");
+				btnNewLottery.setText(ResourceBundle.getBundle("Etiquetas").getString("Raffling"));
 			} else {
 				lblAmoPeople.setText(String.valueOf(lottery.getParticipantsNumber()));
 				lblAmoMoney.setText(String.valueOf(lottery.getJackpot()));
@@ -345,7 +345,7 @@ public class GiveJackpotGUI extends JFrame {
 			}
 		} else {
 			btnGiveJackpot.setEnabled(false);
-			btnGiveJackpot.setText("No active lottery");
+			btnGiveJackpot.setText(ResourceBundle.getBundle("Etiquetas").getString("NoLotteries"));
 		}
 	}
 

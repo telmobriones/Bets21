@@ -147,7 +147,7 @@ public class SeeMovementsGUI extends JFrame {
 			scrollPaneMovements.setViewportView(tableMovements);
 			tableModelMovements = new DefaultTableModel(null, columnNamesMovements);
 			tableMovements.setModel(tableModelMovements);
-			tableMovements.getColumnModel().getColumn(0).setPreferredWidth(20);
+			tableMovements.getColumnModel().getColumn(0).setPreferredWidth(40);
 			tableMovements.getColumnModel().getColumn(1).setPreferredWidth(100);
 			tableMovements.getColumnModel().getColumn(2).setPreferredWidth(150);
 			tableMovements.getColumnModel().getColumn(3).setPreferredWidth(5);

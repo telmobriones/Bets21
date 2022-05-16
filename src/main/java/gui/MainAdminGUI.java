@@ -215,7 +215,7 @@ public class MainAdminGUI extends JFrame {
 	 */
 	private JButton getjButtonGiveJackpot() {
 		if (jButtonGiveJackpot == null) {
-			jButtonGiveJackpot = new JButton("GiveJackpot");
+			jButtonGiveJackpot = new JButton(ResourceBundle.getBundle("Etiquetas").getString("GiveJackpot"));
 			jButtonGiveJackpot.setBounds(246, 178, 249, 61);
 			jButtonGiveJackpot.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -298,7 +298,7 @@ public class MainAdminGUI extends JFrame {
 		jButtonCreateEvent.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateEvent"));
 		jButtonCreatePronostic.setText(ResourceBundle.getBundle("Etiquetas").getString("CreatePronostic"));
 		jButtonAddResult.setText(ResourceBundle.getBundle("Etiquetas").getString("AddResult"));
-		jButtonGiveJackpot.setText("GiveJackpot");
+		jButtonGiveJackpot.setText(ResourceBundle.getBundle("Etiquetas").getString("GiveJackpot"));
 		
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainTitle"));
 	}
