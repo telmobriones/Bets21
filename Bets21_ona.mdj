@@ -64950,13 +64950,30 @@
 											"height": 13,
 											"text": "-isMultipeBet",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGAzjTGfDOgcV4=",
+											"_parent": {
+												"$ref": "AAAAAAGArvVSI3AZQaw="
+											},
+											"model": {
+												"$ref": "AAAAAAGAzjTGbDOXUJQ="
+											},
+											"font": "Arial;13;0",
+											"left": 741,
+											"top": 491,
+											"width": 159.31982421875,
+											"height": 13,
+											"text": "-betStatus",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 736,
 									"top": 441,
 									"width": 169.31982421875,
-									"height": 53
+									"height": 68
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -65079,7 +65096,7 @@
 									],
 									"font": "Arial;13;0",
 									"left": 736,
-									"top": 494,
+									"top": 509,
 									"width": 169.31982421875,
 									"height": 10
 								},
@@ -65121,7 +65138,7 @@
 							"left": 736,
 							"top": 416,
 							"width": 169.31982421875,
-							"height": 89,
+							"height": 103,
 							"nameCompartment": {
 								"$ref": "AAAAAAGArvVSI3AUfJM="
 							},
@@ -65775,7 +65792,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 646,
-									"top": 468,
+									"top": 471,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -65796,7 +65813,7 @@
 									"visible": null,
 									"font": "Arial;13;0",
 									"left": 646,
-									"top": 483,
+									"top": 486,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -65817,7 +65834,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 647,
-									"top": 438,
+									"top": 442,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -65837,7 +65854,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 682,
-									"top": 468,
+									"top": 473,
 									"width": 53.11083984375,
 									"height": 13,
 									"alpha": 0.5235987755982988,
@@ -65860,7 +65877,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 706,
-									"top": 482,
+									"top": 486,
 									"height": 13,
 									"alpha": 0.7853981633974483,
 									"distance": 40,
@@ -65880,7 +65897,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 704,
-									"top": 441,
+									"top": 446,
 									"width": 19.5126953125,
 									"height": 13,
 									"alpha": -0.5235987755982988,
@@ -65902,7 +65919,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 567,
-									"top": 468,
+									"top": 470,
 									"width": 53.11083984375,
 									"height": 13,
 									"alpha": -0.4154919873239731,
@@ -65923,8 +65940,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 588,
-									"top": 481,
+									"left": 587,
+									"top": 483,
 									"height": 13,
 									"alpha": -0.7853981633974483,
 									"distance": 40,
@@ -65943,7 +65960,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 578,
-									"top": 440,
+									"top": 442,
 									"width": 7.22998046875,
 									"height": 13,
 									"alpha": 0.5235987755982988,
@@ -65994,7 +66011,7 @@
 								"$ref": "AAAAAAGArvVSInATxV0="
 							},
 							"lineStyle": 1,
-							"points": "735:460;560:459",
+							"points": "735:465;560:461",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAGArvjo3XacVa4="
@@ -69180,6 +69197,7 @@
 									"$ref": "AAAAAAGArvVSInARsyo="
 								},
 								"visibility": "private",
+								"aggregation": "composite",
 								"multiplicity": "0..*"
 							}
 						}
@@ -69344,6 +69362,15 @@
 							"name": "isMultipeBet",
 							"visibility": "private",
 							"type": ""
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGAzjTGbDOXUJQ=",
+							"_parent": {
+								"$ref": "AAAAAAGArvVSInARsyo="
+							},
+							"name": "betStatus",
+							"visibility": "private"
 						}
 					],
 					"operations": [

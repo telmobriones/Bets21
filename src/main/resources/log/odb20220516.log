@@ -2686,3 +2686,35 @@ Type domain.Lottery is not enhanced.
 [2022-05-16 20:41:25 #10 type] 
 Type domain.Ticket is not enhanced.
 
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-05-16 20:42:42 #1 store] 
+Database '/home/artiom/git/3_Maila/SI/bets21/src/main/resources/bets.temp' is opened by 82877@Artioms-Laptop
+
+[2022-05-16 20:42:42 #2 type] 
+Type domain.Question is not enhanced.
+
+[2022-05-16 20:42:42 #3 type] 
+Type domain.Event is not enhanced.
+
+[2022-05-16 20:42:42 #4 type] 
+Type domain.User is not enhanced.
+
+[2022-05-16 20:42:42 #5 type] 
+Type domain.Pronostic is not enhanced.
+
+[2022-05-16 20:42:42 #6 type] 
+Type domain.Bet is not enhanced.
+
+[2022-05-16 20:42:42 #7 type] 
+Type domain.Movement is not enhanced.
+
+[2022-05-16 20:42:42 #8 type] 
+Type domain.Message is not enhanced.
+
+[2022-05-16 20:42:42 #9 type] 
+Type domain.Lottery is not enhanced.
+
+[2022-05-16 20:42:42 #10 type] 
+Type domain.Ticket is not enhanced.
+
