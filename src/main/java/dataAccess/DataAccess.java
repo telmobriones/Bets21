@@ -559,7 +559,7 @@ public class DataAccess {
 		db.persist(ev);
 		db.getTransaction().commit();
 		System.out.println("New event created successfully!");
-		return true;
+		return ev != null;
 
 	}
 

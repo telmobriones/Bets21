@@ -350,7 +350,7 @@ public class BetGUI extends JFrame {
 //						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorPastEvent"));
 //						error = true;
 					} else if(pronQuestion.isAnswered()) {
-						lblErrors.setText("Question has already been answered");
+						lblErrors.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorPastEvent"));
 					}
 				}
 
