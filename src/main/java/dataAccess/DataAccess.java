@@ -215,18 +215,6 @@ public class DataAccess {
 	 */
 	public Pronostic createPronostic(float pOdd, String pDescription, Question pQuestion) {
 
-//		TypedQuery<Pronostic> query = db.createQuery("SELECT FROM Pronostic ORDER BY pronID DESC", Pronostic.class);
-//		Pronostic lastPronostic = query.getResultList().get(0);
-//		System.out.println("LastEvent: " + lastPronostic);
-//		int newPronID = lastPronostic.getPronID()+1;
-//		System.out.println("NewEventNumber: " + newPronID);
-//
-//		db.getTransaction().begin();
-//		Question q =  db.find(Question.class, pQuestion.getQuestionNumber());
-//		Pronostic pronostic = q.newPronostic(newPronID, pOdd, pDescription);
-//		db.persist(pronostic);
-//		db.getTransaction().commit();
-
 		db.getTransaction().begin();
 		Question q = db.find(Question.class, pQuestion.getQuestionNumber());
 		Pronostic pronostic = q.newPronostic(pOdd, pDescription);
@@ -236,21 +224,6 @@ public class DataAccess {
 		System.out.println(pronostic.getPronDescription() + " added to the DB!");
 		return pronostic;
 	}
-
-//	/**
-//	 * This method updates the question with a new pronostic
-//	 * 
-//	 * @param the question to be updated
-//	 * @param the new pronostic to be added
-//	 * @return nothing
-//	 */
-//	public void updateQuestion(Question question, Pronostic pronostic) {
-//		db.getTransaction().begin();
-//		Question q = db.find(Question.class, question.getQuestionNumber());
-//		q.addPronostic(pronostic);
-//		db.getTransaction().commit();
-//		System.out.println(pronostic.getPronDescription() + " pronostic added to the question" + question.getQuestion());
-//	}
 
 	/**
 	 * This method adds a new bet to a certain pronostic
@@ -262,16 +235,6 @@ public class DataAccess {
 	 */
 	public Bet addBetToPronostic(int betMoney, User betUser, boolean isMultipleBet,
 			ArrayList<Pronostic> betPronostics) {
-//		int newBetID;
-//		TypedQuery<Bet> query = db.createQuery("SELECT FROM Bet ORDER BY betID DESC", Bet.class);
-//		if(query.getResultList().size() != 0) {
-//			Bet lastBet = query.getResultList().get(0);
-//			System.out.println("LastBetID: " + lastBet.getBetID());
-//			newBetID = lastBet.getBetID()+1;
-//			System.out.println("NewBetNumber: " + newBetID);
-//		} else {
-//			newBetID = 0;
-//		}
 
 		db.getTransaction().begin();
 		Bet bet;
@@ -313,19 +276,6 @@ public class DataAccess {
 		}
 
 	}
-
-//	public float updateBalance(User pUser, float pMoney) {
-//		db.getTransaction().begin();
-//		User u = db.find(User.class, pUser.getUsername());
-//		if(u != null) {
-//			u.updateBalance(pMoney);
-//			db.persist(u);
-//		} else {
-//			System.out.println("UNEXPECTED ERROR OCCURRED WHEN UPDATING BALANCE!");
-//		}
-//		db.getTransaction().commit();
-//		return u.getBalance();
-//	}
 
 	public Bet makeBet(int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics,
 			String movType, String pEventDesc, String pQuestionDesc) {
@@ -494,27 +444,6 @@ public class DataAccess {
 	}
 
 	/**
-	 * This method updates user's balance
-	 * 
-	 * @param user
-	 * @param amount of money to be added
-	 * @return new balance after update
-	 * 
-	 */
-	// public int updateBalance(User pUser, int pMoney) {
-	// db.getTransaction().begin();
-	// User u = db.find(User.class, pUser.getUsername());
-	// if(u != null) {
-	// u.updateBalance(pMoney);
-	// db.persist(u);
-	// } else {
-	// System.out.println("UNEXPECTED ERROR OCCURRED WHEN UPDATING BALANCE!");
-	// }
-	// db.getTransaction().commit();
-	// return u.getBalance();
-	// }
-
-	/**
 	 * This method creates a question for an event, with a question text and the
 	 * minimum bet
 	 * 
@@ -663,22 +592,6 @@ public class DataAccess {
 		ArrayList<Movement> movements = user.getMovements();
 		return movements;
 	}
-
-	// public int updateBalance(User pUser) {
-	//// TypedQuery<Movement> query = db.createQuery("SELECT FROM Movement ORDER BY
-	// movID DESC", Movement.class);
-	//// Movement lastMovement = query.getResultList().get(0);
-	//// System.out.println("LastMovement: " + lastMovement);
-	//// int newMovID = lastMovement.getMovID()+1;
-	//// System.out.println("NewMovNum: " + newMovID);
-	////
-	//// db.getTransaction().begin();
-	//// Movement movement = new Movement(newMovID,money, movType);
-	//// db.persist(movement);
-	//// db.getTransaction().commit();
-	//// System.out.println(movement+" added to the DB!");
-	//// return movement;
-	// }
 
 	/**
 	 * This method updates user's balance
@@ -835,8 +748,8 @@ public class DataAccess {
 	 */
 	public Lottery getLastActiveLottery() {
 		System.out.println(">> DataAccess: getLastActiveLottery");
-		TypedQuery<Lottery> query = db.createQuery(
-				"SELECT lot FROM Lottery lot WHERE isRaffle=false ORDER BY lotteryID DESC", Lottery.class);
+		TypedQuery<Lottery> query = db
+				.createQuery("SELECT lot FROM Lottery lot WHERE isRaffle=false ORDER BY lotteryID DESC", Lottery.class);
 		try {
 			Lottery lastLottery = query.getResultList().get(0);
 			System.out.println("The last lottery whitout raffle is " + lastLottery.getLotteryID());
@@ -847,7 +760,7 @@ public class DataAccess {
 		}
 
 	}
-	
+
 	/**
 	 * This method a lottery with a given a id
 	 * 
@@ -871,22 +784,21 @@ public class DataAccess {
 	 */
 	public int buyTicket(String username, int lastLotteryID, String movDesc) {
 		System.out.println(">> DataAccess: buyTicket");
-		
+
 		Lottery lot = db.find(Lottery.class, lastLotteryID);
 		User user = db.find(User.class, username);
 		ArrayList<User> players = lot.getParticipants();
-		
+
 		boolean contains = players.contains(user);
 		boolean enoughMoney = user.getBalance() >= lot.getTicketPrice();
-		
+
 		if (contains == true)
 			return 1;
 		else if (enoughMoney == false)
 			return 2;
-		
+
 		System.out.println("The player " + user.getUsername() + " can play this lottery");
 
-		
 		// create new Ticket
 		db.getTransaction().begin();
 		Ticket t = lot.createTicket(user, lot.getTicketPrice());
@@ -895,7 +807,6 @@ public class DataAccess {
 		user.addTicket(t);
 		createMovement(movDesc, -t.getPrice(), user, null, null);
 		System.out.println("Ticket added " + t);
-		
 
 		System.out.println("Tickets: " + lot.getTickets());
 		return 0;

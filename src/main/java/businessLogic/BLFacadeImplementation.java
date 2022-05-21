@@ -75,8 +75,9 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.open(false);
 		Question qry = null;
 
-		//		if (new Date().compareTo(event.getEventDate()) > 0)
-		//			throw new EventFinished(ResourceBundle.getBundle("Etiquetas").getString("ErrorEventHasFinished"));
+		// if (new Date().compareTo(event.getEventDate()) > 0)
+		// throw new
+		// EventFinished(ResourceBundle.getBundle("Etiquetas").getString("ErrorEventHasFinished"));
 
 		qry = dbManager.createQuestion(event, question, betMinimum);
 
@@ -91,7 +92,6 @@ public class BLFacadeImplementation implements BLFacade {
 		return q;
 	}
 
-
 	public Event getEventByN(int evNumber) {
 		dbManager.open(false);
 		Event ev = dbManager.findEventByN(evNumber);
@@ -103,13 +103,13 @@ public class BLFacadeImplementation implements BLFacade {
 		Pronostic pron = dbManager.findPronosticByID(pronID);
 		return pron;
 	}
-	
+
 	public User getUser(String uName) {
 		dbManager.open(false);
 		User user = dbManager.findUser(uName);
 		return user;
 	}
-	
+
 	/**
 	 * This method checks if a user can LogIn with the introduced credentials
 	 * 
@@ -142,18 +142,6 @@ public class BLFacadeImplementation implements BLFacade {
 		return logUser != null;
 	}
 
-//	/**
-//	 * 
-//	 * @return user if logged, null if there's no logged user
-//	 * 
-//	 */
-//	public User getLogUser() {
-//		dbManager.open(false);
-//		this.logUser = dbManager.findUser(logUser.getUsername());
-//		dbManager.close();
-//		return this.logUser;
-//	}
-
 	/**
 	 * This method tries to register a user with the introduced credentials
 	 * 
@@ -168,25 +156,6 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();
 		return regSuccess;
 	};
-
-
-
-	/**
-	 * This method updates user's balance
-	 * 
-	 * @param user
-	 * @param amount of money to be added
-	 * @return new balance after update
-	 * 
-	 */
-	//	public int updateBalance(User pUser, int pMoney) {
-	//		dbManager.open(false);
-	//		int newBalance = dbManager.updateBalance(pUser,pMoney);
-	//		dbManager.close();
-	//		return newBalance;
-	//	}
-	//	
-
 
 	/**
 	 * This method invokes the data access to create a new event
@@ -218,7 +187,8 @@ public class BLFacadeImplementation implements BLFacade {
 	}
 
 	/**
-	 * This method invokes the data access to retrieve the questions of a given event
+	 * This method invokes the data access to retrieve the questions of a given
+	 * event
 	 * 
 	 * @param event in which questions are retrieved
 	 * @return collection of questions
@@ -279,23 +249,6 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();
 		return pron;
 	}
-	
-//	/**
-//	 * This method updates the question with a new pronostic
-//	 * 
-//	 * @param the question to be updated
-//	 * @param the new pronostic
-//	 * @return nothing
-//	 */
-//	@Override
-//	public void updateQuestion(Question question, Pronostic pronostic) {
-//		dbManager.open(false);
-//		dbManager.updateQuestion(question, pronostic);
-//		dbManager.close();
-//	}
-
-
-
 
 	@Override
 	public void questionSolution(Question pronosticQuestion, Pronostic correctPronostic) {
@@ -303,22 +256,6 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.questionSolution(pronosticQuestion, correctPronostic);
 		dbManager.close();
 
-	}
-
-	/**
-	 * This method adds a new bet to the pronostic
-	 *
-	 * @param the money betted
-	 * @param the user that made the bet
-	 * @param the pronostic that the bet is related to
-	 * @return the created bet, or null, or an exception
-	 */
-	@Override
-	public Bet addBetToPronostic(int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics) {
-		dbManager.open(false);
-		Bet bet = dbManager.addBetToPronostic(betMoney, betUser, isMultipleBet, betPronostics);
-		dbManager.close();
-		return bet;
 	}
 
 	@Override
@@ -329,37 +266,21 @@ public class BLFacadeImplementation implements BLFacade {
 		return newBalance;
 	}
 
-
-	public Bet makeBet(int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics, String movType, String pEventDesc, String pQuestionDesc) {
+	public Bet makeBet(int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics,
+			String movType, String pEventDesc, String pQuestionDesc) {
 		dbManager.open(false);
-		Bet bet = dbManager.makeBet(betMoney,betUser,isMultipleBet, betPronostics, movType, pEventDesc, pQuestionDesc);
+		Bet bet = dbManager.makeBet(betMoney, betUser, isMultipleBet, betPronostics, movType, pEventDesc,
+				pQuestionDesc);
 		dbManager.close();
 		return bet;
 	}
-
-
-
-
-//	/**
-//	 * This method updates user's balance
-//	 * 
-//	 * @param user
-//	 * @param amount of money to be added
-//	 * @return new balance after update
-//	 * 
-//	 */
-//	public float updateBalance(User pUser, float pMoney) {
-//		dbManager.open(false);
-//		float newBalance = dbManager.updateBalance(pUser,pMoney);
-//		dbManager.close();
-//		return newBalance;
-//	}
 
 	public void updateUserBet(User betUser, Bet bet) {
 		dbManager.open(false);
 		dbManager.updateUserBet(betUser, bet);
 		dbManager.close();
 	}
+
 	@Override
 	public Message createMessage(User remitent, String destinataryUsername, String formateDate, String message) {
 		dbManager.open(false);
@@ -382,7 +303,7 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();
 		return messages;
 	}
-	
+
 	public ArrayList<Message> getMessagesForThisUser(String username) {
 		dbManager.open(false);
 		ArrayList<Message> messages = dbManager.getMessagesForThisUser(username);
@@ -396,7 +317,6 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();
 		return movements;
 	}
-
 
 	/**
 	 * This method chech if a user exists
@@ -413,21 +333,20 @@ public class BLFacadeImplementation implements BLFacade {
 	}
 
 	/**
-	 * This method distributes the prize of 
-	 * the last lottery that is not closed among all 
-	 * the participants who have bought a ticket
+	 * This method distributes the prize of the last lottery that is not closed
+	 * among all the participants who have bought a ticket
 	 * 
 	 * @param the id of the lottery
 	 * @return the winner username
 	 */
-	
+
 	public String giveJackpot(int lotID) {
 		dbManager.open(false);
 		String winner = dbManager.giveJackpot(lotID);
 		dbManager.close();
 		return winner;
 	}
-	
+
 	/**
 	 * This method buys a ticket for the user and a lottery
 	 * 
@@ -439,10 +358,9 @@ public class BLFacadeImplementation implements BLFacade {
 	public int buyTicket(String username, int lotID, String movDesc) {
 		dbManager.open(false);
 		int codeError = dbManager.buyTicket(username, lotID, movDesc);
-		dbManager.close();	
+		dbManager.close();
 		return codeError;
 	}
-
 
 	/**
 	 * This method gets the last active lottery
@@ -452,12 +370,13 @@ public class BLFacadeImplementation implements BLFacade {
 	public Lottery getLastActiveLottery() {
 		dbManager.open(false);
 		Lottery lot = dbManager.getLastActiveLottery();
-		dbManager.close();	
+		dbManager.close();
 		return lot;
 	}
 
 	/**
 	 * This method returns the players of a lottery
+	 * 
 	 * @return a list of players
 	 */
 	public ArrayList<User> getPlayersLottery(int lotteryID) {
@@ -467,7 +386,6 @@ public class BLFacadeImplementation implements BLFacade {
 		return players;
 	}
 
-
 	/**
 	 * This method creates a new Lottery
 	 */
@@ -476,10 +394,10 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.createLottery(ticketPrice);
 		dbManager.close();
 	}
-	
+
 	/**
 	 * This method a lottery with a given a id
-	 *  
+	 * 
 	 * @param the lottery id
 	 * @return the lottery
 	 */
@@ -488,10 +406,6 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.open(false);
 		Lottery lot = dbManager.getLotteryByID(lotteryID);
 		return lot;
-		
+
 	}
 }
-
-
-
-

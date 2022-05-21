@@ -40,16 +40,9 @@ public interface BLFacade {
 	@WebMethod
 	Question createQuestion(Event event, String question, float betMinimum) throws EventFinished, QuestionAlreadyExist;
 
-
-
 	public Question getQuestionByN(int qNumber);
 
-	public Event getEventByN(int evNumber);
-
-	public Pronostic getPronosticByID(int pronID);
-	
 	public User getUser(String uName);
-
 
 	/**
 	 * This method checks if a user can LogIn with the introduced credentials
@@ -69,15 +62,6 @@ public interface BLFacade {
 	 */
 	public boolean checkCurrentLoginStatus();
 
-
-//	/**
-//	 * 
-//	 * @return user if logged, null if there's no logged user
-//	 * 
-//	 */
-//	public User getLogUser();
-
-
 	/**
 	 * This method tries to register a user with the introduced credentials
 	 * 
@@ -88,8 +72,6 @@ public interface BLFacade {
 	 */
 	public boolean registerUser(String pUsername, char[] password);
 
-
-
 	/**
 	 * This method finds a pronostic by its description
 	 * 
@@ -98,7 +80,6 @@ public interface BLFacade {
 	 * 
 	 */
 	public Pronostic findPronosticByDescription(String pronDescription);
-
 
 	/**
 	 * This method creates a pronostic
@@ -111,33 +92,23 @@ public interface BLFacade {
 	 */
 	public Pronostic createPronostic(float pronOdd, String pronDescription, Question pronQuestion);
 
-
 	public void questionSolution(Question pronosticQuestion, Pronostic correctPronostic);
 
 	/**
-	 * This method adds a new bet to a certain pronostic
-	 *
-	 * @param the money betted
-	 * @param the user that made the bet
-	 * @param the pronostic that the bet is related to
-	 * @return the created bet, or null, or an exception
-	 */
-	public Bet addBetToPronostic(int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics);
-	/**
 	 * This method creates a movement
 	 * 
-	 * @param Type of movement
+	 * @param Type   of movement
 	 * @param Amount of money
-	 * @param The user who create the movement
-	 * @param The description of the event it's related to
-	 * @param The question it's related to
-
+	 * @param The    user who create the movement
+	 * @param The    description of the event it's related to
+	 * @param The    question it's related to
+	 * 
 	 * @return new movement
 	 */
 	public float createMovement(String movType, float betMoney, User pUser, String pEventDesc, String pQuestionDesc);
 
-
-	public Bet makeBet(int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics, String movType, String pEventDesc, String pQuestionDesc);
+	public Bet makeBet(int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics,
+			String movType, String pEventDesc, String pQuestionDesc);
 
 	/**
 	 * This method invokes the data access to create a new event
@@ -158,7 +129,6 @@ public interface BLFacade {
 	@WebMethod
 	public Vector<Event> getEvents(Date date);
 
-
 	/**
 	 * This method retrieves the questions of a given event
 	 * 
@@ -167,28 +137,6 @@ public interface BLFacade {
 	 */
 	@WebMethod
 	public Vector<Question> getQuestions(Event event);
-
-
-//	/**
-//	 * This method updates the question with a new pronostic
-//	 * 
-//	 * @param the question to be updated
-//	 * @param the new pronostic
-//	 * @return nothing
-//	 */
-//	public void updateQuestion(Question question, Pronostic pronostic);
-
-//	/**
-//	 * This method updates user's balance
-//	 * 
-//	 * @param user
-//	 * @param amount of money to be added
-//	 * @return new balance after update
-//	 * 
-//	 */
-//	public float updateBalance(User pUser, float pMoney);
-
-	public void updateUserBet(User betUser, Bet bet);
 
 	/**
 	 * This method retrieves from the database the dates a month for which there are
@@ -228,13 +176,11 @@ public interface BLFacade {
 	 * @return collection of messages
 	 */
 
-	public ArrayList<Message>getMessagesForThisChat(String pRemitent, String pDestinataryUsername);
-	
+	public ArrayList<Message> getMessagesForThisChat(String pRemitent, String pDestinataryUsername);
+
 	public ArrayList<Message> getMessagesForThisUser(String username);
 
-
 	public ArrayList<Movement> getUserMovements(String username);
-
 
 	/**
 	 * This method checks if a user exists
@@ -245,11 +191,9 @@ public interface BLFacade {
 	 */
 	public boolean existUser(String pUsername);
 
-
 	/**
-	 * This method distributes the prize of 
-	 * the last lottery that is not closed among all 
-	 * the participants who have bought a ticket
+	 * This method distributes the prize of the last lottery that is not closed
+	 * among all the participants who have bought a ticket
 	 * 
 	 * @param the id of the lottery
 	 * 
@@ -266,7 +210,6 @@ public interface BLFacade {
 	 * @return nothing
 	 */
 	public void createLottery(int ticketPrice);
-
 
 	/**
 	 * This method buys a ticket for the user and a lottery
@@ -292,15 +235,5 @@ public interface BLFacade {
 	 * @return a list of players
 	 */
 	public ArrayList<User> getPlayersLottery(int lotteryID);
-
-	/**
-	 * This method a lottery with a given a id
-	 *  
-	 * @param the lottery id
-	 * @return the lottery
-	 */
-
-	public Lottery getLotteryByID(int lotteryID);
-
 
 }
