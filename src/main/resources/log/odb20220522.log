@@ -1,0 +1,204 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-05-22 12:26:54 #1 store] 
+Database '/home/artiom/git/3_Maila/SI/bets21/src/main/resources/bets.temp' is opened by 28700@Artioms-Laptop
+
+[2022-05-22 12:26:54 #2 type] 
+Type domain.Question is not enhanced.
+
+[2022-05-22 12:26:54 #3 type] 
+Type domain.Event is not enhanced.
+
+[2022-05-22 12:26:54 #4 type] 
+Type domain.User is not enhanced.
+
+[2022-05-22 12:26:54 #5 type] 
+Type domain.Pronostic is not enhanced.
+
+[2022-05-22 12:26:54 #6 type] 
+Type domain.Bet is not enhanced.
+
+[2022-05-22 12:26:54 #7 type] 
+Type domain.Movement is not enhanced.
+
+[2022-05-22 12:26:54 #8 type] 
+Type domain.Message is not enhanced.
+
+[2022-05-22 12:26:54 #9 type] 
+Type domain.Lottery is not enhanced.
+
+[2022-05-22 12:26:54 #10 type] 
+Type domain.Ticket is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-05-22 12:27:08 #1 store] 
+Database '/home/artiom/git/3_Maila/SI/bets21/src/main/resources/bets.temp' is opened by 28761@Artioms-Laptop
+
+[2022-05-22 12:27:08 #2 type] 
+Type domain.Question is not enhanced.
+
+[2022-05-22 12:27:08 #3 type] 
+Type domain.Event is not enhanced.
+
+[2022-05-22 12:27:08 #4 type] 
+Type domain.User is not enhanced.
+
+[2022-05-22 12:27:08 #5 type] 
+Type domain.Pronostic is not enhanced.
+
+[2022-05-22 12:27:08 #6 type] 
+Type domain.Bet is not enhanced.
+
+[2022-05-22 12:27:08 #7 type] 
+Type domain.Movement is not enhanced.
+
+[2022-05-22 12:27:08 #8 type] 
+Type domain.Message is not enhanced.
+
+[2022-05-22 12:27:08 #9 type] 
+Type domain.Lottery is not enhanced.
+
+[2022-05-22 12:27:08 #10 type] 
+Type domain.Ticket is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-05-22 12:27:22 #1 store] 
+Database '/home/artiom/git/3_Maila/SI/bets21/src/main/resources/bets.temp' has been recovered (tr. 1370-1370)
+
+[2022-05-22 12:27:22 #2 store] 
+Database '/home/artiom/git/3_Maila/SI/bets21/src/main/resources/bets.temp' is opened by 28821@Artioms-Laptop
+
+[2022-05-22 12:27:22 #3 type] 
+Type domain.Question is not enhanced.
+
+[2022-05-22 12:27:22 #4 type] 
+Type domain.Event is not enhanced.
+
+[2022-05-22 12:27:22 #5 type] 
+Type domain.User is not enhanced.
+
+[2022-05-22 12:27:22 #6 type] 
+Type domain.Pronostic is not enhanced.
+
+[2022-05-22 12:27:22 #7 type] 
+Type domain.Bet is not enhanced.
+
+[2022-05-22 12:27:22 #8 type] 
+Type domain.Movement is not enhanced.
+
+[2022-05-22 12:27:22 #9 type] 
+Type domain.Message is not enhanced.
+
+[2022-05-22 12:27:22 #10 type] 
+Type domain.Lottery is not enhanced.
+
+[2022-05-22 12:27:22 #11 type] 
+Type domain.Ticket is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-05-22 12:27:53 #1 store] 
+Database '/home/artiom/git/3_Maila/SI/bets21/src/main/resources/bets.temp' has been recovered (tr. 1371-1372)
+
+[2022-05-22 12:27:53 #2 store] 
+Database '/home/artiom/git/3_Maila/SI/bets21/src/main/resources/bets.temp' is opened by 28897@Artioms-Laptop
+
+[2022-05-22 12:27:53 #3 type] 
+Type domain.Question is not enhanced.
+
+[2022-05-22 12:27:53 #4 type] 
+Type domain.Event is not enhanced.
+
+[2022-05-22 12:27:53 #5 type] 
+Type domain.User is not enhanced.
+
+[2022-05-22 12:27:53 #6 type] 
+Type domain.Pronostic is not enhanced.
+
+[2022-05-22 12:27:53 #7 type] 
+Type domain.Bet is not enhanced.
+
+[2022-05-22 12:27:53 #8 type] 
+Type domain.Movement is not enhanced.
+
+[2022-05-22 12:27:53 #9 type] 
+Type domain.Message is not enhanced.
+
+[2022-05-22 12:27:53 #10 type] 
+Type domain.Lottery is not enhanced.
+
+[2022-05-22 12:27:53 #11 type] 
+Type domain.Ticket is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-05-22 12:36:08 #1 store] 
+Database '/home/artiom/git/3_Maila/SI/bets21/src/main/resources/bets.temp' has been recovered (tr. 1373-1374)
+
+[2022-05-22 12:36:08 #2 store] 
+Database '/home/artiom/git/3_Maila/SI/bets21/src/main/resources/bets.temp' is opened by 29713@Artioms-Laptop
+
+[2022-05-22 12:36:08 #3 type] 
+Type domain.Question is not enhanced.
+
+[2022-05-22 12:36:08 #4 type] 
+Type domain.Event is not enhanced.
+
+[2022-05-22 12:36:08 #5 type] 
+Type domain.User is not enhanced.
+
+[2022-05-22 12:36:08 #6 type] 
+Type domain.Pronostic is not enhanced.
+
+[2022-05-22 12:36:08 #7 type] 
+Type domain.Bet is not enhanced.
+
+[2022-05-22 12:36:08 #8 type] 
+Type domain.Movement is not enhanced.
+
+[2022-05-22 12:36:08 #9 type] 
+Type domain.Message is not enhanced.
+
+[2022-05-22 12:36:08 #10 type] 
+Type domain.Lottery is not enhanced.
+
+[2022-05-22 12:36:08 #11 type] 
+Type domain.Ticket is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-05-22 12:38:30 #1 store] 
+Database '/home/artiom/git/3_Maila/SI/bets21/src/main/resources/bets.temp' has been recovered (tr. 1375-1376)
+
+[2022-05-22 12:38:30 #2 store] 
+Database '/home/artiom/git/3_Maila/SI/bets21/src/main/resources/bets.temp' is opened by 29992@Artioms-Laptop
+
+[2022-05-22 12:38:30 #3 type] 
+Type domain.Question is not enhanced.
+
+[2022-05-22 12:38:30 #4 type] 
+Type domain.Event is not enhanced.
+
+[2022-05-22 12:38:30 #5 type] 
+Type domain.User is not enhanced.
+
+[2022-05-22 12:38:30 #6 type] 
+Type domain.Pronostic is not enhanced.
+
+[2022-05-22 12:38:30 #7 type] 
+Type domain.Bet is not enhanced.
+
+[2022-05-22 12:38:30 #8 type] 
+Type domain.Movement is not enhanced.
+
+[2022-05-22 12:38:30 #9 type] 
+Type domain.Message is not enhanced.
+
+[2022-05-22 12:38:30 #10 type] 
+Type domain.Lottery is not enhanced.
+
+[2022-05-22 12:38:30 #11 type] 
+Type domain.Ticket is not enhanced.
+
