@@ -144,6 +144,7 @@ public class SendMessageGUI extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					lblError.setText(ResourceBundle.getBundle("Etiquetas").getString("ChooseUser"));
 					textFieldDestinatary.setText("");
+					lblDestinataryUser.setText("");
 					getRecievedChats();
 				}
 			});

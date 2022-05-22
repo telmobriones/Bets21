@@ -113,7 +113,7 @@ public class BLFacadeImplementation implements BLFacade {
 	/**
 	 * This method checks if a user can LogIn with the introduced credentials
 	 * 
-	 * @param username wich is trying to get logged in
+	 * @param username which is trying to get logged in
 	 * @param password associated with the specified username
 	 * @return user
 	 * 
@@ -145,7 +145,7 @@ public class BLFacadeImplementation implements BLFacade {
 	/**
 	 * This method tries to register a user with the introduced credentials
 	 * 
-	 * @param username wich is trying to get logged in
+	 * @param username which is trying to get logged in
 	 * @param password associated with the specified username
 	 * @return true or false
 	 * 
@@ -160,7 +160,7 @@ public class BLFacadeImplementation implements BLFacade {
 	/**
 	 * This method invokes the data access to create a new event
 	 * 
-	 * @param username wich is trying to get logged in
+	 * @param username which is trying to get logged in
 	 * @param password associated with the specified username
 	 * @return true or false
 	 * 
@@ -232,14 +232,6 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.open(false);
 		dbManager.initializeDB();
 		dbManager.close();
-	}
-
-	@Override
-	public Pronostic findPronosticByDescription(String pronDescription) {
-		dbManager.open(false);
-		Pronostic pron = dbManager.findPronosticByDescription(pronDescription);
-		dbManager.close();
-		return pron;
 	}
 
 	@Override

@@ -309,23 +309,6 @@ public class DataAccess {
 	}
 
 	/**
-	 * This method finds a pronostic by its description
-	 *
-	 * @param The description
-	 * @return The Pronostic, null or exception
-	 */
-	public Pronostic findPronosticByDescription(String pDescription) {
-		try {
-			TypedQuery<Pronostic> query = db
-					.createQuery("SELECT pron FROM Pronostic pron WHERE pron.pronDescription = ?1 ", Pronostic.class);
-			query.setParameter(1, pDescription);
-			return query.getResultList().get(0);
-		} catch (Exception e) {
-			return null;
-		}
-	}
-
-	/**
 	 * Solves all the bets related to a question
 	 *
 	 * @param the Question

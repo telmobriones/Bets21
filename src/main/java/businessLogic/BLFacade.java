@@ -26,6 +26,44 @@ import javax.jws.WebService;
 public interface BLFacade {
 
 	/**
+	 * This method calls the data access to initialize the database with some events
+	 * and questions. It is invoked only when the option "initialize" is declared in
+	 * the tag dataBaseOpenMode of resources/config.xml file
+	 */
+	@WebMethod
+	public void initializeBD();
+
+	/**
+	 * This method invokes the data access to create a new event
+	 * 
+	 * @param username which is trying to get logged in
+	 * @param password associated with the specified username
+	 * @return true or false
+	 * 
+	 */
+	public boolean createEvent(String pDescription, Date pDate);
+
+	/**
+	 * This method retrieves the events of a given date
+	 * 
+	 * @param date in which events are retrieved
+	 * @return collection of events
+	 */
+	@WebMethod
+	public Vector<Event> getEvents(Date date);
+
+	/**
+	 * This method retrieves from the database the dates a month for which there are
+	 * events
+	 * 
+	 * @param date of the month for which days with events want to be retrieved
+	 * @return collection of dates
+	 */
+
+	@WebMethod
+	public Vector<Date> getEventsMonth(Date date);
+
+	/**
 	 * This method creates a question for an event, with a question text and the
 	 * minimum bet
 	 * 
@@ -40,14 +78,32 @@ public interface BLFacade {
 	@WebMethod
 	Question createQuestion(Event event, String question, float betMinimum) throws EventFinished, QuestionAlreadyExist;
 
+	/**
+	 * This method retrieves the questions of a given event
+	 * 
+	 * @param event in which questions are retrieved
+	 * @return collection of questions
+	 */
+	@WebMethod
+	public Vector<Question> getQuestions(Event event);
+
 	public Question getQuestionByN(int qNumber);
 
 	public User getUser(String uName);
 
 	/**
+	 * This method checks if a user exists
+	 * 
+	 * @param username
+	 * @return if the user exist
+	 * 
+	 */
+	public boolean existUser(String pUsername);
+
+	/**
 	 * This method checks if a user can LogIn with the introduced credentials
 	 * 
-	 * @param username wich is trying to get logged in
+	 * @param username which is trying to get logged in
 	 * @param password associated with the specified username
 	 * @return User
 	 * 
@@ -65,21 +121,12 @@ public interface BLFacade {
 	/**
 	 * This method tries to register a user with the introduced credentials
 	 * 
-	 * @param username wich is trying to get logged in
+	 * @param username which is trying to get logged in
 	 * @param password associated with the specified username
 	 * @return true or false
 	 * 
 	 */
 	public boolean registerUser(String pUsername, char[] password);
-
-	/**
-	 * This method finds a pronostic by its description
-	 * 
-	 * @param Description
-	 * @return The Pronostic
-	 * 
-	 */
-	public Pronostic findPronosticByDescription(String pronDescription);
 
 	/**
 	 * This method creates a pronostic
@@ -94,6 +141,9 @@ public interface BLFacade {
 
 	public void questionSolution(Question pronosticQuestion, Pronostic correctPronostic);
 
+	public Bet makeBet(int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics,
+			String movType, String pEventDesc, String pQuestionDesc);
+
 	/**
 	 * This method creates a movement
 	 * 
@@ -107,58 +157,11 @@ public interface BLFacade {
 	 */
 	public float createMovement(String movType, float betMoney, User pUser, String pEventDesc, String pQuestionDesc);
 
-	public Bet makeBet(int betMoney, User betUser, boolean isMultipleBet, ArrayList<Pronostic> betPronostics,
-			String movType, String pEventDesc, String pQuestionDesc);
+	public ArrayList<Movement> getUserMovements(String username);
 
 	/**
-	 * This method invokes the data access to create a new event
-	 * 
-	 * @param username wich is trying to get logged in
-	 * @param password associated with the specified username
-	 * @return true or false
-	 * 
-	 */
-	public boolean createEvent(String pDescription, Date pDate);
-
-	/**
-	 * This method retrieves the events of a given date
-	 * 
-	 * @param date in which events are retrieved
-	 * @return collection of events
-	 */
-	@WebMethod
-	public Vector<Event> getEvents(Date date);
-
-	/**
-	 * This method retrieves the questions of a given event
-	 * 
-	 * @param event in which questions are retrieved
-	 * @return collection of questions
-	 */
-	@WebMethod
-	public Vector<Question> getQuestions(Event event);
-
-	/**
-	 * This method retrieves from the database the dates a month for which there are
-	 * events
-	 * 
-	 * @param date of the month for which days with events want to be retrieved
-	 * @return collection of dates
-	 */
-
-	@WebMethod
-	public Vector<Date> getEventsMonth(Date date);
-
-	/**
-	 * This method calls the data access to initialize the database with some events
-	 * and questions. It is invoked only when the option "initialize" is declared in
-	 * the tag dataBaseOpenMode of resources/config.xml file
-	 */
-	@WebMethod
-	public void initializeBD();
-
-	/**
-	 * This method add a message
+	 * This method add a message public ArrayList<Movement> getUserMovements(String
+	 * username);
 	 * 
 	 * @param The remitent
 	 * @param The desinatary
@@ -179,17 +182,6 @@ public interface BLFacade {
 	public ArrayList<Message> getMessagesForThisChat(String pRemitent, String pDestinataryUsername);
 
 	public ArrayList<Message> getMessagesForThisUser(String username);
-
-	public ArrayList<Movement> getUserMovements(String username);
-
-	/**
-	 * This method checks if a user exists
-	 * 
-	 * @param username
-	 * @return if the user exist
-	 * 
-	 */
-	public boolean existUser(String pUsername);
 
 	/**
 	 * This method distributes the prize of the last lottery that is not closed
