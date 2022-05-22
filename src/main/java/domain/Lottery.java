@@ -2,7 +2,6 @@ package domain;
 
 import java.util.ArrayList;
 
-import javax.annotation.Generated;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
